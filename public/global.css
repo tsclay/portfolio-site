@@ -69,3 +69,31 @@ button:not(:disabled):active {
 button:focus {
   border-color: #666;
 }
+
+@media (min-width: 640px) {
+  main {
+    max-width: none;
+  }
+}
+
+header,
+footer {
+  height: 30%;
+}
+
+main {
+  height: 40%;
+}
+
+section {
+  height: 50%;
+}
+
+footer {
+  height: 200px;
+}
+
+footer,
+main {
+  margin-top: 1em;
+}

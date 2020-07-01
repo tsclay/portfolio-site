@@ -1,10 +1,13 @@
 <script>
-  //
+  export let name;
 </script>
 
 <style>
-  header {
+  footer {
     background: burlywood;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
   }
 
   p {
@@ -15,6 +18,6 @@
   }
 </style>
 
-<header>
-  <p>This is the header.</p>
-</header>
+<footer>
+  <p>{name}, this is the footer.</p>
+</footer>
