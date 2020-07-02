@@ -42,6 +42,9 @@
   justify-content: space-evenly;
 }
 
+.flex-justify-center {
+  justify-content: center;
+}
 /* Align ================= */
 
 .flex-align-center {

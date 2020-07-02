@@ -78,16 +78,12 @@ button:focus {
 
 header,
 footer {
-  height: 30%;
-}
-
-main {
-  height: 40%;
-}
-
-footer {
   height: 200px;
 }
+
+/* main {
+  height: 40%;
+} */
 
 footer,
 main {

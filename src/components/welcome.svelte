@@ -6,7 +6,7 @@
   section {
     background: #00ccff;
     display: grid;
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: 20% 80%;
   }
   p {
     color: #1a333a;
@@ -20,56 +20,61 @@
     padding-left: 0;
   }
 
-  /* .row div {
-    width: 40%;
-  } */
+  li {
+    padding: 4px;
+  }
+  li > a {
+    background: rgb(196, 196, 196);
+    text-transform: uppercase;
+    padding: 8px;
+  }
 </style>
 
-<section id="welcome">
+<section class="py-1" id="welcome">
   <div class="row">
-    <p>{name}, welcome to your website.</p>
+    <p>The Toolbox</p>
   </div>
 
   <div class="row flex-row flex-justify-around">
     <div>
       <ul>
-        <li>
-          <a href="">JavaScript</a>
+        <li class="mb-1">
+          <a class="plain-anchor" href="#">JavaScript</a>
         </li>
-        <li>
-          <a href="">Python</a>
+        <li class="mb-1">
+          <a class="plain-anchor" href="#">Python</a>
         </li>
-        <li>
-          <a href="">PHP</a>
-        </li>
-      </ul>
-    </div>
-    <div>
-      <ul>
-        <li>
-          <a href="">React</a>
-        </li>
-        <li>
-          <a href="">Svelte</a>
-        </li>
-        <li>
-          <a href="">PHP</a>
-        </li>
-        <li>
-          <a href="">Django</a>
+        <li class="mb-1">
+          <a class="plain-anchor" href="#">PHP</a>
         </li>
       </ul>
     </div>
     <div>
       <ul>
-        <li>
-          <a href="">MongoDB</a>
+        <li class="mb-1">
+          <a class="plain-anchor" href="#">React</a>
         </li>
-        <li>
-          <a href="">PostgreSQL</a>
+        <li class="mb-1">
+          <a class="plain-anchor" href="#">Svelte</a>
         </li>
-        <li>
-          <a href="">MySQL</a>
+        <li class="mb-1">
+          <a class="plain-anchor" href="#">Django</a>
+        </li>
+        <li class="mb-1">
+          <a class="plain-anchor" href="#">Node</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li class="mb-1">
+          <a class="plain-anchor" href="#">MongoDB</a>
+        </li>
+        <li class="mb-1">
+          <a class="plain-anchor" href="#">PostgreSQL</a>
+        </li>
+        <li class="mb-1">
+          <a class="plain-anchor" href="#">MySQL</a>
         </li>
       </ul>
     </div>

@@ -5,11 +5,6 @@
 
 <style>
   section {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
     background: rgb(48, 48, 48);
   }
 
@@ -19,18 +14,19 @@
     color: white;
     padding: 20px;
     line-height: 2em;
-    width: 75%;
-    -webkit-box-shadow: 0px 2px 28px 12px rgba(163, 163, 163, 1);
+    /* -webkit-box-shadow: 0px 2px 28px 12px rgba(163, 163, 163, 1);
     -moz-box-shadow: 0px 2px 28px 12px rgba(163, 163, 163, 1);
-    box-shadow: 0px 2px 28px 12px rgba(163, 163, 163, 1);
+    box-shadow: 0px 2px 28px 12px rgba(163, 163, 163, 1); */
   }
 </style>
 
 <main>
   <Welcome {name} />
-  <section id="brand">
+  <section
+    class="py-1 flex-row flex-justify-center flex-align-center w-100"
+    id="brand">
 
-    <p>
+    <p class="w-80">
       <span>
         Composing a 15-minute musical work for orchestra taught me two important
         lessons: music is a rocky marriage of logic and beauty; and planning is
