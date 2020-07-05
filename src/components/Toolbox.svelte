@@ -1,12 +1,10 @@
 <script>
-  export let name;
+  export let name
 </script>
 
 <style>
   section {
     background: #00ccff;
-    display: grid;
-    grid-template-rows: 20% 80%;
   }
   p {
     color: #1a333a;
@@ -30,11 +28,7 @@
   }
 </style>
 
-<section class="py-1" id="welcome">
-  <div class="row">
-    <p>The Toolbox</p>
-  </div>
-
+<section class="py-1" id="toolbox">
   <div class="row flex-row flex-justify-around">
     <div>
       <ul>
@@ -79,5 +73,4 @@
       </ul>
     </div>
   </div>
-
 </section>

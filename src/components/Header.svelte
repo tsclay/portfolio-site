@@ -1,12 +1,8 @@
 <script>
-  export let name;
+  export let name
 </script>
 
 <style>
-  header {
-    background: burlywood;
-  }
-
   p {
     color: #1a333a;
     margin-top: 0;
@@ -15,8 +11,13 @@
     font-size: 2em;
     font-weight: 100;
   }
+
+  #header {
+    background: burlywood;
+  }
 </style>
 
-<header>
+<div id="header">
   <p>This is the header.</p>
-</header>
+  <!-- <img class="img-background" src="/img/tim.jpg" alt="My name is {name}" /> -->
+</div>

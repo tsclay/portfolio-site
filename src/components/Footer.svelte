@@ -1,9 +1,9 @@
 <script>
-  export let name;
+  export let name
 </script>
 
 <style>
-  footer {
+  #footer {
     background: burlywood;
     display: flex;
     flex-flow: row nowrap;
@@ -18,6 +18,13 @@
   }
 </style>
 
-<footer>
-  <p>{name}, this is the footer.</p>
-</footer>
+<div id="footer">
+  <ul
+    class="w-50 flex-row flex-justify-between flex-align-center ul-list-none"
+    style="margin: 0 auto;"
+  >
+    <li>About</li>
+    <li>Contact</li>
+    <li>Links</li>
+  </ul>
+</div>

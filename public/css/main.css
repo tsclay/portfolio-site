@@ -404,8 +404,11 @@
   overflow: auto;
 }
 
-.ul-list-none * {
+.ul-list-none {
   list-style: none;
+}
+.ul-list-none:first-child {
+  padding-left: 0;
 }
 
 .overlay,

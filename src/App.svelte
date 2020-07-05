@@ -1,11 +1,14 @@
 <script>
-  import Header from "./Header.svelte";
-  import Welcome from "./components/welcome.svelte";
-  import Main from "./Main.svelte";
-  import Footer from "./Footer.svelte";
-  let name = "Tim";
+  import Header from "./components/Header.svelte";
+  import Toolbox from "./components/Toolbox.svelte";
+  import Main from "./components/Main.svelte";
+  import ProfileImg from "./components/ProfileImg.svelte"
+  import KnowledgeTree from "./components/KnowledgeTree.svelte"
+  import Footer from "./components/Footer.svelte";
 </script>
 
-<Header {name} />
-<Main {name} />
-<Footer {name} />
+<ProfileImg />
+<Main />
+<Toolbox/>
+<KnowledgeTree />
+<Footer />
