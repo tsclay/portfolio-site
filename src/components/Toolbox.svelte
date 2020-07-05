@@ -1,9 +1,9 @@
 <script>
-  export let name
+  //
 </script>
 
 <style>
-  section {
+  #toolbox {
     background: #00ccff;
   }
   p {
@@ -28,7 +28,7 @@
   }
 </style>
 
-<section class="py-1" id="toolbox">
+<div class="py-1" id="toolbox">
   <div class="row flex-row flex-justify-around">
     <div>
       <ul>
@@ -73,4 +73,4 @@
       </ul>
     </div>
   </div>
-</section>
+</div>
