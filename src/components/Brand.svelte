@@ -9,7 +9,7 @@
 
   p {
     background: rgb(48, 48, 48);
-    font-family: 'Playfair Display', serif;
+    font-family: "Playfair Display", serif;
     font-style: italic;
     color: white;
     padding: 10px;
@@ -22,9 +22,8 @@
 
 <div
   class="flex-row flex-justify-center flex-align-center w-100 h-100"
-  id="brand"
->
-  <p class="w-80">
+  id="brand">
+  <p class="w-100">
     <span>
       Composing a 15-minute musical work for orchestra taught me two important
       lessons: music is a rocky marriage of logic and beauty; and planning is
