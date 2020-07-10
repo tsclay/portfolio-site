@@ -1,5 +1,5 @@
 <script>
-  //
+
 </script>
 
 <style>
@@ -23,17 +23,16 @@
 <div
   class="flex-row flex-justify-center flex-align-center w-100 h-100"
   id="brand">
-  <p class="w-100">
-    <span>
+  <div class="w-100">
+    <p>
       Composing a 15-minute musical work for orchestra taught me two important
       lessons: music is a rocky marriage of logic and beauty; and planning is
       their favorite marriage counselor.
-    </span>
-    <br />
-    <span>
+    </p>
+    <p>
       As a software developer, I strive for a similar balance: developing
       logical code bases and crafting modern client-end designs that pleases
       programmers and clients alike.
-    </span>
-  </p>
+    </p>
+  </div>
 </div>

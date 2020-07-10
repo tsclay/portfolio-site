@@ -1,5 +1,5 @@
 <script>
-  export let name
+
 </script>
 
 <style>
@@ -21,8 +21,7 @@
 <div id="footer">
   <ul
     class="w-50 flex-row flex-justify-between flex-align-center ul-list-none"
-    style="margin: 0 auto;"
-  >
+    style="margin: 0 auto;">
     <li>About</li>
     <li>Contact</li>
     <li>Links</li>

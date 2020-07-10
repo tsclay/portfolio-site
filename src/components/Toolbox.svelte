@@ -1,5 +1,5 @@
 <script>
-  //
+
 </script>
 
 <style>
@@ -28,8 +28,8 @@
   }
 </style>
 
-<div class="py-1" id="toolbox">
-  <div class="row flex-row flex-justify-around">
+<div class="flex-row flex-align-center py-1" id="toolbox">
+  <div class="row flex-row flex-justify-around w-100">
     <div>
       <ul>
         <li class="mb-1">
