@@ -1,9 +1,12 @@
 <script>
   import { onMount } from "svelte";
+  import { fly } from "svelte/transition";
   let links = ["/img/tim.jpg", "/img/drawing.svg", "/favicon.png"];
-  let duration = 750;
+  let duration = 5000;
   let timer = null;
   let isPlaying = false;
+  let step = 0;
+  const len = links.length;
 
   onMount(() => {
     play();
@@ -12,15 +15,15 @@
   const next = () => {
     console.log("next");
     if (isPlaying) stop();
-    const lastLink = links.shift();
-    links = [...links, lastLink];
+    step = (step + 1) % len;
+    console.log("next:", step);
   };
 
   const prev = () => {
     console.log("prev");
     if (isPlaying) stop();
-    const nextLink = links.pop();
-    links = [nextLink, ...links];
+    step = (step - 1 + len) % len;
+    console.log("prev:", step);
   };
 
   // Start carousel reel
@@ -28,8 +31,7 @@
     if (isPlaying) return;
     isPlaying = true;
     timer = setInterval(() => {
-      const lastLink = links.shift();
-      links = [...links, lastLink];
+      step = (step + 1) % len;
     }, duration);
     console.log("playing!");
   };
@@ -43,22 +45,34 @@
 
 <style>
   #project-carousel {
-    /* overflow: hidden; */
+    overflow: hidden;
     position: relative;
+  }
+
+  .child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
   }
 </style>
 
 <div id="project-carousel">
-  <div class="flex-row nowrap">
-    {#each links as link}
-      <div id="project-{link}">
-        <img src={link} alt="" />
+  {#each links as link, i}
+    {#if step === i}
+      <div
+        class="child"
+        in:fly={{ x: 200, duration: 1000 }}
+        out:fly={{ x: -200, duration: 1000 }}
+        id="project-{i}">
+        <img class="img-fill" src={link} alt="" />
       </div>
-    {/each}
+    {/if}
+  {/each}
+  <div class="pos-fixed">
+    <button on:click={next} type="button">Forward</button>
+    <button on:click={prev} type="button">Back</button>
+    <button on:click={stop} type="button">STOP</button>
+    <button on:click={play} type="button">Play</button>
   </div>
-
-  <button on:click={next} type="button">Forward</button>
-  <button on:click={prev} type="button">Back</button>
-  <button on:click={stop} type="button">STOP</button>
-  <button on:click={play} type="button">Play</button>
 </div>

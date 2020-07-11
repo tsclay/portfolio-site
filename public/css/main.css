@@ -459,7 +459,7 @@ used in cases where img tags are not wrapped by a div.*/
 
 .img-fill {
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 .img-center {
