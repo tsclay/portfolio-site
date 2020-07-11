@@ -3,11 +3,6 @@
 </script>
 
 <style>
-  img {
-    width: 100%;
-    height: 100%;
-  }
-
   .card-inner:hover {
     transform: rotateY(180deg);
     transition: transform 0.8s;
@@ -44,10 +39,10 @@
 <div id="profile">
   <div class="card-inner">
     <div class="card-front">
-      <img src="/img/tim.jpg" alt="Tim" />
+      <img class="img-fill" src="/img/tim.jpg" alt="Tim" />
     </div>
     <div class="card-back">
-      <img src="/img/drawing.svg" alt="name" />
+      <img class="img-fill" src="/img/drawing.svg" alt="name" />
     </div>
   </div>
   <div />
