@@ -137,7 +137,8 @@ button:focus {
     grid-row: 4;
   }
 
-  #knowledge-tree {
+  #knowledge-tree,
+  #project-carousel {
     /* grid-area: 7/1/8/1; */
     grid-column: 1;
     grid-row: 5;

@@ -1,6 +1,12 @@
 <script>
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
+  import {
+    SkipForwardIcon,
+    SkipBackIcon,
+    PlayIcon,
+    PauseIcon
+  } from "svelte-feather-icons";
   let links = ["/img/tim.jpg", "/img/drawing.svg", "/favicon.png"];
   let duration = 5000;
   let timer = null;
@@ -44,35 +50,54 @@
 </script>
 
 <style>
-  #project-carousel {
-    overflow: hidden;
-    position: relative;
-  }
-
   .child {
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
   }
+
+  #controls {
+    left: 35%;
+  }
+  .pos-relative {
+    overflow: hidden;
+  }
+
+  @media only screen and (max-width: 720px) {
+    #controls {
+      left: 30%;
+    }
+  }
 </style>
 
 <div id="project-carousel">
-  {#each links as link, i}
-    {#if step === i}
-      <div
-        class="child"
-        in:fly={{ x: 200, duration: 1000 }}
-        out:fly={{ x: -200, duration: 1000 }}
-        id="project-{i}">
-        <img class="img-fill" src={link} alt="" />
-      </div>
-    {/if}
-  {/each}
-  <div class="pos-fixed">
-    <button on:click={next} type="button">Forward</button>
-    <button on:click={prev} type="button">Back</button>
-    <button on:click={stop} type="button">STOP</button>
-    <button on:click={play} type="button">Play</button>
+  <div class="pos-relative h-100">
+    {#each links as link, i}
+      {#if step === i}
+        <div
+          class="child"
+          in:fly={{ x: 200, duration: 1000 }}
+          out:fly={{ x: -200, duration: 1000 }}
+          id="project-{i}">
+          <img class="img-fill" src={link} alt="" />
+        </div>
+      {/if}
+    {/each}
+    <div id="controls" class="pos-absolute">
+      <button on:click={prev} type="button">
+        <SkipBackIcon size="1.5x" />
+      </button>
+      <button on:click={next} type="button">
+        <SkipForwardIcon size="1.5x" />
+      </button>
+      <button on:click={stop} type="button">
+        <PauseIcon size="1.5x" />
+      </button>
+      <button on:click={play} type="button">
+        <PlayIcon size="1.5x" />
+      </button>
+    </div>
   </div>
+
 </div>

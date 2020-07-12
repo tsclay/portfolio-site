@@ -1,5 +1,20 @@
 <script>
+  import { elasticOut } from "svelte/easing";
 
+  // const flip = (node, duration) => {
+  //   return {
+  //     duration,
+  //     css: t => {
+  //       const eased = elasticOut(t);
+
+  //       return `
+  //       transform: rotateY(${eased * 180}deg);
+  //       transform-style: preserve-3d;
+  //       -webkit-backface-visibility: hidden;
+  //       backface-visibility: hidden;`;
+  //     }
+  //   };
+  // };
 </script>
 
 <style>
