@@ -20,7 +20,7 @@
     text-align: center;
     font-weight: 600;
     font-size: 1.5em;
-    line-height: 1.55em;
+    line-height: 2em;
     /* -webkit-box-shadow: 0px 2px 28px 12px rgba(163, 163, 163, 1);
     -moz-box-shadow: 0px 2px 28px 12px rgba(163, 163, 163, 1);
     box-shadow: 0px 2px 28px 12px rgba(163, 163, 163, 1); */
@@ -28,6 +28,7 @@
 
   span {
     background: #00ccff;
+    padding: 2px;
     text-align: center;
   }
 </style>

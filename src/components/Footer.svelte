@@ -4,14 +4,16 @@
 
 <style>
   #footer {
-    background: burlywood;
+    /* background-color: #333; */
+    background-color: burlywood;
+    color: rgb(48, 48, 48);
+    /* color: white; */
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
   }
 
   p {
-    color: #1a333a;
     text-transform: uppercase;
     font-size: 2em;
     font-weight: 100;

@@ -115,9 +115,12 @@ button:focus {
     gap: 0.75em;
   }
 
-  #profile,
   #header {
     font-size: 80%;
+  }
+
+  #profile {
+    font-size: 70%;
   }
 
   #header {
