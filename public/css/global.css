@@ -71,10 +71,6 @@ button:focus {
   border-color: #666;
 }
 
-/* main {
-  height: 40%;
-} */
-
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -93,17 +89,17 @@ button:focus {
 
 #knowledge-tree,
 #project-carousel {
-  grid-area: 3/1/8/3;
+  grid-area: 2/1/7/3;
 }
 
-#footer {
+/* #footer {
   grid-area: 5/3/6/5;
-}
+} */
 
 #toolbox {
-  grid-area: 2/1/2/3;
+  grid-area: 7/1/8/3;
 }
-
+/* NEED TO FIX WONKY SIZING AT THIS WIDTH */
 /* @media only screen and (max-width: 870px) {} */
 
 @media only screen and (max-width: 720px) {

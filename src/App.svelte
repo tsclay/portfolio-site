@@ -24,5 +24,5 @@
   <Toolbox />
   <!-- <KnowledgeTree /> -->
   <Projects />
-  <Footer />
+  <!-- <Footer /> -->
 </div>
