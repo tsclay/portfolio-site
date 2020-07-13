@@ -1,5 +1,5 @@
 <script>
-  // import Brand from "Brand.svelte";
+  import Brand from "./Brand.svelte";
   import {
     sineOut,
     sineIn,
@@ -66,6 +66,7 @@
     {#if step === 0}
       <div transition:flip={{ duration: 800 }} class="card-front">
         <img class="img-fill" src="/img/code.jpg" alt="Tim" />
+        <Brand />
       </div>
     {:else}
       <div transition:flip={{ duration: 800 }} class="card-back">
