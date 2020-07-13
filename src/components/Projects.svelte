@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
+  import { linear, cubicOut } from "svelte/easing";
   import {
     SkipForwardIcon,
     SkipBackIcon,
@@ -14,11 +15,19 @@
   let step = 0;
   const len = links.length;
   let flowDir = 200;
+  let inverseFlowDir = flowDir * -1;
   $: inverseFlowDir = flowDir * -1;
+
+  const forwardMoton = ``;
 
   onMount(() => {
     play();
   });
+
+  // const fixDivOnPage = () => {
+  //   const el = document.getElementById(`project-${step}`)
+
+  // }
 
   const next = () => {
     console.log("next");
@@ -53,6 +62,63 @@
     console.log("stop!");
     return clearTimeout(timer);
   };
+
+  const goOut = (
+    node,
+    { duration, opacity = 0, y = 0, easing: easing$1 = cubicOut }
+  ) => {
+    const x = inverseFlowDir;
+    const style = getComputedStyle(node);
+    const target_opacity = +style.opacity;
+    const transform = style.transform === "none" ? "" : style.transform;
+    const od = target_opacity * (1 - opacity);
+    return {
+      duration,
+      easing: easing$1,
+      x,
+      css: (t, u) => {
+        return `transform: ${transform} translate(${(1 - t) * x}px, ${(1 - t) *
+          y}px);
+        opacity: ${target_opacity - od * u}`;
+      }
+    };
+  };
+
+  const goIn = (
+    node,
+    { duration, opacity = 0, y = 0, easing: easing$1 = cubicOut }
+  ) => {
+    const x = flowDir;
+    const style = getComputedStyle(node);
+    const target_opacity = +style.opacity;
+    const transform = style.transform === "none" ? "" : style.transform;
+    const od = target_opacity * (1 - opacity);
+    return {
+      duration,
+      easing: easing$1,
+      x,
+      css: (t, u) => {
+        return `transform: ${transform} translate(${(1 - t) * x}px, ${(1 - t) *
+          y}px);
+        opacity: ${target_opacity - od * u}`;
+      }
+    };
+  };
+
+  //   function fly(node, { delay = 0, duration = 400, easing: easing$1 = easing.cubicOut, x = 0, y = 0, opacity = 0 }) {
+  //     const style = getComputedStyle(node);
+  //     const target_opacity = +style.opacity;
+  //     const transform = style.transform === 'none' ? '' : style.transform;
+  //     const od = target_opacity * (1 - opacity);
+  //     return {
+  //         delay,
+  //         duration,
+  //         easing: easing$1,
+  //         css: (t, u) => `
+  // 			transform: ${transform} translate(${(1 - t) * x}px, ${(1 - t) * y}px);
+  // 			opacity: ${target_opacity - (od * u)}`
+  //     };
+  // }
 </script>
 
 <style>
@@ -74,8 +140,8 @@
       {#if step === i}
         <div
           class="child w-100"
-          in:fly={{ x: flowDir, duration: 1000 }}
-          out:fly={{ x: inverseFlowDir, duration: 1000 }}
+          in:goIn={{ duration: 400 }}
+          out:goOut={{ duration: 400 }}
           id="project-{i}">
           <img class="img-fill" src={link} alt="" />
         </div>
@@ -98,5 +164,4 @@
       </button>
     </div>
   </div>
-
 </div>
