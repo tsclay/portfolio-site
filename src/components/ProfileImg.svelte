@@ -1,4 +1,5 @@
 <script>
+  // import Brand from "Brand.svelte";
   import {
     sineOut,
     sineIn,
@@ -64,11 +65,11 @@
   <div on:click={toggleDiv} class="card-inner">
     {#if step === 0}
       <div transition:flip={{ duration: 800 }} class="card-front">
-        <img class="img-fill" src="/img/tim.jpg" alt="Tim" />
+        <img class="img-fill" src="/img/code.jpg" alt="Tim" />
       </div>
     {:else}
       <div transition:flip={{ duration: 800 }} class="card-back">
-        <img class="img-fill" src="/img/drawing.svg" alt="name" />
+        <img class="img-fill" src="/img/code.jpg" alt="name" />
       </div>
     {/if}
   </div>
