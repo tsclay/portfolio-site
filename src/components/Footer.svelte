@@ -22,8 +22,17 @@
   <ul
     class="w-50 flex-row flex-justify-between flex-align-center ul-list-none"
     style="margin: 0 auto;">
-    <li>About</li>
-    <li>Contact</li>
-    <li>Links</li>
+    <li>
+      About
+      <i class="fas fa-info-circle" />
+    </li>
+    <li>
+      Contact
+      <i class="fas fa-envelope" />
+    </li>
+    <li>
+      GitHub
+      <i class="fab fa-github" />
+    </li>
   </ul>
 </div>
