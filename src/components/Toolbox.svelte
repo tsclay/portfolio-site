@@ -6,6 +6,7 @@
   #toolbox {
     background: #00ccff;
   }
+
   p {
     color: #1a333a;
     text-transform: uppercase;
@@ -16,15 +17,19 @@
   ul {
     list-style: none;
     padding-left: 0;
+    margin: 0;
   }
 
   li {
-    padding: 4px;
+    padding: 2px;
+    margin-bottom: 0.5em;
   }
+
   li > a {
     background: rgb(196, 196, 196);
     text-transform: uppercase;
-    padding: 8px;
+    font-size: 0.75em;
+    padding: 4px;
   }
 </style>
 
@@ -32,42 +37,42 @@
   <div class="row flex-row flex-justify-around w-100">
     <div>
       <ul>
-        <li class="mb-1">
+        <li>
           <a class="plain-anchor" href="#">JavaScript</a>
         </li>
-        <li class="mb-1">
+        <li>
           <a class="plain-anchor" href="#">Python</a>
         </li>
-        <li class="mb-1">
+        <li>
           <a class="plain-anchor" href="#">PHP</a>
         </li>
       </ul>
     </div>
     <div>
       <ul>
-        <li class="mb-1">
+        <li>
           <a class="plain-anchor" href="#">React</a>
         </li>
-        <li class="mb-1">
+        <li>
           <a class="plain-anchor" href="#">Svelte</a>
         </li>
-        <li class="mb-1">
+        <li>
           <a class="plain-anchor" href="#">Django</a>
         </li>
-        <li class="mb-1">
+        <li>
           <a class="plain-anchor" href="#">Node</a>
         </li>
       </ul>
     </div>
     <div>
       <ul>
-        <li class="mb-1">
+        <li>
           <a class="plain-anchor" href="#">MongoDB</a>
         </li>
-        <li class="mb-1">
+        <li>
           <a class="plain-anchor" href="#">PostgreSQL</a>
         </li>
-        <li class="mb-1">
+        <li>
           <a class="plain-anchor" href="#">MySQL</a>
         </li>
       </ul>

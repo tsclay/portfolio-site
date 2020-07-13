@@ -7,12 +7,22 @@
     background: rgb(48, 48, 48);
   }
 
+  /* #brand p:nth-child(1) {
+    margin-bottom: 0;
+  }
+
+  #brand p:nth-child(2) {
+    margin-top: 0;
+  } */
+
   p {
     background: rgb(48, 48, 48);
-    font-family: "Playfair Display", serif;
-    font-style: italic;
+    /* font-family: 'Playfair Display', serif; */
+    /* font-style: italic; */
     color: white;
     padding: 10px;
+    margin: 0;
+    font-size: 0.75em;
     line-height: 1.55em;
     /* -webkit-box-shadow: 0px 2px 28px 12px rgba(163, 163, 163, 1);
     -moz-box-shadow: 0px 2px 28px 12px rgba(163, 163, 163, 1);
