@@ -1,6 +1,6 @@
 <style>
   #brand {
-    top: 0;
+    top: 15%;
   }
 
   /* #brand p:nth-child(1) {

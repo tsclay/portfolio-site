@@ -108,21 +108,28 @@ button:focus {
   .grid {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 100px 1fr 1fr 1fr 1fr;
+    /* grid-template-rows: 100px 1fr 1fr 1fr 1fr; */
+    grid-template-rows: 1fr repeat(5, 1fr) 2fr 1fr;
     gap: 0.75em;
   }
 
-  #footer {
+  #footer,
+  #profile,
+  #project-carousel {
+    font-size: 62.5%;
+  }
+
+  #header {
     /* grid-area: 1/1/2/1; */
     grid-column: 1;
     grid-row: 1;
-    height: 100px;
+    /* height: 100px; */
   }
 
   #profile {
     /* grid-area: 2/1/5/1; */
     grid-column: 1;
-    grid-row: 2;
+    grid-row: 2 / 4;
   }
 
   /* #brand { */
@@ -141,7 +148,12 @@ button:focus {
   #project-carousel {
     /* grid-area: 7/1/8/1; */
     grid-column: 1;
-    grid-row: 5;
+    grid-row: 5 / 8;
+  }
+
+  #footer {
+    grid-column: 1;
+    grid-row: 8/9;
   }
 }
 

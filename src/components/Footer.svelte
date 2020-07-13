@@ -18,7 +18,7 @@
   }
 </style>
 
-<div id="footer">
+<div id="footer" class="h-100">
   <ul
     class="w-50 flex-row flex-justify-between flex-align-center ul-list-none"
     style="margin: 0 auto;">

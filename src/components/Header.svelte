@@ -25,14 +25,14 @@
 </style>
 
 <div id="header" class="flex-row nowrap flex-justify-between flex-align-center">
-  <div class="w-50 h-100">
-    <div class="pos-relative">
+  <div class="w-100 h-100">
+    <div class="pos-relative ml-2">
       <p class="pos-relative" id="title">Tim Clay</p>
       <p class="pos-absolute" id="subtitle">Software Developer</p>
     </div>
   </div>
 
-  <div id="footer" class="w-50">
+  <!-- <div id="footer" class="w-10">
     <ul
       class="w-30 flex-column flex-justify-between flex-align-start ul-list-none"
       style="margin: 0 auto;">
@@ -49,5 +49,5 @@
         <i class="fab fa-github" />
       </li>
     </ul>
-  </div>
+  </div> -->
 </div>
