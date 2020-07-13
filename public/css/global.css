@@ -104,19 +104,20 @@ button:focus {
   grid-area: 2/1/2/3;
 }
 
+/* @media only screen and (max-width: 870px) {} */
+
 @media only screen and (max-width: 720px) {
   .grid {
     display: grid;
     grid-template-columns: 1fr;
     /* grid-template-rows: 100px 1fr 1fr 1fr 1fr; */
-    grid-template-rows: 1fr repeat(5, 1fr) 2fr 1fr;
+    grid-template-rows: 150px repeat(6, 200px) 150px;
     gap: 0.75em;
   }
 
-  #footer,
   #profile,
-  #project-carousel {
-    font-size: 62.5%;
+  #header {
+    font-size: 80%;
   }
 
   #header {
@@ -138,22 +139,22 @@ button:focus {
     grid-row: 3;
   } */
 
-  #toolbox {
-    /* grid-area: 6/1/7/1; */
-    grid-column: 1;
-    grid-row: 4;
-  }
-
   #knowledge-tree,
   #project-carousel {
     /* grid-area: 7/1/8/1; */
     grid-column: 1;
-    grid-row: 5 / 8;
+    grid-row: 4 / 7;
+  }
+
+  #toolbox {
+    /* grid-area: 6/1/7/1; */
+    grid-column: 1;
+    grid-row: 7;
   }
 
   #footer {
     grid-column: 1;
-    grid-row: 8/9;
+    grid-row: 8 / 9;
   }
 }
 

@@ -19,9 +19,7 @@
 </style>
 
 <div id="footer" class="h-100">
-  <ul
-    class="w-50 flex-row flex-justify-between flex-align-center ul-list-none"
-    style="margin: 0 auto;">
+  <ul class="w-100 flex-row flex-justify-evenly flex-align-center ul-list-none">
     <li>
       About
       <i class="fas fa-info-circle" />
