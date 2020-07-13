@@ -78,7 +78,7 @@ button:focus {
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 175px 175px 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 0.5fr 0.5fr;
   gap: 1em;
   height: 100%;
 }
