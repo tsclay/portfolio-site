@@ -25,7 +25,7 @@
 
 <div class={hasLoaded ? 'container grid' : 'hidden'}>
   <Header />
-  <ProfileImg {step} />
+  <ProfileImg {step} {toggleDiv} />
   <!-- <Brand /> -->
   <Toolbox />
   <!-- <KnowledgeTree /> -->

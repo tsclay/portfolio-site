@@ -11,6 +11,7 @@
   } from "svelte/easing";
 
   export let step;
+  export let toggleDiv;
 
   // The div is in ON position when its rotateY deg is 0
   // The div is in OFF position when rotateY is 180 or -180
@@ -63,7 +64,7 @@
 </style>
 
 <div id="profile">
-  <div class="card-inner">
+  <div on:click={toggleDiv} class="card-inner">
     {#if step === 0}
       <div transition:flip={{ duration: 800 }} class="card-front">
         <img class="img-fill" src="/img/code.jpg" alt="Tim" />
