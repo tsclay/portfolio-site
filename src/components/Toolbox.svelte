@@ -46,6 +46,9 @@
         <li>
           <a class="plain-anchor" href="#">PHP</a>
         </li>
+        <li>
+          <a class="plain-anchor" href="#">Laravel</a>
+        </li>
       </ul>
     </div>
     <div>

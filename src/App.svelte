@@ -14,15 +14,20 @@
     hasLoaded = true;
   });
 
+  let step = 0;
+  const toggleDiv = () => {
+    step = (step + 1) % 2;
+  };
+
   console.log(hasLoaded);
 </script>
 
 <div class={hasLoaded ? 'container grid' : 'hidden'}>
   <Header />
-  <ProfileImg />
+  <ProfileImg {step} />
   <!-- <Brand /> -->
   <Toolbox />
   <!-- <KnowledgeTree /> -->
   <Projects />
-  <Footer />
+  <Footer {toggleDiv} {step} />
 </div>
