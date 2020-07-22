@@ -112,6 +112,11 @@
 }
 
 /* margin-x-axis ================= */
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .mx-1 {
   margin: 0 1em;
 }

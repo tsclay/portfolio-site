@@ -6,6 +6,7 @@
   // import KnowledgeTree from "./components/KnowledgeTree.svelte";
   import Projects from "./components/Projects.svelte";
   import Footer from "./components/Footer.svelte";
+  import Copyright from "./components/Copyright.svelte";
 
   import { onMount } from "svelte";
   let hasLoaded = true;
@@ -30,4 +31,5 @@
   <!-- <KnowledgeTree /> -->
   <Projects />
   <Footer {toggleDiv} {step} />
+  <Copyright />
 </div>

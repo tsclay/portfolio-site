@@ -16,12 +16,7 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-  }
-
-  p {
-    text-transform: uppercase;
-    font-size: 2em;
-    font-weight: 100;
+    font-size: 1.5em;
   }
 
   a {
@@ -30,6 +25,11 @@
     color: rgb(48, 48, 48);
   }
 
+  li:first-child {
+    cursor: pointer;
+  }
+
+  li:hover,
   a:hover {
     color: #00ccff;
   }
