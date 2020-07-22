@@ -1,7 +1,5 @@
 <script>
   import ProfileImg from "./ProfileImg.svelte";
-
-  export let step;
   export let toggleDiv;
 
   console.log(toggleDiv);
