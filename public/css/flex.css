@@ -38,7 +38,7 @@
   justify-content: space-between;
 }
 
-.flex-justify-even {
+.flex-justify-evenly {
   justify-content: space-evenly;
 }
 
