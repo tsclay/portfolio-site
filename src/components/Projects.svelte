@@ -32,6 +32,8 @@
         "Lisa is a full CRUD app that implements user authentication and authorization. Users create forum entries relating to a guest's experience at their resort. Users can comment and can update or delete their comments. The app is server-rendered using Express.js, the Node.js runtime, and the EJS view engine."
     }
   ];
+
+  // https://snipsnapapp.herokuapp.com/
   let duration = 8000;
   let timer = null;
   let isPlaying = false;
@@ -157,6 +159,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    overflow: hidden;
   }
 
   .pos-relative {
@@ -165,13 +168,20 @@
 
   #link-details {
     background: whitesmoke;
-    height: 231.533px;
+    /* height: 231.533px; */
     padding: 8px;
+    height: 35%;
   }
 
   #link-image {
-    height: 400px;
+    /* height: 400px; */
     margin-bottom: 0.25em;
+    height: 65%;
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
   }
 </style>
 
@@ -185,12 +195,12 @@
     {#each links as link, i}
       {#if step === i}
         <div
-          class="child w-100"
+          class="child w-100 h-100"
           in:goIn={{ duration: 400 }}
           out:goOut={{ duration: 400 }}
           id="project-{i}">
           <div id="link-image">
-            <img class="img-fill" src={link.image} alt={link.title} />
+            <img src={link.image} alt={link.title} />
           </div>
           <div id="link-details">
             <h1>{link.title}</h1>

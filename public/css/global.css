@@ -78,7 +78,7 @@ button:focus {
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-rows: repeat(5, 1fr) 0.5fr;
   gap: 1em;
   height: 100%;
 }
@@ -88,7 +88,7 @@ button:focus {
 }
 
 #profile {
-  grid-area: 1/3/5/5;
+  grid-area: 1/3/4/5;
 }
 
 #knowledge-tree,
@@ -97,7 +97,7 @@ button:focus {
 }
 
 #footer {
-  grid-area: 5/3/6/5;
+  grid-area: 4/3/6/5;
 }
 
 #toolbox {
