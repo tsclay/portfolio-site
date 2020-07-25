@@ -47,7 +47,7 @@
 <style>
   #footer {
     /* background-color: #333; */
-    background-color: #00ccff;
+    /* background-color: rgb(48, 48, 48); */
     color: rgb(48, 48, 48);
     /* color: white; */
     display: flex;
@@ -94,6 +94,11 @@
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
+  }
+
+  .card-back {
+    background-color: rgb(48, 48, 48);
   }
 </style>
 

@@ -55,6 +55,7 @@
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
   }
 
   .card-back {

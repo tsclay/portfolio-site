@@ -193,10 +193,6 @@
     height: 100%;
     width: 100%;
   }
-
-  .btn-blue:hover {
-    color: rgb(196, 196, 196);
-  }
 </style>
 
 <!-- style="height: 400px;" -->
