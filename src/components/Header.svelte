@@ -22,6 +22,11 @@
     left: 15%;
     font-size: 2em;
   }
+
+  li {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+  }
 </style>
 
 <div id="header" class="flex-row nowrap flex-justify-between flex-align-center">
@@ -32,22 +37,24 @@
     </div>
   </div>
 
-  <!-- <div id="footer" class="w-10">
+  <div id="footer" class="w-10">
     <ul
-      class="w-30 flex-column flex-justify-between flex-align-start ul-list-none"
-      style="margin: 0 auto;">
-      <li class="mb-1">
-        About
-        <i class="fas fa-info-circle" />
+      class="w-30 flex-column flex-justify-between flex-align-center
+      ul-list-none mx-auto">
+      <li>
+        <a href="https://www.linkedin.com/in/timothy-clay-software-developer/">
+          <i class="fab fa-linkedin" />
+        </a>
       </li>
-      <li class="mb-1">
-        Contact
+      <!-- <li class="mb-1">
         <i class="fas fa-envelope" />
-      </li>
-      <li class="mb-1">
-        GitHub
-        <i class="fab fa-github" />
+      </li> -->
+      <li>
+        <a href="https://github.com/tsclay">
+          <i class="fab fa-github" />
+        </a>
+
       </li>
     </ul>
-  </div> -->
+  </div>
 </div>
