@@ -37,7 +37,7 @@
     </div>
   </div>
 
-  <div id="footer" class="w-10">
+  <div id="personal-links" class="w-10 mr-1">
     <ul
       class="w-30 flex-column flex-justify-between flex-align-center
       ul-list-none mx-auto">
