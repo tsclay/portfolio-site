@@ -8,7 +8,7 @@
 <style>
   #footer {
     /* background-color: #333; */
-    background-color: burlywood;
+    background-color: #00ccff;
     color: rgb(48, 48, 48);
     /* color: white; */
     display: flex;
