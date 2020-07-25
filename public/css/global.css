@@ -75,6 +75,14 @@ button:focus {
   height: 40%;
 } */
 
+.btn-blue {
+  display: block;
+  background: #00ccff;
+  color: rgb(48, 48, 48);
+  border-radius: 4px;
+  margin: 0 auto;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

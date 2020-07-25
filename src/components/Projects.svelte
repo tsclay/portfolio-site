@@ -194,14 +194,6 @@
     width: 100%;
   }
 
-  .btn-blue {
-    display: block;
-    background: #00ccff;
-    color: rgb(48, 48, 48);
-    border-radius: 4px;
-    margin: 0 auto;
-  }
-
   .btn-blue:hover {
     color: rgb(196, 196, 196);
   }
