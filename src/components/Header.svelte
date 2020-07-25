@@ -1,5 +1,5 @@
 <script>
-
+  export let toggleDiv;
 </script>
 
 <style>
@@ -27,6 +27,14 @@
     font-size: 2em;
     margin-bottom: 0.5em;
   }
+
+  .fa-github {
+    color: black;
+  }
+
+  .fa-linkedin {
+    color: #2867b2;
+  }
 </style>
 
 <div id="header" class="flex-row nowrap flex-justify-between flex-align-center">
@@ -41,6 +49,12 @@
     <ul
       class="w-30 flex-column flex-justify-between flex-align-center
       ul-list-none mx-auto">
+      <li>
+        <a href="#" on:click={toggleDiv}>
+          <i class="fas fa-info-circle" />
+        </a>
+
+      </li>
       <li>
         <a href="https://www.linkedin.com/in/timothy-clay-software-developer/">
           <i class="fab fa-linkedin" />
