@@ -1,3 +1,7 @@
+<script>
+  const year = new Date().getFullYear();
+</script>
+
 <style>
   #copyright-notices {
     /* background-color: #333; */
@@ -22,7 +26,7 @@
 
 <div id="copyright-notices" class="h-100 w-100 flex-row flex-align-center">
   <p class="mx-auto">
-    Copyright © 2020 Tim Clay All Rights Reserved. Made with
+    Copyright © {year} Tim Clay All Rights Reserved. Made with
     <span>❤️</span>
     using Svelte.
   </p>
