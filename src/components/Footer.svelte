@@ -18,7 +18,7 @@
       "this is e.currentTarget: ",
       e.currentTarget
     );
-    if (e.target.tagName !== "DIV" && step === 1) return;
+    if (e.target.id !== "contact-form" && step === 1) return;
     step = (step + 1) % 2;
   };
 
@@ -99,6 +99,10 @@
 
   .card-back {
     background-color: rgb(48, 48, 48);
+  }
+
+  button {
+    width: 100%;
   }
 </style>
 
