@@ -116,9 +116,17 @@ button:focus {
   grid-area: 6/3/7/5;
 }
 
-/* @media only screen and (max-width: 870px) {} */
+@media only screen and (max-width: 1040px) {
+  body {
+    font-size: 90%;
+  }
+}
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 750px) {
+  body {
+    font-size: 100%;
+  }
+
   .container {
     height: 100%;
   }
