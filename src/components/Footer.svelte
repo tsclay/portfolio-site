@@ -17,10 +17,15 @@
     font-size: 1.5em;
   }
 
-  a {
+  a,
+  li:first-child {
     border: 0px;
     text-decoration: none;
     color: rgb(48, 48, 48);
+    background: rgb(196, 196, 196);
+    text-transform: uppercase;
+    font-size: 0.75em;
+    padding: 4px;
   }
 
   li:first-child {
