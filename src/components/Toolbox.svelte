@@ -46,13 +46,11 @@
         <li>
           <a class="plain-anchor" href="#">PHP</a>
         </li>
-        <li>
-          <a class="plain-anchor" href="#">Laravel</a>
-        </li>
       </ul>
     </div>
     <div>
       <ul>
+
         <li>
           <a class="plain-anchor" href="#">React</a>
         </li>
@@ -60,10 +58,26 @@
           <a class="plain-anchor" href="#">Svelte</a>
         </li>
         <li>
-          <a class="plain-anchor" href="#">Django</a>
+          <a class="plain-anchor" href="#">AngularJS</a>
         </li>
         <li>
+          <a class="plain-anchor" href="#">jQuery</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li>
           <a class="plain-anchor" href="#">Node</a>
+        </li>
+        <li>
+          <a class="plain-anchor" href="#">Express</a>
+        </li>
+        <li>
+          <a class="plain-anchor" href="#">Laravel</a>
+        </li>
+        <li>
+          <a class="plain-anchor" href="#">Django</a>
         </li>
       </ul>
     </div>
