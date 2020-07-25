@@ -9,7 +9,7 @@ body {
   color: #333;
   background: rgb(36, 0, 0);
   margin: 0;
-  padding: 10px;
+  padding: 2em;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -79,7 +79,11 @@ button:focus {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr) 0.5fr;
-  gap: 1em;
+  gap: 2em;
+  /* margin-left: 1.5em;
+  margin-right: 1.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em; */
   height: 100%;
 }
 
@@ -111,6 +115,10 @@ button:focus {
 /* @media only screen and (max-width: 870px) {} */
 
 @media only screen and (max-width: 720px) {
+  .container {
+    height: 100%;
+  }
+
   .grid {
     display: grid;
     grid-template-columns: 1fr;
