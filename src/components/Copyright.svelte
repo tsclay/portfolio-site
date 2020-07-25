@@ -1,7 +1,7 @@
 <style>
   #copyright-notices {
     /* background-color: #333; */
-    color: #00ccff;
+    color: rgb(48, 48, 48);
     background-color: rgb(48, 48, 48);
     /* color: white; */
     display: flex;
@@ -11,9 +11,12 @@
   }
 
   p {
-    font-size: 0.5em;
-    font-weight: 100;
+    font-weight: 200;
     text-align: center;
+    background: rgb(196, 196, 196);
+    text-transform: uppercase;
+    font-size: 0.6em;
+    padding: 8px;
   }
 </style>
 
