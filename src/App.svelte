@@ -24,7 +24,7 @@
 </script>
 
 <div class={hasLoaded ? 'container grid' : 'hidden'}>
-  <Header />
+  <Header {step} {toggleDiv} />
   <ProfileImg {step} {toggleDiv} />
   <!-- <Brand /> -->
   <Toolbox />
