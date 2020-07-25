@@ -24,12 +24,12 @@
 </script>
 
 <div class={hasLoaded ? 'container grid' : 'hidden'}>
-  <Header {step} {toggleDiv} />
+  <Header {toggleDiv} />
   <ProfileImg {step} {toggleDiv} />
   <!-- <Brand /> -->
   <Toolbox />
   <!-- <KnowledgeTree /> -->
   <Projects />
-  <Footer {toggleDiv} {step} />
+  <Footer />
   <Copyright />
 </div>
