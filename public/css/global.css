@@ -75,6 +75,17 @@ button:focus {
   height: 40%;
 } */
 
+.g-recaptcha {
+  transform: scale(0.77);
+  -webkit-transform: scale(0.77);
+  transform-origin: left top;
+  -webkit-transform-origin: left top;
+}
+
+.g-recaptcha > div {
+  margin-left: 22%;
+}
+
 .btn-blue {
   display: block;
   background: #00ccff;
@@ -136,11 +147,33 @@ button:focus {
   body {
     font-size: 90%;
   }
+
+  .g-recaptcha {
+    transform: scale(0.6);
+    -webkit-transform: scale(0.6);
+    transform-origin: left top;
+    -webkit-transform-origin: left top;
+  }
+
+  .g-recaptcha > div {
+    margin-left: -70%;
+  }
 }
 
 @media only screen and (max-width: 750px) {
   body {
     font-size: 100%;
+  }
+
+  .g-recaptcha {
+    transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+    transform-origin: left top;
+    -webkit-transform-origin: left top;
+  }
+
+  .g-recaptcha > div {
+    margin-left: 0%;
   }
 
   .container {

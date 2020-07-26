@@ -65,6 +65,14 @@
     padding: 4px;
   }
 
+  p {
+    margin: 0 0 0.5em 0;
+    padding: 0.4em;
+    color: rgb(48, 48, 48);
+    background: rgb(255, 221, 31);
+    text-transform: uppercase;
+  }
+
   li:first-child {
     cursor: pointer;
   }
@@ -98,6 +106,17 @@
   .card-back {
     background-color: rgb(48, 48, 48);
   }
+
+  button {
+    display: block;
+    background: #00ccff;
+    color: rgb(48, 48, 48);
+    border-radius: 4px;
+  }
+
+  input {
+    width: 48%;
+  }
 </style>
 
 <div id="footer" class="h-100">
@@ -111,38 +130,41 @@
       <div class="card-back" transition:flip={{ duration: 800 }}>
         <div
           id="contact-form"
-          class="w-100 h-100 flex flex-row flex-justify-center flex-align-center">
+          class="w-100 h-100 flex flex-row flex-justify-center mt-1">
           <form
             id="direct-form"
             class="w-80 h-80"
             action="mailto:tsclay9@gmail.com"
             method="POST">
             <div class="flex flex-row flex-justify-between w-100">
-              <input class="w-50" type="text" placeholder="Name" />
-              <input class="w-50 ml-1" type="email" placeholder="Email" />
+              <input required type="text" placeholder="Name" />
+              <input required class="ml-1" type="email" placeholder="Email" />
             </div>
             <div class="w-100">
               <textarea
-                class="textarea-fixed w-100"
+                required
+                class="textarea-fixed w-100 mb-1"
                 name="message"
                 id="message"
                 cols="50"
-                rows="8" />
+                rows="6" />
             </div>
-            <div>
+            <div
+              class="flex flex-column flex-justify-between flex-align-center">
               <div
-                class="g-recaptcha w-40"
-                data-sitekey="6Lf4L7YZAAAAABwVVUmeB8Y_gGfOQmXuv4Z-4vfs"
-                style="transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0
-                0;-webkit-transform-origin:0 0;" />
-
-              <button class="btn-blue w-50 ml-3" type="submit">Send</button>
-
+                class="flex flex-row flex-justify-between flex-align-center
+                w-100 mb-1">
+                <p>What is the sum of 2 + 7?</p>
+                <input
+                  class="ml-1"
+                  required
+                  type="text"
+                  name="validator"
+                  id="validator"
+                  placeholder="Your answer here" />
+              </div>
+              <button class="w-100" type="submit">Send</button>
             </div>
-
-            <script src="https://www.google.com/recaptcha/api.js">
-
-            </script>
           </form>
 
         </div>
