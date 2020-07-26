@@ -12,12 +12,6 @@
   let step = 0;
 
   const toggleDiv = e => {
-    console.log(
-      "this is e.target: ",
-      e.target,
-      "this is e.currentTarget: ",
-      e.currentTarget
-    );
     if (e.target.id !== "contact-form" && step === 1) return;
     step = (step + 1) % 2;
   };
@@ -42,6 +36,10 @@
       }
     };
   };
+
+  function onSubmit(token) {
+    document.getElementById("direct-form").submit();
+  }
 </script>
 
 <style>
@@ -100,10 +98,6 @@
   .card-back {
     background-color: rgb(48, 48, 48);
   }
-
-  button {
-    width: 100%;
-  }
 </style>
 
 <div id="footer" class="h-100">
@@ -118,7 +112,11 @@
         <div
           id="contact-form"
           class="w-100 h-100 flex flex-row flex-justify-center flex-align-center">
-          <form class="w-80 h-80" action="mailto:tsclay9@gmail.com">
+          <form
+            id="direct-form"
+            class="w-80 h-80"
+            action="mailto:tsclay9@gmail.com"
+            method="POST">
             <div class="flex flex-row flex-justify-between w-100">
               <input class="w-50" type="text" placeholder="Name" />
               <input class="w-50 ml-1" type="email" placeholder="Email" />
@@ -131,9 +129,22 @@
                 cols="50"
                 rows="8" />
             </div>
+            <div>
+              <div
+                class="g-recaptcha w-40"
+                data-sitekey="6Lf4L7YZAAAAABwVVUmeB8Y_gGfOQmXuv4Z-4vfs"
+                style="transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0
+                0;-webkit-transform-origin:0 0;" />
 
-            <button class="btn-blue" type="submit">Send</button>
+              <button class="btn-blue w-50 ml-3" type="submit">Send</button>
+
+            </div>
+
+            <script src="https://www.google.com/recaptcha/api.js">
+
+            </script>
           </form>
+
         </div>
       </div>
     {/if}
