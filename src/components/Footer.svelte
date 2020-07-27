@@ -10,6 +10,7 @@
   } from "svelte/easing";
 
   let step = 0;
+  let secret = 4657;
 
   const toggleDiv = e => {
     if (e.target.id !== "contact-form" && step === 1) return;
@@ -154,7 +155,7 @@
               <div
                 class="flex flex-row flex-justify-between flex-align-center
                 w-100 mb-1">
-                <p>What is the sum of 2 + 7?</p>
+                <p>Type the following code: {secret}</p>
                 <input
                   class="ml-1"
                   required
