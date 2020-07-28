@@ -7,12 +7,23 @@
   import Projects from "./components/Projects.svelte";
   import Footer from "./components/Footer.svelte";
   import Copyright from "./components/Copyright.svelte";
+  import axios from "axios";
 
   import { onMount } from "svelte";
   let hasLoaded = true;
+  let assets = [];
+  let secret = "";
 
-  onMount(() => {
-    hasLoaded = true;
+  onMount(async () => {
+    hasLoaded = await true;
+    try {
+      const response = await axios.get("http://localhost:8888/assets");
+      // console.log(response);
+      assets = response.data[0];
+      secret = response.data[1];
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   let step = 0;
@@ -29,7 +40,7 @@
   <!-- <Brand /> -->
   <Toolbox />
   <!-- <KnowledgeTree /> -->
-  <Projects />
-  <Footer />
+  <Projects {assets} />
+  <Footer {secret} />
   <Copyright />
 </div>
