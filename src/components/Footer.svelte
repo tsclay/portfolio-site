@@ -139,6 +139,7 @@
     padding: 8px;
     text-transform: uppercase;
     font-family: "Anonymous Pro";
+    box-shadow: 0px 0px 20px 10px rgb(48, 48, 48);
   }
 </style>
 
