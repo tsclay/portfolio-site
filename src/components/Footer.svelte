@@ -8,27 +8,22 @@
     sineInOut,
     cubicInOut
   } from "svelte/easing";
+  import axios from "axios";
 
   let step = 0;
-  let secret = 4657;
+  export let secret;
 
   const toggleDiv = e => {
     if (e.target.id !== "contact-form" && step === 1) return;
     step = (step + 1) % 2;
   };
 
-  // The div is in ON position when its rotateY deg is 0
-  // The div is in OFF position when rotateY is 180 or -180
-  // When div is OFF, its backside is exposed
-  // Since backside is hidden, nothing is seen if no other div follows
   const flip = (node, { duration }) => {
     return {
       duration,
       css: t => {
         const eased = cubicInOut(t);
         const test = (eased - 1) * 180;
-        // 				if (step > 0) console.log('green', test)
-        // 				if (step === 0) console.log('red', test)
 
         return `transform: rotateY(${(eased - 1) * 180}deg);
     transform-style: preserve-3d;
@@ -38,9 +33,23 @@
     };
   };
 
-  function onSubmit(token) {
-    document.getElementById("direct-form").submit();
-  }
+  let formData = { name: "", email: "", message: "", test: "" };
+
+  const handleForm = async e => {
+    e.preventDefault();
+    // console.log(formData);
+    formData.secret = secret;
+    try {
+      const response = await axios.post(
+        "http://localhost:8888/assets",
+        formData
+      );
+      console.log(response);
+      secret = response.data.secret;
+    } catch (error) {
+      secret = error.response.data.secret;
+    }
+  };
 </script>
 
 <style>
@@ -132,17 +141,23 @@
         <div
           id="contact-form"
           class="w-100 h-100 flex flex-row flex-justify-center mt-1">
-          <form
-            id="direct-form"
-            class="w-80 h-80"
-            action="mailto:tsclay9@gmail.com"
-            method="POST">
+          <form on:submit={handleForm} id="direct-form" class="w-80 h-80">
             <div class="flex flex-row flex-justify-between w-100">
-              <input required type="text" placeholder="Name" />
-              <input required class="ml-1" type="email" placeholder="Email" />
+              <input
+                bind:value={formData.name}
+                required
+                type="text"
+                placeholder="Name" />
+              <input
+                bind:value={formData.email}
+                required
+                class="ml-1"
+                type="email"
+                placeholder="Email" />
             </div>
             <div class="w-100">
               <textarea
+                bind:value={formData.message}
                 required
                 class="textarea-fixed w-100 mb-1"
                 name="message"
@@ -157,6 +172,7 @@
                 w-100 mb-1">
                 <p>Type the following code: {secret}</p>
                 <input
+                  bind:value={formData.test}
                   class="ml-1"
                   required
                   type="text"
