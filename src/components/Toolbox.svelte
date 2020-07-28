@@ -27,6 +27,7 @@
 
   li > a {
     background: rgb(196, 196, 196);
+    color: rgb(48, 48, 48);
     text-transform: uppercase;
     font-size: 0.75em;
     padding: 4px;

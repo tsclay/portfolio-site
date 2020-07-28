@@ -12,7 +12,7 @@
   }
 
   #header {
-    background: burlywood;
+    background: rgb(252, 120, 68);
   }
 
   #title {

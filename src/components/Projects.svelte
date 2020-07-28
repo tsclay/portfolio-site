@@ -8,51 +8,53 @@
     PlayIcon,
     PauseIcon
   } from "svelte-feather-icons";
-  // let links = ['/img/tim.jpg', '/img/drawing.svg', '/favicon.png']
-  let links = [
-    {
-      title: "Berg",
-      image: "/img/berg.png",
-      url: "http://berg-musicapp.herokuapp.com/login",
-      description:
-        "Berg is an app that allows musicians interested in atonal set theory to easily see the transformations of the sets they input. This app utilizes PHP Laravel to serve the views, which are scaffolded by React.js UI components, and to act as the backend connecting to a PostgreSQL database.",
-      tags: ["PostgreSQL", "Javascript", "PHP", "Laravel", "React"]
-    },
-    {
-      title: "Songster",
-      image: "/img/songster.png",
-      url: "https://tsclay.github.io/songster.github.io/",
-      description:
-        "Songster is an SPA that utilizes the jQuery library to make AJAX requests to the Genius Music API. Once a user selects a song, jQuery scrapes its lyrics from the HTML and formats it for the user's reading/singing pleasure.",
-      tags: ["Javascript", "jQuery"]
-    },
-    {
-      title: "Lisa Hospitality Solutions",
-      image: "/img/lisa.png",
-      url: "https://lisahospitalitysolutions.herokuapp.com/",
-      description:
-        "Lisa is a full CRUD app that implements user authentication and authorization. Users create forum entries relating to a guest's experience at their resort. Users can comment and can update or delete their comments. The app is server-rendered using Express.js, the Node.js runtime, and the EJS view engine.",
-      tags: ["Javascript", "EJS", "Node", "Express", "MongoDB"]
-    },
-    {
-      title: "SnipSnap",
-      image: "/img/snipsnap.png",
-      url: "https://snipsnapapp.herokuapp.com/",
-      description:
-        "SnipSnap was bourne of a pair-programming collaboration. It is a full CRUD app for code snippets. As of now, it supports CSS, JS, and HTML. It uses codePrettify and Prettier to format and highlight the code snippets called from the database. Users can also search by snippet name to filter results.",
-      tags: ["Javascript", "React", "PHP", "PostgreSQL"]
-    }
-  ];
+
+  export let assets;
+  // let links = [
+  //   {
+  //     title: "Berg",
+  //     image: "/img/berg.png",
+  //     url: "http://berg-musicapp.herokuapp.com/login",
+  //     description:
+  //       "Berg is an app that allows musicians interested in atonal set theory to easily see the transformations of the sets they input. This app utilizes PHP Laravel to serve the views, which are scaffolded by React.js UI components, and to act as the backend connecting to a PostgreSQL database.",
+  //     tags: ["PostgreSQL", "Javascript", "PHP", "Laravel", "React"]
+  //   },
+  //   {
+  //     title: "Songster",
+  //     image: "/img/songster.png",
+  //     url: "https://tsclay.github.io/songster.github.io/",
+  //     description:
+  //       "Songster is an SPA that utilizes the jQuery library to make AJAX requests to the Genius Music API. Once a user selects a song, jQuery scrapes its lyrics from the HTML and formats it for the user's reading/singing pleasure.",
+  //     tags: ["Javascript", "jQuery"]
+  //   },
+  //   {
+  //     title: "Lisa Hospitality Solutions",
+  //     image: "/img/lisa.png",
+  //     url: "https://lisahospitalitysolutions.herokuapp.com/",
+  //     description:
+  //       "Lisa is a full CRUD app that implements user authentication and authorization. Users create forum entries relating to a guest's experience at their resort. Users can comment and can update or delete their comments. The app is server-rendered using Express.js, the Node.js runtime, and the EJS view engine.",
+  //     tags: ["Javascript", "EJS", "Node", "Express", "MongoDB"]
+  //   },
+  //   {
+  //     title: "SnipSnap",
+  //     image: "/img/snipsnap.png",
+  //     url: "https://snipsnapapp.herokuapp.com/",
+  //     description:
+  //       "SnipSnap was bourne of a pair-programming collaboration. It is a full CRUD app for code snippets. As of now, it supports CSS, JS, and HTML. It uses codePrettify and Prettier to format and highlight the code snippets called from the database. Users can also search by snippet name to filter results.",
+  //     tags: ["Javascript", "React", "PHP", "PostgreSQL"]
+  //   }
+  // ];
 
   let duration = 8000;
   let timer = null;
   let isPlaying = false;
   let step = 0;
-  const len = links.length;
+  let len = 0;
   let hide = true;
   let flowDir = 200;
   let inverseFlowDir = flowDir * -1;
   $: inverseFlowDir = flowDir * -1;
+  $: len = assets.length;
 
   onMount(() => {
     play();
@@ -159,11 +161,15 @@
 </script>
 
 <style>
-  h1,
   p {
     margin: 0;
     padding: 0;
-    line-height: 1.75em;
+    line-height: 1.5em;
+  }
+
+  h1 {
+    margin-top: 0;
+    margin-bottom: 0.4em;
   }
   .child {
     position: absolute;
@@ -180,30 +186,18 @@
     background: whitesmoke;
     /* height: 231.533px; */
     padding: 8px;
-    height: 35%;
+    height: 38%;
   }
 
   #link-image {
     /* height: 400px; */
     margin-bottom: 0.25em;
-    height: 65%;
+    height: 62%;
   }
 
   img {
     height: 100%;
     width: 100%;
-  }
-
-  .btn-blue {
-    display: block;
-    background: #00ccff;
-    color: rgb(48, 48, 48);
-    border-radius: 4px;
-    margin: 0 auto;
-  }
-
-  .btn-blue:hover {
-    color: rgb(196, 196, 196);
   }
 </style>
 
@@ -214,7 +208,7 @@
   on:mouseenter={showControls}
   on:mouseleave={hideControls}>
   <div id="project-card-display" class="pos-relative h-100">
-    {#each links as link, i}
+    {#each assets as asset, i}
       {#if step === i}
         <div
           class="child w-100 h-100"
@@ -222,14 +216,19 @@
           out:goOut={{ duration: 400 }}
           id="project-{i}">
           <div id="link-image">
-            <img src={link.image} alt={link.title} />
+            <img src={asset.image} alt={asset.title} />
           </div>
-          <div id="link-details">
-            <h1>{link.title}</h1>
-            <p>{link.description}</p>
-            <form action={link.url} target="_blank">
-              <button class="btn-blue" type="submit">Check it out!</button>
-            </form>
+          <div class="flex flex-column flex-justify-between" id="link-details">
+            <div class="h-60">
+              <h1>{asset.title}</h1>
+              <p>{asset.description}</p>
+            </div>
+            <div class="h-30">
+              <form action={asset.url} target="_blank">
+                <button class="btn-blue" type="submit">Check it out!</button>
+              </form>
+            </div>
+
           </div>
         </div>
       {/if}

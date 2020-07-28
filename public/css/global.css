@@ -75,10 +75,22 @@ button:focus {
   height: 40%;
 } */
 
+.btn-blue {
+  display: block;
+  background: #00ccff;
+  color: rgb(48, 48, 48);
+  border-radius: 4px;
+  margin: 0 auto;
+}
+
+.btn-blue:hover {
+  color: rgb(196, 196, 196);
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(5, 1fr) 0.5fr;
+  grid-template-rows: repeat(4, 1fr) 3.5fr 1fr 50px;
   gap: 2em;
   /* margin-left: 1.5em;
   margin-right: 1.5em;
@@ -87,12 +99,13 @@ button:focus {
   height: 100%;
 }
 
-.grid > div {
+/* .grid > div {
   box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
-}
+} */
 
 #header {
   grid-area: 1/1/1/3;
+  box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
 }
 
 #profile {
@@ -101,29 +114,86 @@ button:focus {
 
 #knowledge-tree,
 #project-carousel {
-  grid-area: 3/1/7/3;
+  grid-area: 3/1/8/3;
+  box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
 }
 
 #footer {
-  grid-area: 4/3/6/5;
+  grid-area: 4/3/7/5;
 }
 
 #toolbox {
   grid-area: 2/1/2/3;
+  box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
 }
 
 #copyright-notices {
-  grid-area: 6/3/7/5;
+  grid-area: 7/3/8/5;
+  box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
 }
 
-@media only screen and (max-width: 1040px) {
-  body {
+@media only screen and (max-width: 1350px) {
+  #profile {
     font-size: 90%;
   }
 }
 
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 1240px) {
+  #header,
+  #project-carousel,
+  #footer,
+  #toolbox,
+  #copyright-notices {
+    font-size: 95%;
+  }
+  #profile,
+  #connect > a {
+    font-size: 80%;
+  }
+}
+
+@media only screen and (max-width: 1050px) {
+  #header,
+  #toolbox,
+  #project-carousel {
+    font-size: 90%;
+  }
+
+  #footer {
+    font-size: 80%;
+  }
+
+  #profile,
+  #connect > a {
+    font-size: 70%;
+  }
+}
+
+@media only screen and (max-width: 907px) {
+  #footer {
+    font-size: 70%;
+  }
+
+  #connect > a {
+    font-size: 60%;
+  }
+}
+
+@media only screen and (max-width: 790px) {
+  html,
   body {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  #header,
+  #project-carousel,
+  #profile,
+  #footer,
+  #toolbox,
+  #project-carousel,
+  #connect > a {
     font-size: 100%;
   }
 
@@ -135,8 +205,8 @@ button:focus {
     display: grid;
     grid-template-columns: 1fr;
     /* grid-template-rows: 100px 1fr 1fr 1fr 1fr; */
-    grid-template-rows: 150px repeat(8, 200px) 150px;
-    gap: 0.75em;
+    grid-template-rows: 150px repeat(7, 200px) 175px 150px 50px;
+    gap: 2em;
   }
 
   #header {
@@ -151,7 +221,7 @@ button:focus {
     /* grid-area: 2/1/5/1; */
     grid-column: 1;
     grid-row: 2 / 5;
-    font-size: 70%;
+    /* font-size: 80%; */
   }
 
   /* #brand { */
@@ -165,7 +235,7 @@ button:focus {
     /* grid-area: 7/1/8/1; */
     grid-column: 1;
     grid-row: 5 / 8;
-    font-size: 80%;
+    /* font-size: 80%; */
   }
 
   #toolbox {
@@ -176,12 +246,18 @@ button:focus {
 
   #footer {
     grid-column: 1;
-    grid-row: 8 / 9;
+    grid-row: 9/11;
+  }
+
+  #validation > p,
+  #validation > input {
+    width: 100%;
+    margin-left: 0;
   }
 
   #copyright-notices {
     grid-column: 1;
-    grid-row: 9/10;
+    grid-row: 11;
   }
 }
 
@@ -213,3 +289,19 @@ button:focus {
     grid-area: auto;
   }
 } */
+
+@media only screen and (max-width: 500px) {
+  #brand {
+    font-size: 90%;
+  }
+
+  #connect > a {
+    font-size: 60%;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  #brand {
+    font-size: 80%;
+  }
+}
