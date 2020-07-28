@@ -214,12 +214,17 @@
           <div id="link-image">
             <img src={asset.image} alt={asset.title} />
           </div>
-          <div id="link-details">
-            <h1>{asset.title}</h1>
-            <p>{asset.description}</p>
-            <form action={asset.url} target="_blank">
-              <button class="btn-blue" type="submit">Check it out!</button>
-            </form>
+          <div class="flex flex-column flex-justify-between" id="link-details">
+            <div class="h-60">
+              <h1>{asset.title}</h1>
+              <p>{asset.description}</p>
+            </div>
+            <div class="h-30">
+              <form action={asset.url} target="_blank">
+                <button class="btn-blue" type="submit">Check it out!</button>
+              </form>
+            </div>
+
           </div>
         </div>
       {/if}

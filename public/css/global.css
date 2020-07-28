@@ -228,7 +228,7 @@ button:focus {
     /* grid-area: 7/1/8/1; */
     grid-column: 1;
     grid-row: 5 / 8;
-    font-size: 80%;
+    /* font-size: 80%; */
   }
 
   #toolbox {
