@@ -17,7 +17,9 @@
   onMount(async () => {
     hasLoaded = await true;
     try {
-      const response = await axios.get("http://localhost:8888/assets");
+      const response = await axios.get(
+        "https://timclaydev-assets.herokuapp.com/assets"
+      );
       // console.log(response);
       assets = response.data[0];
       secret = response.data[1];
