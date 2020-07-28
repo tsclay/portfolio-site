@@ -165,7 +165,7 @@
   p {
     margin: 0;
     padding: 0;
-    line-height: 1.75em;
+    line-height: 1.5em;
   }
   .child {
     position: absolute;
@@ -182,13 +182,13 @@
     background: whitesmoke;
     /* height: 231.533px; */
     padding: 8px;
-    height: 35%;
+    height: 38%;
   }
 
   #link-image {
     /* height: 400px; */
     margin-bottom: 0.25em;
-    height: 65%;
+    height: 62%;
   }
 
   img {

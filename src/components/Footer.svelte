@@ -33,7 +33,7 @@
     };
   };
 
-  let formData = { name: "", email: "", message: "", test: "" };
+  let formData = { name: "", email: "", subject: "", message: "", test: "" };
 
   const handleForm = async e => {
     e.preventDefault();
@@ -64,32 +64,12 @@
     font-size: 1em;
   }
 
-  a,
-  li:first-child {
-    border: 0px;
-    text-decoration: none;
-    color: rgb(48, 48, 48);
-    background: rgb(196, 196, 196);
-    text-transform: uppercase;
-    font-size: 0.75em;
-    padding: 4px;
-  }
-
   p {
     margin: 0 0 0.5em 0;
     padding: 0.4em;
     color: rgb(48, 48, 48);
     background: rgb(255, 221, 31);
     text-transform: uppercase;
-  }
-
-  li:first-child {
-    cursor: pointer;
-  }
-
-  li:hover,
-  a:hover {
-    color: #00ccff;
   }
 
   textarea {
@@ -124,20 +104,63 @@
     border-radius: 4px;
   }
 
-  input {
+  input[name="validator"] {
     width: 48%;
+  }
+
+  input[name="validator"] {
+    width: 48%;
+  }
+
+  input[name="name"],
+  input[name="email"] {
+    width: 46%;
+  }
+
+  #validation > p,
+  #validation > input {
+    width: 46%;
+  }
+
+  #validation > p :nth-child(2) {
+    font-weight: bold;
+  }
+
+  #connect {
+    font-size: 4em;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  #connect > a {
+    color: rgb(48, 48, 48);
+    background: rgb(196, 196, 196);
+    padding: 8px;
+    text-transform: uppercase;
+    font-family: "Anonymous Pro";
   }
 </style>
 
 <div id="footer" class="h-100">
 
-  <div on:click={toggleDiv} class="card-inner">
+  <div class="card-inner">
     {#if step === 0}
       <div transition:flip={{ duration: 800 }} class="card-front">
-        <img class="img-fill" src="/img/code.jpg" alt="Tim" />
+        <img class="img-fill" src="/img/connect.jpeg" alt="" />
+        <div
+          id="connect"
+          class="w-100 h-100 flex flex-row flex-justify-center flex-align-center">
+          <a on:click={toggleDiv} href="#" class="plain-anchor">
+            Let's connect.
+          </a>
+        </div>
       </div>
     {:else}
-      <div class="card-back" transition:flip={{ duration: 800 }}>
+      <div
+        on:click={toggleDiv}
+        class="card-back"
+        transition:flip={{ duration: 800 }}>
         <div
           id="contact-form"
           class="w-100 h-100 flex flex-row flex-justify-center mt-1">
@@ -147,15 +170,22 @@
                 bind:value={formData.name}
                 required
                 type="text"
+                name="name"
                 placeholder="Name" />
               <input
                 bind:value={formData.email}
                 required
-                class="ml-1"
+                name="email"
                 type="email"
                 placeholder="Email" />
             </div>
             <div class="w-100">
+              <input
+                bind:value={formData.subject}
+                class="w-100"
+                type="text"
+                name="subject"
+                placeholder="Subject" />
               <textarea
                 bind:value={formData.message}
                 required
@@ -163,14 +193,20 @@
                 name="message"
                 id="message"
                 cols="50"
-                rows="6" />
+                rows="5" />
             </div>
             <div
               class="flex flex-column flex-justify-between flex-align-center">
               <div
+                id="validation"
                 class="flex flex-row flex-justify-between flex-align-center
                 w-100 mb-1">
-                <p>Type the following code: {secret}</p>
+                <p
+                  id="validation-text"
+                  class="flex flex-row flex-justify-between">
+                  <span class="text-align-center">Code</span>
+                  <span>{secret}</span>
+                </p>
                 <input
                   bind:value={formData.test}
                   class="ml-1"
@@ -178,7 +214,7 @@
                   type="text"
                   name="validator"
                   id="validator"
-                  placeholder="Your answer here" />
+                  placeholder="Type code here" />
               </div>
               <button class="w-100" type="submit">Send</button>
             </div>

@@ -19,7 +19,7 @@
     text-align: center;
     background: rgb(196, 196, 196);
     text-transform: uppercase;
-    font-size: 0.6em;
+    font-size: 0.4em;
     padding: 8px;
   }
 </style>
