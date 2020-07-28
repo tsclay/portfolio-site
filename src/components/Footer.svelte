@@ -203,7 +203,7 @@
                 <p
                   id="validation-text"
                   class="flex flex-row flex-justify-between">
-                  <span class="text-align-center">Code</span>
+                  <span class="text-align-center">Anti-Bot Code</span>
                   <span>{secret}</span>
                 </p>
                 <input

@@ -161,11 +161,15 @@
 </script>
 
 <style>
-  h1,
   p {
     margin: 0;
     padding: 0;
     line-height: 1.5em;
+  }
+
+  h1 {
+    margin-top: 0;
+    margin-bottom: 0.4em;
   }
   .child {
     position: absolute;

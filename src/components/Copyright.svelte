@@ -25,7 +25,7 @@
 </style>
 
 <div id="copyright-notices" class="h-100 w-100 flex-row flex-align-center">
-  <p class="mx-auto">
+  <p class="mx-auto w-80">
     Copyright © {year} Tim Clay All Rights Reserved. Made with
     <span>❤️</span>
     using Svelte.
