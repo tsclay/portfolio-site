@@ -284,13 +284,17 @@ button:focus {
 } */
 
 @media only screen and (max-width: 500px) {
-  #profile {
+  #brand {
     font-size: 90%;
+  }
+
+  #connect > a {
+    font-size: 60%;
   }
 }
 
-@media only screen and (max-width: 390px) {
-  #profile {
-    font-size: 70%;
+@media only screen and (max-width: 400px) {
+  #brand {
+    font-size: 80%;
   }
 }
