@@ -151,9 +151,7 @@
         <div
           id="connect"
           class="w-100 h-100 flex flex-row flex-justify-center flex-align-center">
-          <a on:click={toggleDiv} href="#" class="plain-anchor">
-            Let's connect.
-          </a>
+          <a on:click={toggleDiv} class="plain-anchor">Let's connect.</a>
         </div>
       </div>
     {:else}

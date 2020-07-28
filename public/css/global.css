@@ -146,7 +146,8 @@ button:focus {
   #copyright-notices {
     font-size: 95%;
   }
-  #profile {
+  #profile,
+  #connect > a {
     font-size: 80%;
   }
 }
@@ -162,7 +163,8 @@ button:focus {
     font-size: 80%;
   }
 
-  #profile {
+  #profile,
+  #connect > a {
     font-size: 70%;
   }
 }
@@ -170,6 +172,10 @@ button:focus {
 @media only screen and (max-width: 907px) {
   #footer {
     font-size: 70%;
+  }
+
+  #connect > a {
+    font-size: 60%;
   }
 }
 
@@ -179,7 +185,8 @@ button:focus {
   #profile,
   #footer,
   #toolbox,
-  #project-carousel {
+  #project-carousel,
+  #connect > a {
     font-size: 100%;
   }
 
