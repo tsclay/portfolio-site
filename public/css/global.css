@@ -154,9 +154,12 @@ button:focus {
 
 @media only screen and (max-width: 1050px) {
   #header,
-  #toolbox,
-  #project-carousel {
+  #toolbox {
     font-size: 90%;
+  }
+
+  #project-carousel {
+    font-size: 85%;
   }
 
   #footer {
@@ -188,11 +191,9 @@ button:focus {
   }
 
   #header,
-  #project-carousel,
   #profile,
   #footer,
   #toolbox,
-  #project-carousel,
   #connect > a {
     font-size: 100%;
   }
