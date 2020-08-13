@@ -148,7 +148,7 @@ button:focus {
     font-size: 95%;
   }
   #profile,
-  #connect > a {
+  #connect {
     font-size: 80%;
   }
 }
@@ -168,7 +168,7 @@ button:focus {
   }
 
   #profile,
-  #connect > a {
+  #connect {
     font-size: 70%;
   }
 }
@@ -178,7 +178,11 @@ button:focus {
     font-size: 70%;
   }
 
-  #connect > a {
+  #subtitle {
+    font-size: 2em;
+  }
+
+  #connect {
     font-size: 60%;
   }
 }
@@ -195,7 +199,7 @@ button:focus {
   #profile,
   #footer,
   #toolbox,
-  #connect > a {
+  #connect {
     font-size: 100%;
   }
 
@@ -215,7 +219,6 @@ button:focus {
     /* grid-area: 1/1/2/1; */
     grid-column: 1;
     grid-row: 1;
-    font-size: 80%;
     /* height: 100px; */
   }
 
@@ -292,8 +295,8 @@ button:focus {
   }
 } */
 
-@media only screen and (max-width: 500px) {
-  #brand {
+@media only screen and (max-width: 510px) {
+  #brand, #header {
     font-size: 90%;
   }
 

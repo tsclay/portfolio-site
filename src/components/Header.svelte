@@ -36,9 +36,27 @@
   .fa-linkedin {
     color: #2867b2;
   }
+
+  @media only screen and (max-width: 950px) {
+    #subtitle {
+      font-size: 1.5em;
+    }
+  }
+
+  @media only screen and (max-width: 790px) {
+    #subtitle {
+      font-size: 2em;
+    }
+  }
+
+  @media only screen and (max-width: 510px) {
+    #subtitle {
+      left: 0;
+    }
+  }
 </style>
 
-<div id="header" class="flex-row nowrap flex-justify-between flex-align-center">
+<div id="header" class="flex-row nowrap flex-justify-between">
   <div class="w-100 h-90">
     <div class="pos-relative ml-2">
       <p class="pos-relative" id="title">Tim Clay</p>
