@@ -12,7 +12,7 @@
   } */
 
   p {
-    font-family: "Playfair Display", serif;
+    font-family: 'Playfair Display', serif;
     font-style: italic;
     color: rgb(48, 48, 48);
     padding: 10px;
@@ -38,20 +38,20 @@
   id="brand">
   <div class="w-100">
     <p>
-      <span>
-        Composing a 15-minute musical work for orchestra taught me two important
-        lessons: music is a rocky marriage of logic and beauty; and planning is
-        their favorite marriage counselor.
-      </span>
-
+      <span>A musician turned full-stack software developer.</span>
     </p>
+    <p />
     <p>
       <span>
-        As a software developer, I strive for a similar balance: developing
-        logical code bases and crafting modern client-end designs that pleases
-        programmers and clients alike.
+        Focusing on expressive, meaningful user experiences using Node, React,
+        Svelte, PHP, and Python.
       </span>
-
+    </p>
+    <p>
+      <span>A husband, a father, and life-long learner.</span>
+    </p>
+    <p>
+      <span>Debugging code in order to debug life.</span>
     </p>
   </div>
 </div>
