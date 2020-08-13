@@ -7,49 +7,49 @@
     elasticIn,
     sineInOut,
     cubicInOut
-  } from "svelte/easing";
-  import axios from "axios";
+  } from 'svelte/easing'
+  import axios from 'axios'
 
-  let step = 0;
-  export let secret;
+  let step = 0
+  export let secret
 
   const toggleDiv = e => {
-    if (e.target.id !== "contact-form" && step === 1) return;
-    step = (step + 1) % 2;
-  };
+    if (e.target.id !== 'contact-form' && step === 1) return
+    step = (step + 1) % 2
+  }
 
   const flip = (node, { duration }) => {
     return {
       duration,
       css: t => {
-        const eased = cubicInOut(t);
-        const test = (eased - 1) * 180;
+        const eased = cubicInOut(t)
+        const test = (eased - 1) * 180
 
         return `transform: rotateY(${(eased - 1) * 180}deg);
     transform-style: preserve-3d;
     -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;`;
+    backface-visibility: hidden;`
       }
-    };
-  };
+    }
+  }
 
-  let formData = { name: "", email: "", subject: "", message: "", test: "" };
+  let formData = { name: '', email: '', subject: '', message: '', test: '' }
 
   const handleForm = async e => {
-    e.preventDefault();
+    e.preventDefault()
     // console.log(formData);
-    formData.secret = secret;
+    formData.secret = secret
     try {
       const response = await axios.post(
-        "https://timclaydev-assets.herokuapp.com/assets",
+        'https://timclaydev-assets.herokuapp.com/assets',
         formData
-      );
-      console.log(response);
-      secret = response.data.secret;
+      )
+      console.log(response)
+      secret = response.data.secret
     } catch (error) {
-      secret = error.response.data.secret;
+      secret = error.response.data.secret
     }
-  };
+  }
 </script>
 
 <style>
@@ -104,16 +104,16 @@
     border-radius: 4px;
   }
 
-  input[name="validator"] {
+  input[name='validator'] {
     width: 48%;
   }
 
-  input[name="validator"] {
+  input[name='validator'] {
     width: 48%;
   }
 
-  input[name="name"],
-  input[name="email"] {
+  input[name='name'],
+  input[name='email'] {
     width: 46%;
   }
 
@@ -127,19 +127,38 @@
   }
 
   #connect {
-    font-size: 4em;
     position: absolute;
-    top: 0;
+    top: 15%;
     left: 0;
   }
 
-  #connect > a {
+  #connect > .flavor-text {
+    font-size: 1.5em;
+    padding: 0 4px 0 4px;
+    font-family: 'Anonymous Pro', monospace;
     color: rgb(48, 48, 48);
-    background: rgb(196, 196, 196);
+    background-color: rgb(196, 196, 196);
+    text-transform: uppercase;
+    box-shadow: 0px 0px 20px 10px rgb(48, 48, 48);
+  }
+
+  #flip-trigger {
+    color: rgb(48, 48, 48);
+    background-color: rgb(196, 196, 196);
     padding: 8px;
     text-transform: uppercase;
-    font-family: "Anonymous Pro";
+    font-family: 'Anonymous Pro', monospace;
+    font-size: 4em;
     box-shadow: 0px 0px 20px 10px rgb(48, 48, 48);
+    cursor: pointer;
+    transition: color 0.3s linear;
+    transition: background-color 0.3s linear;
+  }
+
+  #flip-trigger:hover {
+    text-decoration: underline;
+    background-color: rgb(48, 48, 48);
+    color: rgb(196, 196, 196);
   }
 </style>
 
@@ -151,8 +170,11 @@
         <img class="img-fill" src="/img/connect.jpeg" alt="" />
         <div
           id="connect"
-          class="w-100 h-100 flex flex-row flex-justify-center flex-align-center">
-          <a on:click={toggleDiv} class="plain-anchor">Let's connect.</a>
+          class="w-100 h-60 flex flex-column flex-justify-between
+          flex-align-center">
+          <span class="flavor-text">Have a project idea in mind?</span>
+          <span class="flavor-text">Want to collaborate?</span>
+          <span on:click={toggleDiv} id="flip-trigger">Let's connect.</span>
         </div>
       </div>
     {:else}
