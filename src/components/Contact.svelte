@@ -12,6 +12,8 @@
 
   let step = 0
   export let secret
+  let formData = { name: '', email: '', subject: '', message: '', test: '' }
+  $: statusMsg = ''
 
   const toggleDiv = e => {
     if (e.target.id !== 'contact-form' && step === 1) return
@@ -33,8 +35,6 @@
     }
   }
 
-  let formData = { name: '', email: '', subject: '', message: '', test: '' }
-
   const handleForm = async e => {
     e.preventDefault()
     // console.log(formData);
@@ -44,10 +44,17 @@
         'https://timclaydev-assets.herokuapp.com/assets',
         formData
       )
-      console.log(response)
+      console.log(response.data)
+      const {code} = response.data
       secret = response.data.secret
+      if (code === 200) {
+        statusMsg = 'Message sent!'
+      } 
+      
     } catch (error) {
+      const {message, code} = error.response.data
       secret = error.response.data.secret
+      statusMsg = message
     }
   }
 </script>
@@ -97,12 +104,12 @@
     background-color: rgb(48, 48, 48);
   }
 
-  button {
+  /* button {
     display: block;
     background: #00ccff;
     color: rgb(48, 48, 48);
     border-radius: 4px;
-  }
+  } */
 
   input[name='validator'] {
     width: 48%;
@@ -151,14 +158,27 @@
     font-size: 4em;
     box-shadow: 0px 0px 20px 10px rgb(48, 48, 48);
     cursor: pointer;
-    transition: color 0.3s linear;
-    transition: background-color 0.3s linear;
+    transition: color 0.2s linear;
+    transition: background-color 0.2s linear;
   }
 
   #flip-trigger:hover {
     text-decoration: underline;
     background-color: rgb(48, 48, 48);
     color: rgb(196, 196, 196);
+  }
+
+  #msg-success, #msg-fail {
+    color: rgb(196, 196, 196);
+    height: 2em; 
+  }
+
+  #msg-success {
+    background-color: rgba(0, 128, 0, 0.75);
+  }
+
+  #msg-fail {
+    background-color: rgba(255, 0, 0, 0.75);
   }
 </style>
 
@@ -225,7 +245,7 @@
                 <p
                   id="validation-text"
                   class="flex flex-row flex-justify-between">
-                  <span class="text-align-center">Anti-Bot Code</span>
+                  <span class="text-align-center">Code</span>
                   <span>{secret}</span>
                 </p>
                 <input
@@ -235,9 +255,17 @@
                   type="text"
                   name="validator"
                   id="validator"
-                  placeholder="Type code here" />
+                  placeholder="Code (required)" />
               </div>
-              <button class="w-100" type="submit">Send</button>
+              <button class="btn-blue w-100" type="submit">Send</button>
+              {#if statusMsg !== ''}
+                <div 
+                  class="w-100 flex flex-row flex-align-center" 
+                  id={statusMsg === 'Message sent!' ? 'msg-success' : 'msg-fail'} 
+                >
+                  <span class="ml-2">{statusMsg}</span>
+                </div>
+              {/if}
             </div>
           </form>
 

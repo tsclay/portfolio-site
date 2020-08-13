@@ -54,38 +54,26 @@ input[type="range"] {
   height: 0;
 }
 
-button {
-  color: #333;
-  background-color: #f4f4f4;
-  outline: none;
-}
-
-button:disabled {
-  color: #999;
-}
-
-button:not(:disabled):active {
-  background-color: #ddd;
-}
-
-button:focus {
-  border-color: #666;
-}
-
 /* main {
   height: 40%;
 } */
 
 .btn-blue {
   display: block;
-  background: #00ccff;
+  background-color: #00ccff;
   color: rgb(48, 48, 48);
   border-radius: 4px;
   margin: 0 auto;
+  cursor: pointer;
+  transition: color 0.2s linear;
+  transition: background-color 0.2s linear;
 }
 
 .btn-blue:hover {
   color: rgb(196, 196, 196);
+  background-color: rgb(48, 48, 48);
+  transition: color 0.2s linear;
+  transition: background-color 0.2s linear;
 }
 
 .grid {

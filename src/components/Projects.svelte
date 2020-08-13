@@ -234,12 +234,14 @@
                 {/if}
               </p>
             </div>
-            <div class="h-30">
+            <div class="h-30 flex flex-row flex-justify-evenly">
               <form action={asset.url} target="_blank">
                 <button class="btn-blue" type="submit">Check it out!</button>
               </form>
+              <form action={asset.github} target="_blank">
+                <button class="btn-blue" type="submit">See the Code!</button>
+              </form>
             </div>
-
           </div>
         </div>
       {/if}
