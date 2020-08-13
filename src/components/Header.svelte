@@ -5,8 +5,7 @@
 <style>
   p {
     color: #1a333a;
-    margin-top: 0;
-    margin-bottom: 0.5em;
+    margin: 0;
     text-transform: uppercase;
     font-weight: 100;
   }
@@ -17,7 +16,9 @@
 
   #title {
     font-size: 4em;
+    margin-bottom: 0.2em;
   }
+
   #subtitle {
     left: 15%;
     font-size: 2em;
@@ -38,7 +39,7 @@
 </style>
 
 <div id="header" class="flex-row nowrap flex-justify-between flex-align-center">
-  <div class="w-100 h-100">
+  <div class="w-100 h-90">
     <div class="pos-relative ml-2">
       <p class="pos-relative" id="title">Tim Clay</p>
       <p class="pos-absolute" id="subtitle">Software Developer</p>
@@ -49,12 +50,12 @@
     <ul
       class="w-30 flex-column flex-justify-between flex-align-center
       ul-list-none mx-auto">
-      <li>
+      <!-- <li>
         <a href="#" on:click={toggleDiv}>
           <i class="fas fa-info-circle" />
         </a>
 
-      </li>
+      </li> -->
       <li>
         <a href="https://www.linkedin.com/in/timothy-clay-software-developer/">
           <i class="fab fa-linkedin" />
