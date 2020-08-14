@@ -14,6 +14,7 @@
   export let secret
   let formData = { name: '', email: '', subject: '', message: '', test: '' }
   $: statusMsg = ''
+  $: isLoading = false
 
   const toggleDiv = (e) => {
     if (e.target.id !== 'contact-form' && step === 1) return
@@ -37,6 +38,7 @@
 
   const handleForm = async (e) => {
     e.preventDefault()
+    isLoading = true
     // console.log(formData);
     formData.secret = secret
     try {
@@ -55,6 +57,7 @@
       secret = error.response.data.secret
       statusMsg = message
     } finally {
+      isLoading = false
       setTimeout(() => {
         statusMsg = ''
       }, 4000)
@@ -169,10 +172,6 @@
     color: rgb(196, 196, 196);
   }
 
-  #msg-placeholder {
-    min-height: 2em;
-  }
-
   #msg-success,
   #msg-fail {
     color: rgb(196, 196, 196);
@@ -185,6 +184,11 @@
 
   #msg-fail {
     background-color: rgba(255, 0, 0, 0.75);
+  }
+
+  .loading-spinner {
+    width: 20px;
+    height: 20px;
   }
 </style>
 
@@ -274,7 +278,20 @@
                   id="validator"
                   placeholder="Code (required)" />
               </div>
-              <button class="btn-blue w-100 mb-1" type="submit">SEND</button>
+              <button
+                class="btn-blue w-100 mb-1"
+                type="submit"
+                style={isLoading === true ? 'background-color: rgb(196, 196, 196);' : null}>
+                {#if isLoading === false}
+                  SEND
+                {:else}
+                  <img
+                    class="loading-spinner"
+                    src="../../img/bitmap.png"
+                    alt="Sending..." />
+                {/if}
+              </button>
+
               {#if statusMsg !== ''}
                 <div
                   class="w-100 mb-1 flex flex-row flex-align-center"
