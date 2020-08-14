@@ -15,7 +15,7 @@
   let formData = { name: '', email: '', subject: '', message: '', test: '' }
   $: statusMsg = ''
 
-  const toggleDiv = e => {
+  const toggleDiv = (e) => {
     if (e.target.id !== 'contact-form' && step === 1) return
     step = (step + 1) % 2
   }
@@ -23,7 +23,7 @@
   const flip = (node, { duration }) => {
     return {
       duration,
-      css: t => {
+      css: (t) => {
         const eased = cubicInOut(t)
         const test = (eased - 1) * 180
 
@@ -35,7 +35,7 @@
     }
   }
 
-  const handleForm = async e => {
+  const handleForm = async (e) => {
     e.preventDefault()
     // console.log(formData);
     formData.secret = secret
@@ -45,16 +45,20 @@
         formData
       )
       console.log(response.data)
-      const {code} = response.data
+      const { code } = response.data
       secret = response.data.secret
       if (code === 200) {
         statusMsg = 'Message sent!'
-      } 
-      
+      }
     } catch (error) {
-      const {message, code} = error.response.data
+      const { message, code } = error.response.data
       secret = error.response.data.secret
       statusMsg = message
+    } finally {
+      setTimeout(() => {
+        statusMsg = ''
+      }, 4000)
+      // clearTimeout(timer)
     }
   }
 </script>
@@ -104,12 +108,9 @@
     background-color: rgb(48, 48, 48);
   }
 
-  /* button {
-    display: block;
-    background: #00ccff;
-    color: rgb(48, 48, 48);
-    border-radius: 4px;
-  } */
+  #contact-form {
+    margin-top: 1.25em;
+  }
 
   input[name='validator'] {
     width: 48%;
@@ -168,9 +169,14 @@
     color: rgb(196, 196, 196);
   }
 
-  #msg-success, #msg-fail {
+  #msg-placeholder {
+    min-height: 2em;
+  }
+
+  #msg-success,
+  #msg-fail {
     color: rgb(196, 196, 196);
-    height: 2em; 
+    height: 2em;
   }
 
   #msg-success {
@@ -204,37 +210,46 @@
         transition:flip={{ duration: 800 }}>
         <div
           id="contact-form"
-          class="w-100 h-100 flex flex-row flex-justify-center mt-1">
+          class="w-100 h-100 flex flex-row flex-justify-center">
           <form on:submit={handleForm} id="direct-form" class="w-80 h-80">
             <div class="flex flex-row flex-justify-between w-100">
               <input
-                bind:value={formData.name}
+                on:input={(e) => {
+                  formData.name = e.target.value
+                }}
                 required
                 type="text"
                 name="name"
-                placeholder="Name" />
+                placeholder="Name (required)" />
               <input
-                bind:value={formData.email}
+                on:input={(e) => {
+                  formData.email = e.target.value
+                }}
                 required
                 name="email"
                 type="email"
-                placeholder="Email" />
+                placeholder="Email (required)" />
             </div>
             <div class="w-100">
               <input
-                bind:value={formData.subject}
+                on:input={(e) => {
+                  formData.subject = e.target.value
+                }}
                 class="w-100"
                 type="text"
                 name="subject"
                 placeholder="Subject" />
               <textarea
-                bind:value={formData.message}
+                on:input={(e) => {
+                  formData.message = e.target.value
+                }}
                 required
                 class="textarea-fixed w-100 mb-1"
                 name="message"
                 id="message"
                 cols="50"
-                rows="5" />
+                rows="7"
+                placeholder="Message (required)" />
             </div>
             <div
               class="flex flex-column flex-justify-between flex-align-center">
@@ -249,7 +264,9 @@
                   <span>{secret}</span>
                 </p>
                 <input
-                  bind:value={formData.test}
+                  on:input={(e) => {
+                    formData.test = e.target.value
+                  }}
                   class="ml-1"
                   required
                   type="text"
@@ -257,12 +274,11 @@
                   id="validator"
                   placeholder="Code (required)" />
               </div>
-              <button class="btn-blue w-100" type="submit">Send</button>
+              <button class="btn-blue w-100 mb-1" type="submit">SEND</button>
               {#if statusMsg !== ''}
-                <div 
-                  class="w-100 flex flex-row flex-align-center" 
-                  id={statusMsg === 'Message sent!' ? 'msg-success' : 'msg-fail'} 
-                >
+                <div
+                  class="w-100 mb-1 flex flex-row flex-align-center"
+                  id={statusMsg === 'Message sent!' ? 'msg-success' : 'msg-fail'}>
                   <span class="ml-2">{statusMsg}</span>
                 </div>
               {/if}
