@@ -46,7 +46,7 @@
     formData.secret = secret
     try {
       const response = await axios.post(
-        'http://localhost:8888/assets',
+        'https://timclaydev-assets.herokuapp.com/assets',
         formData
       )
       console.log(response.data)
