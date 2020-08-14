@@ -11,6 +11,7 @@
   import axios from 'axios'
 
   let step = 0
+  let timer
   export let secret
   let formData = { name: '', email: '', subject: '', message: '', test: '' }
   $: statusMsg = ''
@@ -37,13 +38,15 @@
   }
 
   const handleForm = async (e) => {
+    //  'https://timclaydev-assets.herokuapp.com/assets'
+    if (timer) clearTimeout(timer)
     e.preventDefault()
     isLoading = true
     // console.log(formData);
     formData.secret = secret
     try {
       const response = await axios.post(
-        'https://timclaydev-assets.herokuapp.com/assets',
+        'http://localhost:8888/assets',
         formData
       )
       console.log(response.data)
@@ -58,10 +61,9 @@
       statusMsg = message
     } finally {
       isLoading = false
-      setTimeout(() => {
+      timer = setTimeout(() => {
         statusMsg = ''
       }, 4000)
-      // clearTimeout(timer)
     }
   }
 </script>
@@ -174,21 +176,33 @@
 
   #msg-success,
   #msg-fail {
-    color: rgb(196, 196, 196);
     height: 2em;
+    border-radius: 0.25rem;
   }
 
   #msg-success {
-    background-color: rgba(0, 128, 0, 0.75);
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
   }
 
   #msg-fail {
-    background-color: rgba(255, 0, 0, 0.75);
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
   }
 
   .loading-spinner {
     width: 20px;
     height: 20px;
+  }
+
+  #message-text {
+    margin-left: 0.5em;
+  }
+
+  .btn-blue[type='submit']:disabled {
+    background-color: rgb(196, 196, 196);
   }
 </style>
 
@@ -281,7 +295,7 @@
               <button
                 class="btn-blue w-100 mb-1"
                 type="submit"
-                style={isLoading === true ? 'background-color: rgb(196, 196, 196);' : null}>
+                disabled={isLoading === true ? true : false}>
                 {#if isLoading === false}
                   SEND
                 {:else}
@@ -296,7 +310,7 @@
                 <div
                   class="w-100 mb-1 flex flex-row flex-align-center"
                   id={statusMsg === 'Message sent!' ? 'msg-success' : 'msg-fail'}>
-                  <span class="ml-2">{statusMsg}</span>
+                  <span id="message-text">{statusMsg}</span>
                 </div>
               {/if}
             </div>
