@@ -1,108 +1,74 @@
 <script>
-  import { onMount } from 'svelte'
-  import { fly, fade } from 'svelte/transition'
-  import { linear, cubicOut } from 'svelte/easing'
+  import { onMount } from "svelte";
+  import { fly, fade } from "svelte/transition";
+  import { linear, cubicOut } from "svelte/easing";
   import {
     SkipForwardIcon,
     SkipBackIcon,
     PlayIcon,
     PauseIcon
-  } from 'svelte-feather-icons'
+  } from "svelte-feather-icons";
 
-  export let assets
-  // let links = [
-  //   {
-  //     title: "Berg",
-  //     image: "/img/berg.png",
-  //     url: "http://berg-musicapp.herokuapp.com/login",
-  //     description:
-  //       "Berg is an app that allows musicians interested in atonal set theory to easily see the transformations of the sets they input. This app utilizes PHP Laravel to serve the views, which are scaffolded by React.js UI components, and to act as the backend connecting to a PostgreSQL database.",
-  //     tags: ["PostgreSQL", "Javascript", "PHP", "Laravel", "React"]
-  //   },
-  //   {
-  //     title: "Songster",
-  //     image: "/img/songster.png",
-  //     url: "https://tsclay.github.io/songster.github.io/",
-  //     description:
-  //       "Songster is an SPA that utilizes the jQuery library to make AJAX requests to the Genius Music API. Once a user selects a song, jQuery scrapes its lyrics from the HTML and formats it for the user's reading/singing pleasure.",
-  //     tags: ["Javascript", "jQuery"]
-  //   },
-  //   {
-  //     title: "Lisa Hospitality Solutions",
-  //     image: "/img/lisa.png",
-  //     url: "https://lisahospitalitysolutions.herokuapp.com/",
-  //     description:
-  //       "Lisa is a full CRUD app that implements user authentication and authorization. Users create forum entries relating to a guest's experience at their resort. Users can comment and can update or delete their comments. The app is server-rendered using Express.js, the Node.js runtime, and the EJS view engine.",
-  //     tags: ["Javascript", "EJS", "Node", "Express", "MongoDB"]
-  //   },
-  //   {
-  //     title: "SnipSnap",
-  //     image: "/img/snipsnap.png",
-  //     url: "https://snipsnapapp.herokuapp.com/",
-  //     description:
-  //       "SnipSnap was bourne of a pair-programming collaboration. It is a full CRUD app for code snippets. As of now, it supports CSS, JS, and HTML. It uses codePrettify and Prettier to format and highlight the code snippets called from the database. Users can also search by snippet name to filter results.",
-  //     tags: ["Javascript", "React", "PHP", "PostgreSQL"]
-  //   }
-  // ];
+  export let assets;
 
-  let duration = 8000
-  let timer = null
-  let isPlaying = false
-  let step = 0
-  let len = 0
-  let hide = true
-  let flowDir = 200
-  let inverseFlowDir = flowDir * -1
-  $: inverseFlowDir = flowDir * -1
-  $: len = assets.length
+  let duration = 8000;
+  let timer = null;
+  let isPlaying = false;
+  let step = 0;
+  let len = 0;
+  let hide = true;
+  let flowDir = 200;
+  let inverseFlowDir = flowDir * -1;
+  $: inverseFlowDir = flowDir * -1;
+  $: len = assets.length;
 
   onMount(() => {
-    play()
-  })
+    play();
+  });
 
   const next = () => {
-    console.log('next')
-    if (isPlaying) stop()
-    flowDir = 200
-    step = (step + 1) % len
-    console.log('next:', step)
-  }
+    console.log("next");
+    if (isPlaying) stop();
+    flowDir = 200;
+    step = (step + 1) % len;
+    console.log("next:", step);
+  };
 
   const prev = () => {
-    console.log('prev')
-    if (isPlaying) stop()
-    flowDir = -200
+    console.log("prev");
+    if (isPlaying) stop();
+    flowDir = -200;
     // console.log("inversed", inverseFlowDir);
-    step = (step - 1 + len) % len
-    console.log('prev:', step)
-  }
+    step = (step - 1 + len) % len;
+    console.log("prev:", step);
+  };
 
   // Start carousel reel
   const play = () => {
-    if (isPlaying) return
-    isPlaying = true
-    flowDir = 200
+    if (isPlaying) return;
+    isPlaying = true;
+    flowDir = 200;
     timer = setInterval(() => {
-      step = (step + 1) % len
-    }, duration)
-    console.log('playing!')
-  }
+      step = (step + 1) % len;
+    }, duration);
+    console.log("playing!");
+  };
 
   const stop = () => {
-    isPlaying = false
-    console.log('stop!')
-    return clearTimeout(timer)
-  }
+    isPlaying = false;
+    console.log("stop!");
+    return clearTimeout(timer);
+  };
 
   const goOut = (
     node,
     { duration, opacity = 0, y = 0, easing: easing$1 = cubicOut }
   ) => {
-    const x = inverseFlowDir
-    const style = getComputedStyle(node)
-    const target_opacity = +style.opacity
-    const transform = style.transform === 'none' ? '' : style.transform
-    const od = target_opacity * (1 - opacity)
+    const x = inverseFlowDir;
+    const style = getComputedStyle(node);
+    const target_opacity = +style.opacity;
+    const transform = style.transform === "none" ? "" : style.transform;
+    const od = target_opacity * (1 - opacity);
     return {
       duration,
       easing: easing$1,
@@ -110,20 +76,20 @@
       css: (t, u) => {
         return `transform: ${transform} translate(${(1 - t) * x}px, ${(1 - t) *
           y}px);
-        opacity: ${target_opacity - od * u}`
+        opacity: ${target_opacity - od * u}`;
       }
-    }
-  }
+    };
+  };
 
   const goIn = (
     node,
     { duration, opacity = 0, y = 0, easing: easing$1 = cubicOut }
   ) => {
-    const x = flowDir
-    const style = getComputedStyle(node)
-    const target_opacity = +style.opacity
-    const transform = style.transform === 'none' ? '' : style.transform
-    const od = target_opacity * (1 - opacity)
+    const x = flowDir;
+    const style = getComputedStyle(node);
+    const target_opacity = +style.opacity;
+    const transform = style.transform === "none" ? "" : style.transform;
+    const od = target_opacity * (1 - opacity);
     return {
       duration,
       easing: easing$1,
@@ -131,18 +97,18 @@
       css: (t, u) => {
         return `transform: ${transform} translate(${(1 - t) * x}px, ${(1 - t) *
           y}px);
-        opacity: ${target_opacity - od * u}`
+        opacity: ${target_opacity - od * u}`;
       }
-    }
-  }
+    };
+  };
 
   const showControls = () => {
-    hide = false
-  }
+    hide = false;
+  };
 
   const hideControls = () => {
-    hide = true
-  }
+    hide = true;
+  };
 
   //   function fly(node, { delay = 0, duration = 400, easing: easing$1 = easing.cubicOut, x = 0, y = 0, opacity = 0 }) {
   //     const style = getComputedStyle(node);

@@ -7,65 +7,65 @@
     elasticIn,
     sineInOut,
     cubicInOut
-  } from 'svelte/easing'
-  import axios from 'axios'
+  } from "svelte/easing";
+  import axios from "axios";
 
-  let step = 0
-  let timer
-  export let secret
-  let formData = { name: '', email: '', subject: '', message: '', test: '' }
-  $: statusMsg = ''
-  $: isLoading = false
+  let step = 0;
+  let timer;
+  export let secret;
+  let formData = { name: "", email: "", subject: "", message: "", test: "" };
+  $: statusMsg = "";
+  $: isLoading = false;
 
-  const toggleDiv = (e) => {
-    if (e.target.id !== 'contact-form' && step === 1) return
-    step = (step + 1) % 2
-  }
+  const toggleDiv = e => {
+    if (e.target.id !== "contact-form" && step === 1) return;
+    step = (step + 1) % 2;
+  };
 
   const flip = (node, { duration }) => {
     return {
       duration,
-      css: (t) => {
-        const eased = cubicInOut(t)
-        const test = (eased - 1) * 180
+      css: t => {
+        const eased = cubicInOut(t);
+        const test = (eased - 1) * 180;
 
         return `transform: rotateY(${(eased - 1) * 180}deg);
     transform-style: preserve-3d;
     -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;`
+    backface-visibility: hidden;`;
       }
-    }
-  }
+    };
+  };
 
-  const handleForm = async (e) => {
+  const handleForm = async e => {
     //  'https://timclaydev-assets.herokuapp.com/assets'
-    if (timer) clearTimeout(timer)
-    e.preventDefault()
-    isLoading = true
+    if (timer) clearTimeout(timer);
+    e.preventDefault();
+    isLoading = true;
     // console.log(formData);
-    formData.secret = secret
+    formData.secret = secret;
     try {
       const response = await axios.post(
-        'https://timclaydev-assets.herokuapp.com/assets',
+        "https://timclaydev-assets.herokuapp.com/assets",
         formData
-      )
-      console.log(response.data)
-      const { code } = response.data
-      secret = response.data.secret
+      );
+      console.log(response.data);
+      const { code } = response.data;
+      secret = response.data.secret;
       if (code === 200) {
-        statusMsg = 'Message sent!'
+        statusMsg = "Message sent!";
       }
     } catch (error) {
-      const { message, code } = error.response.data
-      secret = error.response.data.secret
-      statusMsg = message
+      const { message, code } = error.response.data;
+      secret = error.response.data.secret;
+      statusMsg = message;
     } finally {
-      isLoading = false
+      isLoading = false;
       timer = setTimeout(() => {
-        statusMsg = ''
-      }, 4000)
+        statusMsg = "";
+      }, 4000);
     }
-  }
+  };
 </script>
 
 <style>
@@ -81,8 +81,8 @@
   }
 
   p {
-    margin: 0 0 0.5em 0;
-    padding: 0.4em;
+    /* margin: 0 0 0.5em 0;
+    padding: 0.4em; */
     color: rgb(48, 48, 48);
     background: rgb(255, 221, 31);
     text-transform: uppercase;
@@ -113,20 +113,16 @@
     background-color: rgb(48, 48, 48);
   }
 
-  #contact-form {
-    margin-top: 1.25em;
-  }
-
-  input[name='validator'] {
+  input[name="validator"] {
     width: 48%;
   }
 
-  input[name='validator'] {
+  input[name="validator"] {
     width: 48%;
   }
 
-  input[name='name'],
-  input[name='email'] {
+  input[name="name"],
+  input[name="email"] {
     width: 46%;
   }
 
@@ -148,7 +144,7 @@
   #connect > .flavor-text {
     font-size: 1.5em;
     padding: 0 4px 0 4px;
-    font-family: 'Anonymous Pro', monospace;
+    font-family: "Anonymous Pro", monospace;
     color: rgb(48, 48, 48);
     background-color: rgb(196, 196, 196);
     text-transform: uppercase;
@@ -160,7 +156,7 @@
     background-color: rgb(196, 196, 196);
     padding: 8px;
     text-transform: uppercase;
-    font-family: 'Anonymous Pro', monospace;
+    font-family: "Anonymous Pro", monospace;
     font-size: 4em;
     box-shadow: 0px 0px 20px 10px rgb(48, 48, 48);
     cursor: pointer;
@@ -201,8 +197,28 @@
     margin-left: 0.5em;
   }
 
-  .btn-blue[type='submit']:disabled {
+  .btn-blue[type="submit"]:disabled {
     background-color: rgb(196, 196, 196);
+  }
+
+  #name-email-fields,
+  #message,
+  #validation {
+    margin-bottom: 1.75em;
+  }
+  #contact-form {
+    margin-top: 3em;
+  }
+
+  @media only screen and (max-width: 790px) {
+    #name-email-fields,
+    #message,
+    #validation {
+      margin-bottom: 0.5em;
+    }
+    #contact-form {
+      margin-top: 1em;
+    }
   }
 </style>
 
@@ -230,18 +246,20 @@
           id="contact-form"
           class="w-100 h-100 flex flex-row flex-justify-center">
           <form on:submit={handleForm} id="direct-form" class="w-80 h-80">
-            <div class="flex flex-row flex-justify-between w-100">
+            <div
+              id="name-email-fields"
+              class="flex flex-row flex-justify-between w-100 ">
               <input
-                on:input={(e) => {
-                  formData.name = e.target.value
+                on:input={e => {
+                  formData.name = e.target.value;
                 }}
                 required
                 type="text"
                 name="name"
                 placeholder="Name (required)" />
               <input
-                on:input={(e) => {
-                  formData.email = e.target.value
+                on:input={e => {
+                  formData.email = e.target.value;
                 }}
                 required
                 name="email"
@@ -250,19 +268,19 @@
             </div>
             <div class="w-100">
               <input
-                on:input={(e) => {
-                  formData.subject = e.target.value
+                on:input={e => {
+                  formData.subject = e.target.value;
                 }}
                 class="w-100"
                 type="text"
                 name="subject"
                 placeholder="Subject" />
               <textarea
-                on:input={(e) => {
-                  formData.message = e.target.value
+                on:input={e => {
+                  formData.message = e.target.value;
                 }}
                 required
-                class="textarea-fixed w-100 mb-1"
+                class="textarea-fixed w-100 "
                 name="message"
                 id="message"
                 cols="50"
@@ -274,7 +292,7 @@
               <div
                 id="validation"
                 class="flex flex-row flex-justify-between flex-align-center
-                w-100 mb-1">
+                w-100 ">
                 <p
                   id="validation-text"
                   class="flex flex-row flex-justify-between">
@@ -282,8 +300,8 @@
                   <span>{secret}</span>
                 </p>
                 <input
-                  on:input={(e) => {
-                    formData.test = e.target.value
+                  on:input={e => {
+                    formData.test = e.target.value;
                   }}
                   class="ml-1"
                   required

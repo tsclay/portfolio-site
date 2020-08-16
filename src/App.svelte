@@ -5,6 +5,7 @@
   import Projects from "./components/Projects.svelte";
   import Contact from "./components/Contact.svelte";
   import Copyright from "./components/Copyright.svelte";
+  // import Logo from "./components/Logo.svelte";
   import axios from "axios";
 
   import { onMount } from "svelte";
@@ -13,7 +14,6 @@
   let secret = "";
 
   onMount(async () => {
-    hasLoaded = await true;
     console.log("App has mounted: ", hasLoaded);
     try {
       const response = await axios.get(
@@ -22,6 +22,7 @@
       // console.log(response);
       assets = response.data[0];
       secret = response.data[1];
+      hasLoaded = true;
     } catch (error) {
       console.log(error);
     }
@@ -38,9 +39,8 @@
 <div class={hasLoaded ? 'container grid' : 'hidden'}>
   <Header {toggleDiv} />
   <Brand {step} {toggleDiv} />
-  <!-- <Brand /> -->
   <Toolbox />
-  <!-- <KnowledgeTree /> -->
+  <!-- <Logo /> -->
   <Projects {assets} />
   <Contact {secret} />
   <Copyright />
