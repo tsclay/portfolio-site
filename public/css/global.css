@@ -36,7 +36,8 @@ label {
 input,
 button,
 select,
-textarea {
+textarea,
+#validation-text {
   font-family: inherit;
   font-size: inherit;
   padding: 0.4em;
@@ -74,13 +75,9 @@ input[type="range"] {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr) 3.5fr 150px 50px;
+  grid-template-columns: 300px repeat(4, 1fr) 300px;
+  grid-template-rows: repeat(4, 1fr) 1fr 150px 50px;
   gap: 2em;
-  /* margin-left: 1.5em;
-  margin-right: 1.5em;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em; */
   height: 100%;
 }
 
@@ -89,32 +86,70 @@ input[type="range"] {
 } */
 
 #header {
-  grid-area: 1/1/1/3;
+  grid-area: 1/2/1/4;
   box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
 }
 
+/* #logo {
+  grid-area: 4/3/5/5;
+} */
+
 #profile {
-  grid-area: 1/3/4/5;
+  grid-area: 1/4/4/6;
 }
 
 #knowledge-tree,
 #project-carousel {
-  grid-area: 3/1/8/3;
+  grid-area: 3/2/8/4;
   box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
 }
 
 #footer {
-  grid-area: 4/3/7/5;
+  grid-area: 4/4/7/6;
 }
 
 #toolbox {
-  grid-area: 2/1/2/3;
+  grid-area: 2/2/2/4;
   box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
 }
 
 #copyright-notices {
-  grid-area: 7/3/8/5;
+  grid-area: 7/4/8/6;
   box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
+}
+
+@media only screen and (max-width: 1850px) {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr) 1fr 150px 50px;
+    gap: 2em;
+    height: 100%;
+  }
+
+  #header {
+    grid-area: 1/1/1/3;
+    box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
+  }
+  #knowledge-tree,
+  #project-carousel {
+    grid-area: 3/1/8/3;
+    box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
+  }
+  #toolbox {
+    grid-area: 2/1/2/3;
+    box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
+  }
+  #profile {
+    grid-area: 1/3/4/6;
+  }
+  #footer {
+    grid-area: 4/3/7/6;
+  }
+  #copyright-notices {
+    grid-area: 7/3/8/6;
+    box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
+  }
 }
 
 @media only screen and (max-width: 1350px) {
@@ -280,7 +315,8 @@ input[type="range"] {
 } */
 
 @media only screen and (max-width: 510px) {
-  #brand, #header {
+  #brand,
+  #header {
     font-size: 90%;
   }
 
