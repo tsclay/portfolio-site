@@ -23,7 +23,9 @@
   $: len = assets.length;
 
   onMount(() => {
+    console.log("here are the assets in projects ", assets);
     play();
+    console.log("the projects mount assets ", assets);
   });
 
   const next = () => {
@@ -127,6 +129,9 @@
 </script>
 
 <style>
+  #project-carousel {
+    background: #193238;
+  }
   p {
     margin: 0;
     padding: 0;
@@ -134,14 +139,16 @@
   }
 
   h1 {
-    margin-top: 0;
-    margin-bottom: 0.4em;
+    display: inline;
+    margin: 0;
+    padding: 0;
   }
   .child {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 5%;
+    left: 10%;
     overflow: hidden;
+    box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
   }
 
   .pos-relative {
@@ -161,9 +168,20 @@
     height: 62%;
   }
 
+  #project-card-display > div {
+    border-radius: 8px;
+  }
   img {
     height: 100%;
     width: 100%;
+  }
+
+  #tags > span {
+    background: rgb(196, 196, 196);
+    color: rgb(48, 48, 48);
+    text-transform: uppercase;
+    font-size: 0.75em;
+    padding: 4px;
   }
 </style>
 
@@ -176,20 +194,33 @@
   <div id="project-card-display" class="pos-relative h-100">
     {#each assets as asset, i}
       {#if step === i}
+        <!-- {#if assets.length > 0} -->
         <div
-          class="child w-100 h-100"
+          class="child w-80 h-90"
           in:goIn={{ duration: 400 }}
           out:goOut={{ duration: 400 }}
           id="project-{i}">
           <div id="link-image">
-            <img src={asset.image} alt={asset.title} />
+            <img src={asset['image']} alt={asset['title']} />
           </div>
           <div class="flex flex-column flex-justify-between" id="link-details">
             <div class="h-60">
-              <h1>{asset.title}</h1>
+              <div
+                id="title-and-tags"
+                class="flex flex-column flex-justify-start mb-1">
+                <h1>{asset.title}</h1>
+                <div
+                  id="tags"
+                  class="flex flex-row flex-align-center flex-justify-start">
+                  {#each asset.tags as tag, j}
+                    <span style="margin-left: 2px;">{tag}</span>
+                  {/each}
+                </div>
+              </div>
+
               <p>
                 {asset.description}
-                {#if asset.title === 'Berg' || asset.title === 'Lisa'}
+                {#if asset['title'] === 'Berg' || asset['title'] === 'Lisa'}
                   <strong>
                     Use
                     <em>demo@me.com</em>
@@ -201,15 +232,28 @@
               </p>
             </div>
             <div class="h-30 flex flex-row flex-justify-evenly">
-              <form action={asset.url} target="_blank">
-                <button class="btn-blue" type="submit">Check it out!</button>
+              <form action={asset['url']} target="_blank">
+                <button class="btn-blue p-1" type="submit">
+                  <i class="far fa-eye" />
+                  Site
+                </button>
               </form>
-              <form action={asset.github} target="_blank">
-                <button class="btn-blue" type="submit">See the Code!</button>
+              <form action={asset['github']} target="_blank">
+                <button class="btn-blue p-1" type="submit">
+                  <i class="fas fa-code" />
+                  Code
+                </button>
+              </form>
+              <form action={asset['github']} target="_blank">
+                <button class="btn-blue p-1" type="submit">
+                  <i class="fas fa-video" />
+                  Demo
+                </button>
               </form>
             </div>
           </div>
         </div>
+        <!-- {/if} -->
       {/if}
     {/each}
     {#if !hide}

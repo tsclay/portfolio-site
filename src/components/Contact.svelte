@@ -18,7 +18,12 @@
   $: isLoading = false;
 
   const toggleDiv = e => {
-    if (e.target.id !== "contact-form" && step === 1) return;
+    if (
+      e.target.id !== "contact-form" &&
+      e.target.classList[0] !== "card-back" &&
+      step === 1
+    )
+      return;
     step = (step + 1) % 2;
   };
 
@@ -110,7 +115,7 @@
   }
 
   .card-back {
-    background-color: rgb(48, 48, 48);
+    background: rgb(48, 48, 48);
   }
 
   input[name="validator"] {
@@ -135,7 +140,8 @@
     font-weight: bold;
   }
 
-  #connect {
+  #connect,
+  #contact-form {
     position: absolute;
     top: 15%;
     left: 0;
@@ -206,18 +212,12 @@
   #validation {
     margin-bottom: 1.75em;
   }
-  #contact-form {
-    margin-top: 3em;
-  }
 
-  @media only screen and (max-width: 790px) {
+  @media only screen and (max-width: 900px) {
     #name-email-fields,
     #message,
     #validation {
       margin-bottom: 0.5em;
-    }
-    #contact-form {
-      margin-top: 1em;
     }
   }
 </style>
@@ -242,9 +242,8 @@
         on:click={toggleDiv}
         class="card-back"
         transition:flip={{ duration: 800 }}>
-        <div
-          id="contact-form"
-          class="w-100 h-100 flex flex-row flex-justify-center">
+        <!-- <img class="img-fill" src="/img/connect.jpeg" alt="" /> -->
+        <div id="contact-form" class="w-100 flex flex-row flex-justify-center">
           <form on:submit={handleForm} id="direct-form" class="w-80 h-80">
             <div
               id="name-email-fields"

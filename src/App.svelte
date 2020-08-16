@@ -10,21 +10,22 @@
 
   import { onMount } from "svelte";
   let hasLoaded = false;
-  let assets = [];
+  $: assets = [];
   let secret = "";
 
   onMount(async () => {
-    console.log("App has mounted: ", hasLoaded);
     try {
       const response = await axios.get(
         "https://timclaydev-assets.herokuapp.com/assets"
       );
       // console.log(response);
       assets = response.data[0];
+      console.log("main on mount ", assets);
       secret = response.data[1];
       hasLoaded = true;
+      console.log("App has mounted: ", hasLoaded);
     } catch (error) {
-      console.log(error);
+      console.log("this is the error", error);
     }
   });
 
