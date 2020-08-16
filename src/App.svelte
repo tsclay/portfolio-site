@@ -1,44 +1,43 @@
 <script>
-  import Header from './components/Header.svelte'
-  import Toolbox from './components/Toolbox.svelte'
-  // import Brand from "./components/Brand.svelte";
-  import ProfileImg from './components/ProfileImg.svelte'
-  // import KnowledgeTree from "./components/KnowledgeTree.svelte";
-  import Projects from './components/Projects.svelte'
-  import Contact from './components/Contact.svelte'
-  import Copyright from './components/Copyright.svelte'
-  import axios from 'axios'
+  import Header from "./components/Header.svelte";
+  import Toolbox from "./components/Toolbox.svelte";
+  import Brand from "./components/Brand.svelte";
+  import Projects from "./components/Projects.svelte";
+  import Contact from "./components/Contact.svelte";
+  import Copyright from "./components/Copyright.svelte";
+  import axios from "axios";
 
-  import { onMount } from 'svelte'
-  let hasLoaded = true
-  let assets = []
-  let secret = ''
+  import { onMount } from "svelte";
+  let hasLoaded = false;
+  let assets = [];
+  let secret = "";
 
   onMount(async () => {
-    hasLoaded = await true
+    hasLoaded = await true;
+    console.log("App has mounted: ", hasLoaded);
     try {
       const response = await axios.get(
-        'https://timclaydev-assets.herokuapp.com/assets'
-      )
+        "https://timclaydev-assets.herokuapp.com/assets"
+      );
       // console.log(response);
-      assets = response.data[0]
-      secret = response.data[1]
+      assets = response.data[0];
+      secret = response.data[1];
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  })
+  });
 
-  let step = 0
+  let step = 0;
   const toggleDiv = () => {
-    step = (step + 1) % 2
-  }
+    step = (step + 1) % 2;
+  };
 
-  console.log(hasLoaded)
+  console.log(hasLoaded);
 </script>
 
 <div class={hasLoaded ? 'container grid' : 'hidden'}>
   <Header {toggleDiv} />
-  <ProfileImg {step} {toggleDiv} />
+  <Brand {step} {toggleDiv} />
   <!-- <Brand /> -->
   <Toolbox />
   <!-- <KnowledgeTree /> -->
