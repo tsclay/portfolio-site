@@ -212,11 +212,7 @@
 </style>
 
 <!-- style="height: 400px;" -->
-<div
-  id="project-carousel"
-  class="h-100"
-  on:mouseenter={showControls}
-  on:mouseleave={hideControls}>
+<div id="project-carousel" class="h-100">
   <div id="project-card-display" class="pos-relative h-100">
     {#each assets as asset, i}
       {#if step === i}
