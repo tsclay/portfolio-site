@@ -133,7 +133,7 @@
     background: #193238;
   }
   p {
-    margin: 0;
+    margin: 0 0 0.5em 0;
     padding: 0;
     line-height: 1.5em;
   }
@@ -165,7 +165,7 @@
   #link-image {
     /* height: 400px; */
     margin-bottom: 0.25em;
-    height: 62%;
+    height: 60%;
   }
 
   #project-card-display > div {
@@ -186,6 +186,28 @@
 
   .btn-blue {
     padding: 0.5em;
+  }
+
+  #forward {
+    right: 1%;
+    top: 45%;
+  }
+
+  #backward {
+    left: 1%;
+    top: 45%;
+  }
+
+  @media only screen and (max-width: 400px) {
+    #forward {
+      right: 0;
+      top: 45%;
+    }
+
+    #backward {
+      left: 0;
+      top: 45%;
+    }
   }
 </style>
 
@@ -208,23 +230,25 @@
             <img src={asset['image']} alt={asset['title']} />
           </div>
           <div class="flex flex-column flex-justify-between" id="link-details">
-            <div class="h-60">
+            <div class="h-40">
               <div
                 id="title-and-tags"
                 class="flex flex-column flex-justify-start mb-1">
                 <h1>{asset.title}</h1>
                 <div
                   id="tags"
-                  class="flex flex-row flex-align-center flex-justify-start">
+                  class="flex flex-row flex-wrap flex-align-center
+                  flex-justify-start">
                   {#each asset.tags as tag, j}
-                    <span style="margin-left: 2px;">{tag}</span>
+                    <span style="margin: 0 0 2px 2px;">{tag}</span>
                   {/each}
                 </div>
               </div>
 
               <p>{asset.description}</p>
             </div>
-            <div class="h-30 flex flex-row flex-justify-evenly">
+            <div
+              class="h-30 flex flex-row flex-justify-evenly flex-align-center">
               <form action={asset.url} target="_blank">
                 <button class="btn-blue" type="submit">
                   <i class="far fa-eye" />
@@ -249,6 +273,20 @@
         <!-- {/if} -->
       {/if}
     {/each}
+    <button
+      id="backward"
+      class="btn-blue pos-absolute"
+      on:click={prev}
+      type="button">
+      <SkipBackIcon size="1.0x" />
+    </button>
+    <button
+      id="forward"
+      class="btn-blue pos-absolute"
+      on:click={next}
+      type="button">
+      <SkipForwardIcon size="1.0x" />
+    </button>
     {#if !hide}
       <div
         id="controls"
