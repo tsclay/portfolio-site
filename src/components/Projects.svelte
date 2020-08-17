@@ -183,6 +183,10 @@
     font-size: 0.75em;
     padding: 4px;
   }
+
+  .btn-blue {
+    padding: 0.5em;
+  }
 </style>
 
 <!-- style="height: 400px;" -->
@@ -232,20 +236,20 @@
               </p>
             </div>
             <div class="h-30 flex flex-row flex-justify-evenly">
-              <form action={asset['url']} target="_blank">
-                <button class="btn-blue p-1" type="submit">
+              <form action={asset.url} target="_blank">
+                <button class="btn-blue" type="submit">
                   <i class="far fa-eye" />
                   Site
                 </button>
               </form>
-              <form action={asset['github']} target="_blank">
-                <button class="btn-blue p-1" type="submit">
+              <form action={asset.github} target="_blank">
+                <button class="btn-blue" type="submit">
                   <i class="fas fa-code" />
                   Code
                 </button>
               </form>
-              <form action={asset['github']} target="_blank">
-                <button class="btn-blue p-1" type="submit">
+              <form action={asset.demo} target="_blank">
+                <button class="btn-blue" type="submit">
                   <i class="fas fa-video" />
                   Demo
                 </button>
