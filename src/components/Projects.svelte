@@ -222,18 +222,7 @@
                 </div>
               </div>
 
-              <p>
-                {asset.description}
-                {#if asset['title'] === 'Berg' || asset['title'] === 'Lisa'}
-                  <strong>
-                    Use
-                    <em>demo@me.com</em>
-                    for email and
-                    <em>password123</em>
-                    for password.
-                  </strong>
-                {/if}
-              </p>
+              <p>{asset.description}</p>
             </div>
             <div class="h-30 flex flex-row flex-justify-evenly">
               <form action={asset.url} target="_blank">
