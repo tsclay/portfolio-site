@@ -68,14 +68,17 @@
     <ul
       class="w-30 flex-column flex-justify-between flex-align-center
       ul-list-none mx-auto">
-      <!-- <li>
-        <a href="#" on:click={toggleDiv}>
+      <li>
+        <a
+          target="_blank"
+          href="https://drive.google.com/file/d/1r5sSCFaSTBwFfqNDh0mh__xHUkVceMjb/view?usp=sharing">
           <i class="fas fa-info-circle" />
         </a>
-
-      </li> -->
+      </li>
       <li>
-        <a href="https://www.linkedin.com/in/timothy-clay-software-developer/">
+        <a
+          target="_blank"
+          href="https://www.linkedin.com/in/timothy-clay-software-developer/">
           <i class="fab fa-linkedin" />
         </a>
       </li>
@@ -83,7 +86,7 @@
         <i class="fas fa-envelope" />
       </li> -->
       <li>
-        <a href="https://github.com/tsclay">
+        <a target="_blank" href="https://github.com/tsclay">
           <i class="fab fa-github" />
         </a>
 
