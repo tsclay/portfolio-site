@@ -184,8 +184,16 @@
     padding: 4px;
   }
 
-  .btn-blue {
+  .btn-play {
+    cursor: pointer;
     padding: 0.5em;
+    background-color: rgb(196, 196, 196);
+    transition: background-color 0.3s linear;
+  }
+
+  .btn-play:hover {
+    background-color: #00ccff;
+    transition: background-color 0.3s linear;
   }
 
   #forward {
@@ -271,14 +279,14 @@
     {/each}
     <button
       id="backward"
-      class="btn-blue pos-absolute"
+      class="btn-play pos-absolute"
       on:click={prev}
       type="button">
       <SkipBackIcon size="1.0x" />
     </button>
     <button
       id="forward"
-      class="btn-blue pos-absolute"
+      class="btn-play pos-absolute"
       on:click={next}
       type="button">
       <SkipForwardIcon size="1.0x" />
