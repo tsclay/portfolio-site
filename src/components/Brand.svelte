@@ -104,7 +104,7 @@
             and <span class="tech-stack">Python</span>.
           </p>
           <p>
-            A mediator between problems and solutions.
+            A <span class="text-emphasis">conductor</span> for software <span class="text-emphasis">solutions</span>.
           </p>
           <p>Debugging 
             <span class="text-emphasis">code</span> 
