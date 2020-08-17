@@ -95,7 +95,8 @@
             <span class="text-emphasis">full-stack software developer</span>.
           </p>
           <p>
-            Creating expressive, meaningful user experiences using 
+            Creating expressive, meaningful user experiences using
+            <span class="tech-stack">Javascript</span>, 
             <span class="tech-stack">Node</span>, 
             <span class="tech-stack">React</span>, 
             <span class="tech-stack">Svelte</span>, 
@@ -103,7 +104,7 @@
             and <span class="tech-stack">Python</span>.
           </p>
           <p>
-            A husband, a father, and life-long learner.
+            A mediator between problems and solutions.
           </p>
           <p>Debugging 
             <span class="text-emphasis">code</span> 
