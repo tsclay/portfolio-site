@@ -133,7 +133,7 @@
     background: #193238;
   }
   p {
-    margin: 0;
+    margin: 0 0 0.5em 0;
     padding: 0;
     line-height: 1.5em;
   }
@@ -165,7 +165,7 @@
   #link-image {
     /* height: 400px; */
     margin-bottom: 0.25em;
-    height: 62%;
+    height: 60%;
   }
 
   #project-card-display > div {
@@ -183,14 +183,44 @@
     font-size: 0.75em;
     padding: 4px;
   }
+
+  .btn-play {
+    cursor: pointer;
+    padding: 0.5em;
+    background-color: rgb(196, 196, 196);
+    transition: background-color 0.3s linear;
+  }
+
+  .btn-play:hover {
+    background-color: #00ccff;
+    transition: background-color 0.3s linear;
+  }
+
+  #forward {
+    right: 1%;
+    top: 45%;
+  }
+
+  #backward {
+    left: 1%;
+    top: 45%;
+  }
+
+  @media only screen and (max-width: 400px) {
+    #forward {
+      right: 0;
+      top: 45%;
+    }
+
+    #backward {
+      left: 0;
+      top: 45%;
+    }
+  }
 </style>
 
 <!-- style="height: 400px;" -->
-<div
-  id="project-carousel"
-  class="h-100"
-  on:mouseenter={showControls}
-  on:mouseleave={hideControls}>
+<div id="project-carousel" class="h-100">
   <div id="project-card-display" class="pos-relative h-100">
     {#each assets as asset, i}
       {#if step === i}
@@ -204,48 +234,39 @@
             <img src={asset['image']} alt={asset['title']} />
           </div>
           <div class="flex flex-column flex-justify-between" id="link-details">
-            <div class="h-60">
+            <div class="h-40">
               <div
                 id="title-and-tags"
                 class="flex flex-column flex-justify-start mb-1">
                 <h1>{asset.title}</h1>
                 <div
                   id="tags"
-                  class="flex flex-row flex-align-center flex-justify-start">
+                  class="flex flex-row flex-wrap flex-align-center
+                  flex-justify-start">
                   {#each asset.tags as tag, j}
-                    <span style="margin-left: 2px;">{tag}</span>
+                    <span style="margin: 0 0 2px 2px;">{tag}</span>
                   {/each}
                 </div>
               </div>
 
-              <p>
-                {asset.description}
-                {#if asset['title'] === 'Berg' || asset['title'] === 'Lisa'}
-                  <strong>
-                    Use
-                    <em>demo@me.com</em>
-                    for email and
-                    <em>password123</em>
-                    for password.
-                  </strong>
-                {/if}
-              </p>
+              <p>{asset.description}</p>
             </div>
-            <div class="h-30 flex flex-row flex-justify-evenly">
-              <form action={asset['url']} target="_blank">
-                <button class="btn-blue p-1" type="submit">
+            <div
+              class="h-30 flex flex-row flex-justify-evenly flex-align-center">
+              <form action={asset.url} target="_blank">
+                <button class="btn-blue" type="submit">
                   <i class="far fa-eye" />
                   Site
                 </button>
               </form>
-              <form action={asset['github']} target="_blank">
-                <button class="btn-blue p-1" type="submit">
+              <form action={asset.github} target="_blank">
+                <button class="btn-blue" type="submit">
                   <i class="fas fa-code" />
                   Code
                 </button>
               </form>
-              <form action={asset['github']} target="_blank">
-                <button class="btn-blue p-1" type="submit">
+              <form action={asset.demo} target="_blank">
+                <button class="btn-blue" type="submit">
                   <i class="fas fa-video" />
                   Demo
                 </button>
@@ -256,6 +277,20 @@
         <!-- {/if} -->
       {/if}
     {/each}
+    <button
+      id="backward"
+      class="btn-play pos-absolute"
+      on:click={prev}
+      type="button">
+      <SkipBackIcon size="1.0x" />
+    </button>
+    <button
+      id="forward"
+      class="btn-play pos-absolute"
+      on:click={next}
+      type="button">
+      <SkipForwardIcon size="1.0x" />
+    </button>
     {#if !hide}
       <div
         id="controls"
