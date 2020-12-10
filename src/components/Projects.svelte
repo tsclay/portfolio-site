@@ -254,19 +254,19 @@
             <div
               class="h-30 flex flex-row flex-justify-evenly flex-align-center">
               <form action={asset.url} target="_blank">
-                <button class="btn-blue" type="submit">
+                <button class="btn-primary" type="submit">
                   <i class="far fa-eye" />
                   Site
                 </button>
               </form>
               <form action={asset.github} target="_blank">
-                <button class="btn-blue" type="submit">
+                <button class="btn-primary" type="submit">
                   <i class="fas fa-code" />
                   Code
                 </button>
               </form>
               <form action={asset.demo} target="_blank">
-                <button class="btn-blue" type="submit">
+                <button class="btn-primary" type="submit">
                   <i class="fas fa-video" />
                   Demo
                 </button>

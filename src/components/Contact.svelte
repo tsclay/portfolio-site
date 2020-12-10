@@ -203,7 +203,7 @@
     margin-left: 0.5em;
   }
 
-  .btn-blue[type="submit"]:disabled {
+  .btn-primary[type="submit"]:disabled {
     background-color: rgb(196, 196, 196);
   }
 
@@ -310,7 +310,7 @@
                   placeholder="Code (required)" />
               </div>
               <button
-                class="btn-blue w-100 mb-1"
+                class="btn-primary w-100 mb-1"
                 type="submit"
                 disabled={isLoading === true ? true : false}>
                 {#if isLoading === false}
