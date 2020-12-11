@@ -148,16 +148,18 @@
   h1 {
     display: flex;
     margin: 0;
-    padding: 0 0 0 0.25rem;
-    height: 10%;
+    padding: 0.25rem;
     box-sizing: border-box;
-    background: var(--primary);
+    background: var(--blue);
     align-items: center;
-  }
-
-  #link-details,
-  div.link-image {
-    background: var(--primary);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+    width: 50%;
+    justify-content: center;
+    color: var(--dark);
   }
 
   #link-details {
@@ -165,16 +167,18 @@
     padding: 8px;
     box-sizing: border-box;
     height: 40%;
+    background: whitesmoke;
+    position: relative;
+    border-top: 0.25px solid black;
 
-    > div {
-      background: whitesmoke;
-    }
+    // > div {
+    //   background: whitesmoke;
+    // }
   }
 
   div.link-image {
-    height: 40%;
-    padding: 8px;
-    box-sizing: border-box;
+    height: 50%;
+    border-bottom: 0.25px solid black;
   }
 
   div.project-card-display {
@@ -207,6 +211,21 @@
     display: block;
   }
 
+  // #title-and-tags {
+  //   display: flex;
+  //   flex-flow: column nowrap;
+  //   justify-content: start;
+  // }
+
+  div.tags-and-description {
+    margin-top: 2rem;
+  }
+  #tags {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: start;
+  }
   #tags > span {
     background: rgb(196, 196, 196);
     color: rgb(48, 48, 48);
@@ -273,25 +292,26 @@
           in:goIn={{ duration: 400 }}
           out:goOut={{ duration: 400 }}
           id="project-{i}">
-          <h1>{asset.title}</h1>
           <div class="link-image">
             <img src={asset['image']} alt={asset['title']} />
           </div>
           <div id="link-details">
-            <div class="h-40">
-              <div
+            <h1>{asset.title}</h1>
+            <div class="tags-and-description">
+              <div id="tags">
+                {#each asset.tags as tag, j}
+                  <span style="margin: 0 0 2px 2px;">{tag}</span>
+                {/each}
+              </div>
+              <!-- <div
                 id="title-and-tags"
                 class="flex flex-column flex-justify-start mb-1">
-                <div
-                  id="tags"
-                  class="flex flex-row flex-wrap flex-align-center
-                  flex-justify-start">
+                <div id="tags">
                   {#each asset.tags as tag, j}
                     <span style="margin: 0 0 2px 2px;">{tag}</span>
                   {/each}
                 </div>
-              </div>
-
+              </div> -->
               <p>{asset.description}</p>
             </div>
           </div>
