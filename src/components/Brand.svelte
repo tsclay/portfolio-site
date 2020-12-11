@@ -37,7 +37,7 @@
 <style type="text/scss">
   #profile {
     position: relative;
-    height: 700px;
+    min-height: 665px;
   }
   #bio-bits {
     top: 50%;
