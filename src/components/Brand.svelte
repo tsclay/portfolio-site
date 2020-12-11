@@ -38,6 +38,7 @@
   #profile {
     position: relative;
     min-height: 665px;
+    background: var(--light);
   }
   #bio-bits {
     top: 50%;
@@ -48,6 +49,7 @@
     display: flex;
     flex-flow: column;
     align-items: center;
+    background: var(--dark);
 
     p {
       font-size: 1.2em;
