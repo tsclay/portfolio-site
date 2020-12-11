@@ -6,7 +6,7 @@
     SkipForwardIcon,
     SkipBackIcon,
     PlayIcon,
-    PauseIcon
+    PauseIcon,
   } from "svelte-feather-icons";
 
   export let assets;
@@ -76,10 +76,11 @@
       easing: easing$1,
       x,
       css: (t, u) => {
-        return `transform: ${transform} translate(${(1 - t) * x}px, ${(1 - t) *
-          y}px);
+        return `transform: ${transform} translate(${(1 - t) * x}px, ${
+          (1 - t) * y
+        }px);
         opacity: ${target_opacity - od * u}`;
-      }
+      },
     };
   };
 
@@ -97,10 +98,11 @@
       easing: easing$1,
       x,
       css: (t, u) => {
-        return `transform: ${transform} translate(${(1 - t) * x}px, ${(1 - t) *
-          y}px);
+        return `transform: ${transform} translate(${(1 - t) * x}px, ${
+          (1 - t) * y
+        }px);
         opacity: ${target_opacity - od * u}`;
-      }
+      },
     };
   };
 
@@ -128,7 +130,7 @@
   // }
 </script>
 
-<style>
+<style type="text/scss">
   #project-carousel {
     background: #193238;
   }
@@ -144,11 +146,13 @@
     padding: 0;
   }
   .child {
-    position: absolute;
-    top: 5%;
-    left: 10%;
+    // position: absolute;
+    // top: 5%;
+    // left: 10%;
     overflow: hidden;
     box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
+    width: 80%;
+    height: 90%;
   }
 
   .pos-relative {
