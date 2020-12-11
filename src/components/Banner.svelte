@@ -1,7 +1,7 @@
 <script>
-  import { text } from 'svelte/internal'
+  import { text } from "svelte/internal";
 
-  export let toggleDiv
+  export let toggleDiv;
 </script>
 
 <style type="text/scss">
@@ -9,6 +9,7 @@
     overflow: hidden;
     width: 100%;
     height: 100vh;
+    min-height: 667px;
     position: relative;
     img {
       position: absolute;
@@ -39,6 +40,14 @@
     }
     span:first-of-type {
       margin-bottom: 8px;
+    }
+  }
+
+  @media only screen and (max-width: 960px) {
+    div.banner {
+      img {
+        width: 120%;
+      }
     }
   }
 
