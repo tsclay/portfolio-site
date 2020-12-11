@@ -1,6 +1,4 @@
 <script>
-  import { text } from "svelte/internal";
-
   export let toggleDiv;
 </script>
 
@@ -9,7 +7,8 @@
     overflow: hidden;
     width: 100%;
     height: 100vh;
-    min-height: 667px;
+    min-height: 665px;
+    min-width: 665px;
     position: relative;
     img {
       position: absolute;
@@ -43,7 +42,7 @@
     }
   }
 
-  @media only screen and (max-width: 960px) {
+  @media only screen and (min-width: 960px) {
     div.banner {
       img {
         width: 120%;
@@ -51,8 +50,28 @@
     }
   }
 
-  //375
-  @media only screen and (max-width: 600px) {
+  // iPhone 7/8/10 - portrait orientation
+  @media only screen and (min-width: 414px) and (max-width: 736px) {
+    div.banner {
+      img {
+        left: -25rem;
+        width: auto;
+      }
+    }
+  }
+
+  // iPhone 7/8/10 - landscape mode
+  @media only screen and (width: 667px) and (min-height: 300px) {
+    div.banner {
+      img {
+        left: -5rem;
+        width: auto;
+      }
+    }
+  }
+
+  // iPhone 7/8/10 - portrait orientation
+  @media only screen and (width: 375px) {
     div.banner {
       img {
         left: -17rem;
