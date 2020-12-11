@@ -8,7 +8,7 @@
     width: 100%;
     height: 100vh;
     min-height: 665px;
-    min-width: 665px;
+    min-width: 375px;
     position: relative;
     img {
       position: absolute;
