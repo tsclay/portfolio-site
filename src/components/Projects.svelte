@@ -17,7 +17,7 @@
   let step = 0;
   let len = 0;
   let hide = true;
-  let flowDir = 200;
+  let flowDir = 500;
   let inverseFlowDir = flowDir * -1;
   $: inverseFlowDir = flowDir * -1;
   $: len = assets.length;
@@ -31,18 +31,20 @@
   const next = () => {
     console.log("next");
     if (isPlaying) stop();
-    flowDir = 200;
+    flowDir = 500;
     step = (step + 1) % len;
     console.log("next:", step);
+    return flowDir;
   };
 
   const prev = () => {
     console.log("prev");
     if (isPlaying) stop();
-    flowDir = -200;
+    flowDir = -500;
     // console.log("inversed", inverseFlowDir);
     step = (step - 1 + len) % len;
     console.log("prev:", step);
+    return flowDir;
   };
 
   // Start carousel reel
@@ -132,7 +134,10 @@
 
 <style type="text/scss">
   #project-carousel {
-    background: #193238;
+    position: relative;
+    background: var(--dark);
+    min-height: 665px;
+    overflow: hidden;
   }
   p {
     margin: 0 0 0.5em 0;
@@ -141,43 +146,65 @@
   }
 
   h1 {
-    display: inline;
+    display: flex;
     margin: 0;
-    padding: 0;
-  }
-  .child {
-    // position: absolute;
-    // top: 5%;
-    // left: 10%;
-    overflow: hidden;
-    box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
-    width: 80%;
-    height: 90%;
+    padding: 0 0 0 0.25rem;
+    height: 10%;
+    box-sizing: border-box;
+    background: var(--primary);
+    align-items: center;
   }
 
-  .pos-relative {
-    overflow: hidden;
+  #link-details,
+  div.link-image {
+    background: var(--primary);
   }
 
   #link-details {
-    background: whitesmoke;
-    /* height: 231.533px; */
+    color: var(--dark);
     padding: 8px;
-    height: 38%;
+    box-sizing: border-box;
+    height: 40%;
+
+    > div {
+      background: whitesmoke;
+    }
   }
 
-  #link-image {
-    /* height: 400px; */
-    margin-bottom: 0.25em;
-    height: 60%;
+  div.link-image {
+    height: 40%;
+    padding: 8px;
+    box-sizing: border-box;
   }
 
-  #project-card-display > div {
-    border-radius: 8px;
+  div.project-card-display {
+    overflow: hidden;
+    > div {
+      border-radius: 8px;
+      height: 575px;
+    }
+    div.child {
+      overflow: hidden;
+      box-shadow: 0px 0px 10px 3px #303030;
+      width: clamp(365px, 100%, 375px);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  div.project-card-actions {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    justify-content: center;
+    height: 10%;
   }
   img {
     height: 100%;
     width: 100%;
+    display: block;
   }
 
   #tags > span {
@@ -186,6 +213,16 @@
     text-transform: uppercase;
     font-size: 0.75em;
     padding: 4px;
+  }
+
+  a.card-link {
+    display: flex;
+    flex-grow: 1;
+    border-radius: 0;
+  }
+
+  a.card-link:hover {
+    text-decoration: none;
   }
 
   .btn-play {
@@ -201,11 +238,13 @@
   }
 
   #forward {
+    position: absolute;
     right: 1%;
     top: 45%;
   }
 
   #backward {
+    position: absolute;
     left: 1%;
     top: 45%;
   }
@@ -225,7 +264,7 @@
 
 <!-- style="height: 400px;" -->
 <div id="project-carousel" class="h-100">
-  <div id="project-card-display" class="pos-relative h-100">
+  <div class="project-card-display">
     {#each assets as asset, i}
       {#if step === i}
         <!-- {#if assets.length > 0} -->
@@ -234,15 +273,15 @@
           in:goIn={{ duration: 400 }}
           out:goOut={{ duration: 400 }}
           id="project-{i}">
-          <div id="link-image">
+          <h1>{asset.title}</h1>
+          <div class="link-image">
             <img src={asset['image']} alt={asset['title']} />
           </div>
-          <div class="flex flex-column flex-justify-between" id="link-details">
+          <div id="link-details">
             <div class="h-40">
               <div
                 id="title-and-tags"
                 class="flex flex-column flex-justify-start mb-1">
-                <h1>{asset.title}</h1>
                 <div
                   id="tags"
                   class="flex flex-row flex-wrap flex-align-center
@@ -255,27 +294,41 @@
 
               <p>{asset.description}</p>
             </div>
-            <div
-              class="h-30 flex flex-row flex-justify-evenly flex-align-center">
-              <form action={asset.url} target="_blank">
-                <button class="btn-primary" type="submit">
-                  <i class="far fa-eye" />
-                  Site
-                </button>
-              </form>
-              <form action={asset.github} target="_blank">
-                <button class="btn-primary" type="submit">
-                  <i class="fas fa-code" />
-                  Code
-                </button>
-              </form>
-              <form action={asset.demo} target="_blank">
-                <button class="btn-primary" type="submit">
-                  <i class="fas fa-video" />
-                  Demo
-                </button>
-              </form>
-            </div>
+          </div>
+          <div class="project-card-actions">
+            <a href={asset.url} target="_blank" class="btn-primary card-link">
+              <i class="far fa-eye" />
+              Site
+            </a>
+            <a
+              href={asset.github}
+              target="_blank"
+              class="btn-primary card-link">
+              <i class="fas fa-code" />
+              Code
+            </a>
+            <a href={asset.demo} target="_blank" class="btn-primary card-link">
+              <i class="fas fa-video" />
+              Demo
+            </a>
+            <!-- <form action={asset.url} target="_blank" >
+              <button class="btn-primary" type="submit">
+                <i class="far fa-eye" />
+                Site
+              </button>
+            </form> -->
+            <!-- <form action={asset.github} target="_blank">
+              <button class="btn-primary" type="submit">
+                <i class="fas fa-code" />
+                Code
+              </button>
+            </form> -->
+            <!-- <form action={asset.demo} target="_blank">
+              <button class="btn-primary" type="submit">
+                <i class="fas fa-video" />
+                Demo
+              </button>
+            </form> -->
           </div>
         </div>
         <!-- {/if} -->
