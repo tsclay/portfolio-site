@@ -18,8 +18,8 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 a {
@@ -56,7 +56,7 @@ input:disabled {
   color: #ccc;
 }
 
-input[type='range'] {
+input[type="range"] {
   height: 0;
 }
 
@@ -206,7 +206,7 @@ input[type='range'] {
   }
 } */
 
-@media only screen and (max-width: 900px) {
+/* @media only screen and (max-width: 900px) {
   html,
   body {
     position: relative;
@@ -229,40 +229,27 @@ input[type='range'] {
   .grid {
     display: grid;
     grid-template-columns: 1fr;
-    /* grid-template-rows: 100px 1fr 1fr 1fr 1fr; */
+    grid-template-rows: 100px 1fr 1fr 1fr 1fr;
     grid-template-rows: 150px repeat(5, 200px) 300px 200px 175px 300px 100px;
     gap: 2em;
   }
 
   #header {
-    /* grid-area: 1/1/2/1; */
     grid-column: 1;
     grid-row: 1;
-    /* height: 100px; */
   }
 
   #profile {
-    /* grid-area: 2/1/5/1; */
     grid-column: 1;
     grid-row: 2 / 5;
-    /* font-size: 80%; */
   }
 
-  /* #brand { */
-  /* grid-area: 5/1/6/1; */
-  /* grid-column: 1;
-    grid-row: 3;
-  } */
-
   #project-carousel {
-    /* grid-area: 7/1/8/1; */
     grid-column: 1;
     grid-row: 5 / 8;
-    /* font-size: 80%; */
   }
 
   #toolbox {
-    /* grid-area: 6/1/7/1; */
     grid-column: 1;
     grid-row: 8;
   }
@@ -282,7 +269,8 @@ input[type='range'] {
     grid-column: 1;
     grid-row: 11;
   }
-}
+} */
+
 /* 
 @media only screen and (max-width: 565px) {
   #brand,
