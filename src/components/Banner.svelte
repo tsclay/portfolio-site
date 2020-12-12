@@ -1,5 +1,5 @@
 <script>
-  export let toggleDiv;
+  export let toggleDiv
 </script>
 
 <style type="text/scss">
@@ -51,7 +51,8 @@
   }
 
   // iPhone 7/8/10 - portrait orientation
-  @media only screen and (min-width: 414px) and (max-width: 736px) {
+  // 776
+  @media only screen and (min-width: 414px) and (max-width: 578px) {
     div.banner {
       img {
         left: -25rem;
