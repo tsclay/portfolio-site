@@ -8,9 +8,15 @@
     sineInOut,
     cubicInOut,
   } from "svelte/easing";
+  import { windowWidth, windowHeight } from "../stores.js";
 
   export let step;
   export let toggleDiv;
+  let width;
+  let height;
+
+  const unsubscribeWidth = windowWidth.subscribe((value) => (width = value));
+  const unsubscribeHeight = windowHeight.subscribe((value) => (height = value));
 
   let onLaptop = false;
   let laptopAnimateDone = false;
@@ -50,6 +56,9 @@
       },
     };
   };
+
+  let onDesktop;
+  $: onDesktop = width > 615 && height > 415;
 </script>
 
 <style type="text/scss">
@@ -58,26 +67,8 @@
     min-height: 775px;
     background: var(--dark);
     overflow: hidden;
-
-    svg {
-      position: absolute;
-      width: clamp(80px, 50%, 320px);
-      height: auto;
-    }
-    svg.front-end-graphic {
-      top: 1rem;
-      left: 1rem;
-    }
-    svg.backend-graphic {
-      top: 52%;
-      left: 50%;
-      transform: translate(-50%, 0%);
-    }
-    svg.db-graphic {
-      top: 4rem;
-      right: 1rem;
-    }
   }
+
   #bio-bits {
     top: 50%;
     left: 50%;
@@ -87,14 +78,14 @@
     display: flex;
     flex-flow: column;
     align-items: center;
-    // background: rgba(0, 0, 0, 0.5);
     color: var(--light);
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
 
     p {
-      font-size: 1.2em;
       font-family: "Anonymous Pro", monospace;
       width: 75%;
       text-align: center;
+      margin: 0.8rem 0;
       span.text-emphasis {
         color: yellow;
       }
@@ -108,49 +99,45 @@
   * {
     box-sizing: border-box;
   }
-  body {
-    color: #333;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-  }
   main {
     width: 100%;
     margin-top: 1rem;
     height: 100vh;
     overflow: visible;
     position: relative;
-    // background-color: #fff;
     width: 100%;
-    // box-shadow: 2px 2px 5px -2px rgba(0, 0, 0, 0.2);
     padding: 1em;
+
+    section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+    }
+
+    section.flex-column {
+      flex-direction: column;
+      align-items: initial;
+    }
+    section.display-block {
+      display: block;
+    }
   }
-  main section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    text-align: center;
-  }
-  main section.flex-column {
-    flex-direction: column;
-    align-items: initial;
-  }
-  main section.display-block {
-    display: block;
-  }
+
   .transition-all {
     transition: all 1.5s cubic-bezier(0.29, 1.08, 1, 1);
   }
   #default-example {
     position: relative;
+    margin-top: 14rem;
   }
   #laptop-lid {
     /* for mobile */
     /* width: 365px;
   height: 265px; */
-    width: 400px;
-    height: 300px;
+    width: 500px;
+    height: 400px;
     transform-style: preserve-3d;
     transform-origin: bottom;
   }
@@ -216,27 +203,6 @@
   .toggle-rotate {
     transform: rotate3d(1, 0, 0, 45deg);
   }
-  .laptop-bottom {
-    /* only works in firefox and chrome */
-    /* background: rgb(163, 163, 163);
-  height: 12px;
-  border-radius: 1px 1px 4px 4px;
-  position: absolute;
-  bottom: 0;
-  transform: translate(-50%, 0%) translateZ(50px);
-  left: 50%;
-  width: 538px; */
-
-    /* works on safari and firefox */
-    background: rgb(163, 163, 163);
-    height: 12px;
-    border-radius: 1px 1px 4px 4px;
-    position: absolute;
-    bottom: 0;
-    transform: translate(-50%, -277%) translateZ(281px);
-    left: 50%;
-    width: 410px;
-  }
 
   #laptop-base {
     width: 400px;
@@ -295,7 +261,6 @@
     perspective: 2000px;
     // animation: forwards 2s linear move3d;
     transform-style: preserve-3d;
-    margin-top: 14rem;
   }
 
   .notch {
@@ -309,40 +274,21 @@
     border-radius: 2px 2px 4px 4px;
   }
 
-  #bio-bits {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    color: var(--light);
-    width: 100%;
-    height: auto;
-    font-size: 0.9rem;
-  }
-
-  #bio-bits p {
-    font-family: "Anonymous Pro", monospace;
-    width: 75%;
-    text-align: center;
-    margin: 0.8rem 0;
-  }
-
-  #bio-bits span.text-emphasis {
-    color: yellow;
-  }
-
-  #bio-bits span.tech-stack {
-    color: #00ccff;
-  }
-
-  @keyframes move3d {
-    0% {
-      transform: rotateX(-90deg) rotateY(180deg);
-    }
-    100% {
-      transform: rotateX(0deg) rotateY(0deg);
-    }
-  }
+  // @keyframes move3d {
+  //   0% {
+  //     transform: rotateX(-90deg) rotateY(180deg);
+  //   }
+  //   100% {
+  //     transform: rotateX(0deg) rotateY(0deg);
+  //   }
+  // }
 </style>
+
+<svelte:window
+  on:resize={() => {
+    windowWidth.set(window.innerWidth);
+    windowHeight.set(window.innerHeight);
+  }} />
 
 <div id="profile">
   <button
@@ -359,10 +305,13 @@
           <div
             id="laptop-lid"
             class="transition-all"
-            style={laptopAnimateDone ? 'transform: rotate3d(1,0,0,0deg)' : 'transform: rotate3d(1,0,0,-90deg)'}>
+            style={`${laptopAnimateDone ? 'transform: rotate3d(1,0,0,0deg)' : 'transform: rotate3d(1,0,0,-90deg)'}; width: ${onDesktop ? 500 : 365}px; height: ${onDesktop ? 400 : 265}px`}>
             <div class="face lid-front">
               <div class="lid-screen">
-                <div id="bio-bits" class="brand-statement">
+                <div
+                  id="bio-bits"
+                  style={`font-size: ${onDesktop ? 1.2 : 0.9}rem`}
+                  class="brand-statement">
                   <p>
                     A musician turned
                     <span class="text-emphasis">full-stack software developer</span>.
@@ -404,37 +353,21 @@
           <div
             id="laptop-lid"
             class="transition-all"
-            style="transform: rotate3d(1, 0, 0, 90deg); transform-origin: top;">
-            <div class="face lid-front" style="transform: translateZ(2px);">
-              <div class="lid-screen">
-                <div id="bio-bits" class="brand-statement">
-                  <p>
-                    A musician turned
-                    <span class="text-emphasis">full-stack software developer</span>.
-                  </p>
-                  <p>
-                    Creating expressive, meaningful user experiences using
-                    <span class="tech-stack">Javascript</span>,
-                    <span class="tech-stack">Node</span>,
-                    <span class="tech-stack">React</span>,
-                    <span class="tech-stack">Svelte</span>,
-                    <span class="tech-stack">PHP</span>, and
-                    <span class="tech-stack">Python</span>.
-                  </p>
-                  <p>
-                    A
-                    <span class="text-emphasis">conductor</span>
-                    for software
-                    <span class="text-emphasis">solutions</span>.
-                  </p>
-                  <p>
-                    Debugging
-                    <span class="text-emphasis">code</span>
-                    in order to debug
-                    <span class="text-emphasis">life</span>.
-                  </p>
-                </div>
-              </div>
+            style={`transform: rotate3d(1, 0, 0, 90deg); transform-origin: top; width: ${onDesktop ? 500 : 365}px; height: ${onDesktop ? 400 : 265}px;`}>
+            <div
+              class="face lid-front"
+              style="transform: translateZ(2px); flex-flow: column;
+            justify-content: space-around;">
+              <div
+                style="width: 95%;
+              height: 50%;
+              background: gray;
+              border-radius: 2px;" />
+              <div
+                style="width: 30%;
+              height: 100px;
+              background: gray;
+              border-radius: 2px;" />
             </div>
             <div
               class="face lid-back"
