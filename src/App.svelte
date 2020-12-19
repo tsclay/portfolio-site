@@ -56,8 +56,7 @@
 <div class={hasLoaded ? 'container grid' : 'hidden'}>
   <Banner />
   <Brand {laptopShouldEnter} />
-  <!--<Toolbox />
-  <Logo /> -->
+  <!--<Toolbox /> -->
   <Projects {assets} />
   <!--<Contact {secret} />
   <Copyright /> -->
