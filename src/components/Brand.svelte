@@ -6,20 +6,19 @@
     cubicIn,
     elasticIn,
     sineInOut,
-    cubicInOut,
-  } from "svelte/easing";
-  import { windowWidth, windowHeight } from "../stores.js";
+    cubicInOut
+  } from 'svelte/easing'
+  import { windowWidth, windowHeight } from '../stores.js'
 
-  export let step;
-  export let toggleDiv;
-  let width;
-  let height;
+  export let laptopShouldEnter
 
-  const unsubscribeWidth = windowWidth.subscribe((value) => (width = value));
-  const unsubscribeHeight = windowHeight.subscribe((value) => (height = value));
+  let width
+  let height
 
-  let onLaptop = false;
-  let laptopAnimateDone = false;
+  const unsubscribeWidth = windowWidth.subscribe((value) => (width = value))
+  const unsubscribeHeight = windowHeight.subscribe((value) => (height = value))
+
+  let laptopAnimateDone = false
 
   // The div is in ON position when its rotateY deg is 0
   // The div is in OFF position when rotateY is 180 or -180
@@ -29,42 +28,43 @@
     return {
       duration,
       css: (t) => {
-        const eased = cubicInOut(t);
-        const test = (eased - 1) * 180;
+        const eased = cubicInOut(t)
+        const test = (eased - 1) * 180
         // 				if (step > 0) console.log('green', test)
         // 				if (step === 0) console.log('red', test)
 
         return `transform: rotateY(${(eased - 1) * 180}deg);
     transform-style: preserve-3d;
     -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;`;
-      },
-    };
-  };
+    backface-visibility: hidden;`
+      }
+    }
+  }
 
   const animateLaptop = (node, { duration }) => {
     return {
       duration,
       css: (t, u) => {
-        const eased = cubicInOut(u);
-        return `transform: rotateX(-${u * 90}deg) rotateY(${u * 180}deg);`;
+        const eased = cubicInOut(u)
+        return `transform: rotateX(-${u * 90}deg) rotateY(${u * 180}deg);`
       },
       tick: (t, u) => {
         if (u < 0.25) {
-          laptopAnimateDone = true;
+          laptopAnimateDone = true
         }
-      },
-    };
-  };
+      }
+    }
+  }
 
-  let onDesktop;
-  $: onDesktop = width > 615 && height > 415;
+  let onDesktop
+  $: onDesktop = width > 615 && height > 415
 </script>
 
 <style type="text/scss">
   #profile {
     position: relative;
-    min-height: 775px;
+    height: 100vh;
+    // min-height: 775px;
     background: var(--dark);
     overflow: hidden;
   }
@@ -82,7 +82,7 @@
     font-size: clamp(0.9rem, 2vw, 1.2rem);
 
     p {
-      font-family: "Anonymous Pro", monospace;
+      font-family: 'Anonymous Pro', monospace;
       width: 75%;
       text-align: center;
       margin: 0.8rem 0;
@@ -286,8 +286,8 @@
 
 <svelte:window
   on:resize={() => {
-    windowWidth.set(window.innerWidth);
-    windowHeight.set(window.innerHeight);
+    windowWidth.set(window.innerWidth)
+    windowHeight.set(window.innerHeight)
   }} />
 
 <div id="profile">
@@ -295,12 +295,12 @@
     style="position: absolute; top: 0; left: 0; z-index: 99;"
     type="click"
     on:click={() => {
-      onLaptop = !onLaptop;
-      laptopAnimateDone = false;
+      laptopShouldEnter = !laptopShouldEnter
+      laptopAnimateDone = false
     }}>Toggle</button>
   <main>
     <section id="default-example" class="default-example">
-      {#if onLaptop}
+      {#if laptopShouldEnter}
         <div in:animateLaptop={{ duration: 2000 }} class="laptop move-laptop">
           <div
             id="laptop-lid"

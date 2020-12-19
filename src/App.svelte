@@ -1,45 +1,61 @@
 <script>
-  import Banner from "./components/Banner.svelte";
-  import Toolbox from "./components/Toolbox.svelte";
-  import Brand from "./components/Brand.svelte";
-  import Projects from "./components/Projects.svelte";
-  import Contact from "./components/Contact.svelte";
-  import Copyright from "./components/Copyright.svelte";
-  // import Logo from "./components/Logo.svelte";
-  import axios from "axios";
+  import Banner from './components/Banner.svelte'
+  import Toolbox from './components/Toolbox.svelte'
+  import Brand from './components/Brand.svelte'
+  import Projects from './components/Projects.svelte'
+  import Contact from './components/Contact.svelte'
+  import Copyright from './components/Copyright.svelte'
 
-  import { onMount } from "svelte";
-  let hasLoaded = false;
-  $: assets = [];
-  let secret = "";
+  import { onMount } from 'svelte'
+  let hasLoaded = false
+  $: assets = []
+  let secret = ''
+  let laptopShouldEnter = false
+  let target
+
+  let options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: [0, 0.25, 0.5, 0.75, 1.0]
+  }
+
+  let callback = (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.intersectionRatio >= 0.5) {
+        laptopShouldEnter = true
+        observer.unobserve(target)
+      }
+    })
+  }
+
+  let observer = new IntersectionObserver(callback, options)
 
   onMount(async () => {
     try {
-      const response = await axios.get(
-        "https://timclaydev-assets.herokuapp.com/assets"
-      );
-      // console.log(response);
-      assets = response.data[0];
-      console.log("main on mount ", assets);
-      secret = response.data[1];
-      hasLoaded = true;
-      console.log("App has mounted: ", hasLoaded);
+      const response = await fetch(
+        'https://timclaydev-assets.herokuapp.com/assets'
+      ).then((r) => r.json())
+      ;[assets, secret] = response
+      hasLoaded = true
     } catch (error) {
-      console.log("this is the error", error);
+      console.log('this is the error', error)
     }
-  });
 
-  let step = 0;
-  const toggleDiv = () => {
-    step = (step + 1) % 2;
-  };
+    target = document.querySelector('#profile')
+    observer.observe(target)
+  })
 
-  console.log(hasLoaded);
+  // let step = 0;
+  // const toggleDiv = () => {
+  //   step = (step + 1) % 2;
+  // };
+
+  console.log(hasLoaded)
 </script>
 
 <div class={hasLoaded ? 'container grid' : 'hidden'}>
-  <Banner {toggleDiv} />
-  <Brand {step} {toggleDiv} />
+  <Banner />
+  <Brand {laptopShouldEnter} />
   <!--<Toolbox />
   <Logo /> -->
   <Projects {assets} />
