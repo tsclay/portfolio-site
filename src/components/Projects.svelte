@@ -197,6 +197,7 @@
       // width: clamp(365px, 100%, 375px);
       height: 400px;
       width: 250px;
+      margin: 1rem 0;
     }
     div.child.single-view {
       position: absolute;
