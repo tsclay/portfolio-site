@@ -5,8 +5,15 @@
   import Projects from './components/Projects.svelte'
   import Contact from './components/Contact.svelte'
   import Copyright from './components/Copyright.svelte'
-
   import { onMount } from 'svelte'
+  import { windowWidth, windowHeight } from './stores.js'
+
+  let width
+  let height
+
+  const unsubscribeWidth = windowWidth.subscribe((value) => (width = value))
+  const unsubscribeHeight = windowHeight.subscribe((value) => (height = value))
+
   let hasLoaded = false
   $: assets = []
   let secret = ''
@@ -53,11 +60,16 @@
   console.log(hasLoaded)
 </script>
 
+<svelte:window
+  on:resize={() => {
+    windowWidth.set(window.innerWidth)
+    windowHeight.set(window.innerHeight)
+  }} />
+
 <div id="root" class={hasLoaded ? 'container grid' : 'hidden'}>
   <Banner />
-  <Brand {laptopShouldEnter} />
-  <!--<Toolbox /> -->
-  <Projects {assets} />
+  <Brand {laptopShouldEnter} {width} {height} />
+  <Projects {assets} {width} {height} />
   <Contact {secret} />
   <Copyright />
 </div>

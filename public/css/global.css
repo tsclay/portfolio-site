@@ -1,7 +1,9 @@
 :root {
   --primary: #9900ff;
+  --primaryHover: #580093;
   --orange: #fc7844;
   --blue: #00ccff;
+  --babyBlue: #b7ddff;
   --visitedBlue: #00708b;
   --light: #c4c4c4;
   --dark: #303030;
@@ -78,12 +80,15 @@ input[type='range'] {
 }
 
 .btn-primary:hover {
-  color: var(--blue);
-  background-color: var(--light);
+  background-color: var(--primaryHover);
   transition: color 0.2s linear;
   transition: background-color 0.2s linear;
 }
 
 #root > div {
   height: 100vh;
+}
+
+#root > div:not(#copyright-notices):not(div.banner) {
+  min-height: 665px;
 }

@@ -9,7 +9,7 @@
     PauseIcon
   } from 'svelte-feather-icons'
 
-  export let assets
+  export let assets, width
 
   let duration = 8000
   let timer = null
@@ -41,7 +41,6 @@
     console.log('prev')
     if (isPlaying) stop()
     flowDir = -500
-    // console.log("inversed", inverseFlowDir);
     step = (step - 1 + len) % len
     console.log('prev:', step)
     return flowDir
@@ -108,14 +107,6 @@
     }
   }
 
-  const showControls = () => {
-    hide = false
-  }
-
-  const hideControls = () => {
-    hide = true
-  }
-
   //   function fly(node, { delay = 0, duration = 400, easing: easing$1 = easing.cubicOut, x = 0, y = 0, opacity = 0 }) {
   //     const style = getComputedStyle(node);
   //     const target_opacity = +style.opacity;
@@ -134,9 +125,15 @@
 
 <style type="text/scss">
   #project-carousel {
+    background: #b7ddff;
+    display: flex;
+    padding: 2rem;
+    box-sizing: border-box;
+    align-items: center;
+
     position: relative;
-    background: var(--light);
-    min-height: 665px;
+    // min-height: 665px;
+    height: 100%;
     overflow: hidden;
   }
   p {
@@ -160,13 +157,14 @@
     width: 50%;
     justify-content: center;
     color: var(--dark);
+    font-size: 1.25rem;
   }
 
   #link-details {
     color: var(--dark);
     padding: 8px;
     box-sizing: border-box;
-    height: 40%;
+    height: 55%;
     background: whitesmoke;
     position: relative;
     border-top: 0.25px solid black;
@@ -177,20 +175,30 @@
   }
 
   div.link-image {
-    height: 50%;
+    height: 35%;
     border-bottom: 0.25px solid black;
   }
 
   div.project-card-display {
+    width: 100%;
     overflow: hidden;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
     > div {
       border-radius: 8px;
       height: 575px;
     }
     div.child {
       overflow: hidden;
-      box-shadow: 0px 0px 10px 3px #303030;
-      width: clamp(365px, 100%, 375px);
+      // box-shadow: 0px 0px 10px 3px #303030;
+      // width: clamp(365px, 100%, 375px);
+      height: 400px;
+      width: 250px;
+    }
+    div.child.single-view {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -204,6 +212,7 @@
     align-items: stretch;
     justify-content: center;
     height: 10%;
+    font-size: 0.85rem;
   }
   img {
     height: 100%;
@@ -219,6 +228,7 @@
 
   div.tags-and-description {
     margin-top: 2rem;
+    font-size: 0.85rem;
   }
   #tags {
     display: flex;
@@ -282,16 +292,12 @@
 </style>
 
 <!-- style="height: 400px;" -->
+
 <div id="project-carousel" class="h-100">
   <div class="project-card-display">
-    {#each assets as asset, i}
-      {#if step === i}
-        <!-- {#if assets.length > 0} -->
-        <div
-          class="child w-80 h-90"
-          in:goIn={{ duration: 400 }}
-          out:goOut={{ duration: 400 }}
-          id="project-{i}">
+    {#if width > 600}
+      {#each assets as asset, i}
+        <div class="child" id="project-{i}">
           <div class="link-image">
             <img src={asset['image']} alt={asset['title']} />
           </div>
@@ -303,15 +309,6 @@
                   <span style="margin: 0 0 2px 2px;">{tag}</span>
                 {/each}
               </div>
-              <!-- <div
-                id="title-and-tags"
-                class="flex flex-column flex-justify-start mb-1">
-                <div id="tags">
-                  {#each asset.tags as tag, j}
-                    <span style="margin: 0 0 2px 2px;">{tag}</span>
-                  {/each}
-                </div>
-              </div> -->
               <p>{asset.description}</p>
             </div>
           </div>
@@ -331,27 +328,113 @@
               <i class="fas fa-video" />
               Demo
             </a>
-            <!-- <form action={asset.url} target="_blank" >
-              <button class="btn-primary" type="submit">
-                <i class="far fa-eye" />
-                Site
-              </button>
-            </form> -->
-            <!-- <form action={asset.github} target="_blank">
-              <button class="btn-primary" type="submit">
-                <i class="fas fa-code" />
-                Code
-              </button>
-            </form> -->
-            <!-- <form action={asset.demo} target="_blank">
-              <button class="btn-primary" type="submit">
-                <i class="fas fa-video" />
-                Demo
-              </button>
-            </form> -->
           </div>
         </div>
-        <!-- {/if} -->
+      {/each}
+    {:else}
+      {#each assets as asset, i}
+        {#if step === i}
+          <div
+            class="child single-view"
+            in:goIn={{ duration: 400 }}
+            out:goOut={{ duration: 400 }}
+            id="project-{i}">
+            <div class="link-image">
+              <img src={asset['image']} alt={asset['title']} />
+            </div>
+            <div id="link-details">
+              <h1>{asset.title}</h1>
+              <div class="tags-and-description">
+                <div id="tags">
+                  {#each asset.tags as tag, j}
+                    <span style="margin: 0 0 2px 2px;">{tag}</span>
+                  {/each}
+                </div>
+                <p>{asset.description}</p>
+              </div>
+            </div>
+            <div class="project-card-actions">
+              <a href={asset.url} target="_blank" class="btn-primary card-link">
+                <i class="far fa-eye" />
+                Site
+              </a>
+              <a
+                href={asset.github}
+                target="_blank"
+                class="btn-primary card-link">
+                <i class="fas fa-code" />
+                Code
+              </a>
+              <a
+                href={asset.demo}
+                target="_blank"
+                class="btn-primary card-link">
+                <i class="fas fa-video" />
+                Demo
+              </a>
+            </div>
+          </div>
+        {/if}
+      {/each}
+      <button
+        id="backward"
+        class="btn-play pos-absolute"
+        on:click={prev}
+        type="button">
+        <SkipBackIcon size="1.0x" />
+      </button>
+      <button
+        id="forward"
+        class="btn-play pos-absolute"
+        on:click={next}
+        type="button">
+        <SkipForwardIcon size="1.0x" />
+      </button>
+    {/if}
+  </div>
+</div>
+
+<!-- <div id="project-carousel" class="h-100">
+  <div class="project-card-display">
+    {#each assets as asset, i}
+      {#if step === i}
+        <div
+          class="child"
+          in:goIn={{ duration: 400 }}
+          out:goOut={{ duration: 400 }}
+          id="project-{i}">
+          <div class="link-image">
+            <img src={asset['image']} alt={asset['title']} />
+          </div>
+          <div id="link-details">
+            <h1>{asset.title}</h1>
+            <div class="tags-and-description">
+              <div id="tags">
+                {#each asset.tags as tag, j}
+                  <span style="margin: 0 0 2px 2px;">{tag}</span>
+                {/each}
+              </div>
+              <p>{asset.description}</p>
+            </div>
+          </div>
+          <div class="project-card-actions">
+            <a href={asset.url} target="_blank" class="btn-primary card-link">
+              <i class="far fa-eye" />
+              Site
+            </a>
+            <a
+              href={asset.github}
+              target="_blank"
+              class="btn-primary card-link">
+              <i class="fas fa-code" />
+              Code
+            </a>
+            <a href={asset.demo} target="_blank" class="btn-primary card-link">
+              <i class="fas fa-video" />
+              Demo
+            </a>
+          </div>
+        </div>
       {/if}
     {/each}
     <button
@@ -368,24 +451,5 @@
       type="button">
       <SkipForwardIcon size="1.0x" />
     </button>
-    {#if !hide}
-      <div
-        id="controls"
-        transition:fade={{ duration: 300 }}
-        class="pos-absolute w-100 flex-row flex-align-center flex-justify-center">
-        <button on:click={prev} type="button">
-          <SkipBackIcon size="1.0x" />
-        </button>
-        <button on:click={next} type="button">
-          <SkipForwardIcon size="1.0x" />
-        </button>
-        <button on:click={stop} type="button">
-          <PauseIcon size="1.0x" />
-        </button>
-        <button on:click={play} type="button">
-          <PlayIcon size="1.0x" />
-        </button>
-      </div>
-    {/if}
   </div>
-</div>
+</div> -->

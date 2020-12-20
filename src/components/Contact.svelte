@@ -12,6 +12,7 @@
 
   let step = 0
   let timer
+  let clientWantsForm = false
   export let secret
   let formData = { name: '', email: '', subject: '', message: '', test: '' }
   $: statusMsg = ''
@@ -28,14 +29,24 @@
     step = (step + 1) % 2
   }
 
-  const flip = (node, { duration }) => {
+  // const flip = (node, { duration }) => {
+  //   return {
+  //     duration,
+  //     css: (t) => {
+  //       const eased = cubicInOut(t)
+  //       const test = (eased - 1) * 180
+
+  //       return `transform: rotateY(${(eased - 1) * 180}deg);`
+  //     }
+  //   }
+  // }
+
+  const fallDown = (node, { duration }) => {
     return {
       duration,
       css: (t) => {
         const eased = cubicInOut(t)
-        const test = (eased - 1) * 180
-
-        return `transform: rotateY(${(eased - 1) * 180}deg);`
+        return `max-height: ${eased * 100}%;`
       }
     }
   }
@@ -79,6 +90,7 @@
     justify-content: space-between;
     font-size: 1em;
     background: var(--visitedBlue);
+    position: relative;
   }
 
   p {
@@ -87,38 +99,32 @@
     text-transform: uppercase;
   }
 
-  .card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-  }
-
   .card-front {
-    img {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .card-front,
-  .card-back {
-    position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
-    transform-style: preserve-3d;
+    display: flex;
+    align-items: center;
   }
 
   .card-back {
-    background: rgb(48, 48, 48);
+    overflow: hidden;
+    background: rgba(48, 48, 48, 0.75);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   input[name='validator'] {
     width: 48%;
+  }
+
+  input[name='subject'] {
+    width: 100%;
   }
 
   input[name='validator'] {
@@ -127,7 +133,7 @@
 
   input[name='name'],
   input[name='email'] {
-    width: 46%;
+    width: 50%;
   }
 
   #validation > p,
@@ -149,41 +155,30 @@
 
   #connect,
   #contact-form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
     height: 50%;
-    transform: translate(-50%, -50%);
-    backface-visibility: hidden;
   }
 
   #connect > .flavor-text {
     font-size: 1.5em;
     padding: 0 4px 0 4px;
     font-family: 'Anonymous Pro', monospace;
-    color: rgb(48, 48, 48);
-    background-color: rgb(196, 196, 196);
+    color: var(--dark);
+    background-color: var(--light);
     text-transform: uppercase;
-    box-shadow: 0px 0px 20px 10px rgb(48, 48, 48);
+    box-shadow: 0px 0px 20px 10px var(--dark);
   }
 
   #flip-trigger {
-    color: rgb(48, 48, 48);
-    background-color: rgb(196, 196, 196);
+    border-radius: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    font-size: 2rem;
     padding: 8px;
     text-transform: uppercase;
     font-family: 'Anonymous Pro', monospace;
-    font-size: 4em;
-    box-shadow: 0px 0px 20px 10px rgb(48, 48, 48);
-    cursor: pointer;
-    transition: color 0.2s linear;
-    transition: background-color 0.2s linear;
-  }
-
-  #flip-trigger:hover {
-    text-decoration: underline;
-    background-color: rgb(48, 48, 48);
-    color: rgb(196, 196, 196);
+    box-shadow: 0px 0px 20px 10px var(--dark);
   }
 
   #msg-success,
@@ -214,7 +209,7 @@
   }
 
   .btn-primary[type='submit']:disabled {
-    background-color: rgb(196, 196, 196);
+    background-color: var(--light);
   }
 
   #name-email-fields,
@@ -233,17 +228,136 @@
 </style>
 
 <div id="footer" class="h-100">
+  <div class="card-front">
+    <div
+      id="connect"
+      class="w-100 h-60 flex flex-column flex-justify-between
+          flex-align-center">
+      <span class="flavor-text">Have a project idea in mind?</span>
+      <span class="flavor-text">Want to collaborate?</span>
+      <button
+        id="flip-trigger"
+        class="btn-primary"
+        type="click"
+        on:click={() => (clientWantsForm = true)}>Let's connect.</button>
+    </div>
+  </div>
+  {#if clientWantsForm}
+    <div
+      on:click={(e) => {
+        if (e.target.closest('#direct-form')) return
+        clientWantsForm = false
+      }}
+      class="card-back"
+      transition:fallDown={{ duration: 800 }}>
+      <div id="contact-form" class="w-100 flex flex-row flex-justify-center">
+        <form on:submit={handleForm} id="direct-form" class="w-80 h-80">
+          <div
+            id="name-email-fields"
+            class="flex flex-row flex-justify-between w-100 ">
+            <input
+              on:input={(e) => {
+                formData.name = e.target.value
+              }}
+              required
+              type="text"
+              name="name"
+              placeholder="Name (required)" />
+            <input
+              on:input={(e) => {
+                formData.email = e.target.value
+              }}
+              required
+              name="email"
+              type="email"
+              placeholder="Email (required)" />
+          </div>
+          <div>
+            <input
+              on:input={(e) => {
+                formData.subject = e.target.value
+              }}
+              class="w-100"
+              type="text"
+              name="subject"
+              placeholder="Subject" />
+            <textarea
+              on:input={(e) => {
+                formData.message = e.target.value
+              }}
+              required
+              class="textarea-fixed w-100 "
+              name="message"
+              id="message"
+              cols="50"
+              rows="7"
+              placeholder="Message (required)" />
+          </div>
+          <div class="flex flex-column flex-justify-between flex-align-center">
+            <div
+              id="validation"
+              class="flex flex-row flex-justify-between flex-align-center
+                w-100 ">
+              <p
+                id="validation-text"
+                class="flex flex-row flex-justify-between">
+                <span class="text-align-center">Code</span>
+                <span>{secret}</span>
+              </p>
+              <input
+                on:input={(e) => {
+                  formData.test = e.target.value
+                }}
+                class="ml-1"
+                required
+                type="text"
+                name="validator"
+                id="validator"
+                placeholder="Code (required)" />
+            </div>
+            <button
+              class="btn-primary w-100 mb-1"
+              type="submit"
+              disabled={isLoading === true ? true : false}>
+              {#if isLoading === false}
+                SEND
+              {:else}
+                <img
+                  class="loading-spinner"
+                  src="../../img/bitmap.png"
+                  alt="Sending..." />
+              {/if}
+            </button>
+
+            {#if statusMsg !== ''}
+              <div
+                class="w-100 mb-1 flex flex-row flex-align-center"
+                id={statusMsg === 'Message sent!' ? 'msg-success' : 'msg-fail'}>
+                <span id="message-text">{statusMsg}</span>
+              </div>
+            {/if}
+          </div>
+        </form>
+      </div>
+    </div>
+  {/if}
+</div>
+
+<!-- <div id="footer" class="h-100">
   <div class="card-inner">
     {#if step === 0}
       <div transition:flip={{ duration: 800 }} class="card-front">
-        <!-- <img class="img-fill" src="/img/connect.jpeg" alt="" /> -->
         <div
           id="connect"
           class="w-100 h-60 flex flex-column flex-justify-between
           flex-align-center">
           <span class="flavor-text">Have a project idea in mind?</span>
           <span class="flavor-text">Want to collaborate?</span>
-          <span on:click={toggleDiv} id="flip-trigger">Let's connect.</span>
+          <button
+            id="flip-trigger"
+            class="btn-primary"
+            type="click"
+            on:click={toggleDiv}>Let's connect.</button>
         </div>
       </div>
     {:else}
@@ -251,7 +365,6 @@
         on:click={toggleDiv}
         class="card-back"
         transition:flip={{ duration: 800 }}>
-        <!-- <img class="img-fill" src="/img/connect.jpeg" alt="" /> -->
         <div id="contact-form" class="w-100 flex flex-row flex-justify-center">
           <form on:submit={handleForm} id="direct-form" class="w-80 h-80">
             <div
@@ -345,4 +458,4 @@
       </div>
     {/if}
   </div>
-</div>
+</div> -->

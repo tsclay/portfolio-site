@@ -8,15 +8,15 @@
     sineInOut,
     cubicInOut
   } from 'svelte/easing'
-  import { windowWidth, windowHeight } from '../stores.js'
+  // import { windowWidth, windowHeight } from '../stores.js'
 
   export let laptopShouldEnter
 
-  let width
-  let height
+  export let width
+  export let height
 
-  const unsubscribeWidth = windowWidth.subscribe((value) => (width = value))
-  const unsubscribeHeight = windowHeight.subscribe((value) => (height = value))
+  // const unsubscribeWidth = windowWidth.subscribe((value) => (width = value))
+  // const unsubscribeHeight = windowHeight.subscribe((value) => (height = value))
 
   let laptopAnimateDone = false
 
@@ -42,11 +42,15 @@
   }
 
   const animateLaptop = (node, { duration }) => {
+    const style = getComputedStyle(node)
+    const transform = style.transform === 'none' ? '' : style.transform
     return {
       duration,
       css: (t, u) => {
         const eased = cubicInOut(u)
-        return `transform: rotateX(-${u * 90}deg) rotateY(${u * 180}deg);`
+        return `transform: ${transform} rotateX(-${u * 90}deg) rotateY(${
+          u * 180
+        }deg);`
       },
       tick: (t, u) => {
         if (u < 0.25) {
@@ -64,7 +68,7 @@
   #profile {
     position: relative;
     height: 100vh;
-    // min-height: 775px;
+    min-height: 800px;
     background: var(--dark);
     overflow: hidden;
   }
@@ -101,12 +105,8 @@
   }
   main {
     width: 100%;
-    margin-top: 1rem;
-    height: 100vh;
+    height: 100%;
     overflow: visible;
-    position: relative;
-    width: 100%;
-    padding: 1em;
 
     section {
       display: flex;
@@ -130,12 +130,8 @@
   }
   #default-example {
     position: relative;
-    margin-top: 14rem;
   }
   #laptop-lid {
-    /* for mobile */
-    /* width: 365px;
-  height: 265px; */
     width: 500px;
     height: 400px;
     transform-style: preserve-3d;
@@ -259,8 +255,10 @@
 
   .laptop {
     perspective: 2000px;
-    // animation: forwards 2s linear move3d;
     transform-style: preserve-3d;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -25%);
   }
 
   .notch {
@@ -273,22 +271,7 @@
     height: 4px;
     border-radius: 2px 2px 4px 4px;
   }
-
-  // @keyframes move3d {
-  //   0% {
-  //     transform: rotateX(-90deg) rotateY(180deg);
-  //   }
-  //   100% {
-  //     transform: rotateX(0deg) rotateY(0deg);
-  //   }
-  // }
 </style>
-
-<svelte:window
-  on:resize={() => {
-    windowWidth.set(window.innerWidth)
-    windowHeight.set(window.innerHeight)
-  }} />
 
 <div id="profile">
   <button
