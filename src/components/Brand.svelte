@@ -48,7 +48,7 @@
       duration,
       css: (t, u) => {
         const eased = cubicInOut(u)
-        return `transform: ${transform} rotateX(-${u * 90}deg) rotateY(${
+        return `transform: ${transform} rotateX(${u * 270}deg) rotateY(${
           u * 180
         }deg);`
       },
