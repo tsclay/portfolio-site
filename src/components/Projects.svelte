@@ -1,78 +1,78 @@
 <script>
-  import { onMount } from "svelte";
-  import { fly, fade } from "svelte/transition";
-  import { linear, cubicOut } from "svelte/easing";
+  import { onMount } from 'svelte'
+  import { fly, fade } from 'svelte/transition'
+  import { linear, cubicOut } from 'svelte/easing'
   import {
     SkipForwardIcon,
     SkipBackIcon,
     PlayIcon,
-    PauseIcon,
-  } from "svelte-feather-icons";
+    PauseIcon
+  } from 'svelte-feather-icons'
 
-  export let assets;
+  export let assets
 
-  let duration = 8000;
-  let timer = null;
-  let isPlaying = false;
-  let step = 0;
-  let len = 0;
-  let hide = true;
-  let flowDir = 500;
-  let inverseFlowDir = flowDir * -1;
-  $: inverseFlowDir = flowDir * -1;
-  $: len = assets.length;
+  let duration = 8000
+  let timer = null
+  let isPlaying = false
+  let step = 0
+  let len = 0
+  let hide = true
+  let flowDir = 500
+  let inverseFlowDir = flowDir * -1
+  $: inverseFlowDir = flowDir * -1
+  $: len = assets.length
 
   onMount(() => {
-    console.log("here are the assets in projects ", assets);
-    play();
-    console.log("the projects mount assets ", assets);
-  });
+    console.log('here are the assets in projects ', assets)
+    play()
+    console.log('the projects mount assets ', assets)
+  })
 
   const next = () => {
-    console.log("next");
-    if (isPlaying) stop();
-    flowDir = 500;
-    step = (step + 1) % len;
-    console.log("next:", step);
-    return flowDir;
-  };
+    console.log('next')
+    if (isPlaying) stop()
+    flowDir = 500
+    step = (step + 1) % len
+    console.log('next:', step)
+    return flowDir
+  }
 
   const prev = () => {
-    console.log("prev");
-    if (isPlaying) stop();
-    flowDir = -500;
+    console.log('prev')
+    if (isPlaying) stop()
+    flowDir = -500
     // console.log("inversed", inverseFlowDir);
-    step = (step - 1 + len) % len;
-    console.log("prev:", step);
-    return flowDir;
-  };
+    step = (step - 1 + len) % len
+    console.log('prev:', step)
+    return flowDir
+  }
 
   // Start carousel reel
   const play = () => {
-    if (isPlaying) return;
-    isPlaying = true;
-    flowDir = 200;
+    if (isPlaying) return
+    isPlaying = true
+    flowDir = 200
     timer = setInterval(() => {
-      step = (step + 1) % len;
-    }, duration);
-    console.log("playing!");
-  };
+      step = (step + 1) % len
+    }, duration)
+    console.log('playing!')
+  }
 
   const stop = () => {
-    isPlaying = false;
-    console.log("stop!");
-    return clearTimeout(timer);
-  };
+    isPlaying = false
+    console.log('stop!')
+    return clearTimeout(timer)
+  }
 
   const goOut = (
     node,
     { duration, opacity = 0, y = 0, easing: easing$1 = cubicOut }
   ) => {
-    const x = inverseFlowDir;
-    const style = getComputedStyle(node);
-    const target_opacity = +style.opacity;
-    const transform = style.transform === "none" ? "" : style.transform;
-    const od = target_opacity * (1 - opacity);
+    const x = inverseFlowDir
+    const style = getComputedStyle(node)
+    const target_opacity = +style.opacity
+    const transform = style.transform === 'none' ? '' : style.transform
+    const od = target_opacity * (1 - opacity)
     return {
       duration,
       easing: easing$1,
@@ -81,20 +81,20 @@
         return `transform: ${transform} translate(${(1 - t) * x}px, ${
           (1 - t) * y
         }px);
-        opacity: ${target_opacity - od * u}`;
-      },
-    };
-  };
+        opacity: ${target_opacity - od * u}`
+      }
+    }
+  }
 
   const goIn = (
     node,
     { duration, opacity = 0, y = 0, easing: easing$1 = cubicOut }
   ) => {
-    const x = flowDir;
-    const style = getComputedStyle(node);
-    const target_opacity = +style.opacity;
-    const transform = style.transform === "none" ? "" : style.transform;
-    const od = target_opacity * (1 - opacity);
+    const x = flowDir
+    const style = getComputedStyle(node)
+    const target_opacity = +style.opacity
+    const transform = style.transform === 'none' ? '' : style.transform
+    const od = target_opacity * (1 - opacity)
     return {
       duration,
       easing: easing$1,
@@ -103,18 +103,18 @@
         return `transform: ${transform} translate(${(1 - t) * x}px, ${
           (1 - t) * y
         }px);
-        opacity: ${target_opacity - od * u}`;
-      },
-    };
-  };
+        opacity: ${target_opacity - od * u}`
+      }
+    }
+  }
 
   const showControls = () => {
-    hide = false;
-  };
+    hide = false
+  }
 
   const hideControls = () => {
-    hide = true;
-  };
+    hide = true
+  }
 
   //   function fly(node, { delay = 0, duration = 400, easing: easing$1 = easing.cubicOut, x = 0, y = 0, opacity = 0 }) {
   //     const style = getComputedStyle(node);
@@ -135,7 +135,7 @@
 <style type="text/scss">
   #project-carousel {
     position: relative;
-    background: var(--dark);
+    background: var(--light);
     min-height: 665px;
     overflow: hidden;
   }

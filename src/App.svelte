@@ -53,11 +53,11 @@
   console.log(hasLoaded)
 </script>
 
-<div class={hasLoaded ? 'container grid' : 'hidden'}>
+<div id="root" class={hasLoaded ? 'container grid' : 'hidden'}>
   <Banner />
   <Brand {laptopShouldEnter} />
   <!--<Toolbox /> -->
   <Projects {assets} />
-  <!--<Contact {secret} />
-  <Copyright /> -->
+  <Contact {secret} />
+  <Copyright />
 </div>

@@ -7,94 +7,84 @@
     elasticIn,
     sineInOut,
     cubicInOut
-  } from "svelte/easing";
-  import axios from "axios";
+  } from 'svelte/easing'
+  import axios from 'axios'
 
-  let step = 0;
-  let timer;
-  export let secret;
-  let formData = { name: "", email: "", subject: "", message: "", test: "" };
-  $: statusMsg = "";
-  $: isLoading = false;
+  let step = 0
+  let timer
+  export let secret
+  let formData = { name: '', email: '', subject: '', message: '', test: '' }
+  $: statusMsg = ''
+  $: isLoading = false
 
-  const toggleDiv = e => {
+  const toggleDiv = (e) => {
     if (
-      e.target.id !== "contact-form" &&
-      e.target.classList[0] !== "card-back" &&
+      e.target.id !== 'contact-form' &&
+      e.target.classList[0] !== 'card-back' &&
       step === 1
-    )
-      return;
-    step = (step + 1) % 2;
-  };
+    ) {
+      return
+    }
+    step = (step + 1) % 2
+  }
 
   const flip = (node, { duration }) => {
     return {
       duration,
-      css: t => {
-        const eased = cubicInOut(t);
-        const test = (eased - 1) * 180;
+      css: (t) => {
+        const eased = cubicInOut(t)
+        const test = (eased - 1) * 180
 
-        return `transform: rotateY(${(eased - 1) * 180}deg);
-    transform-style: preserve-3d;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;`;
+        return `transform: rotateY(${(eased - 1) * 180}deg);`
       }
-    };
-  };
+    }
+  }
 
-  const handleForm = async e => {
+  const handleForm = async (e) => {
     //  'https://timclaydev-assets.herokuapp.com/assets'
-    if (timer) clearTimeout(timer);
-    e.preventDefault();
-    isLoading = true;
+    if (timer) clearTimeout(timer)
+    e.preventDefault()
+    isLoading = true
     // console.log(formData);
-    formData.secret = secret;
+    formData.secret = secret
     try {
       const response = await axios.post(
-        "https://timclaydev-assets.herokuapp.com/assets",
+        'https://timclaydev-assets.herokuapp.com/assets',
         formData
-      );
-      console.log(response.data);
-      const { code } = response.data;
-      secret = response.data.secret;
+      )
+      console.log(response.data)
+      const { code } = response.data
+      secret = response.data.secret
       if (code === 200) {
-        statusMsg = "Message sent!";
+        statusMsg = 'Message sent!'
       }
     } catch (error) {
-      const { message, code } = error.response.data;
-      secret = error.response.data.secret;
-      statusMsg = message;
+      const { message, code } = error.response.data
+      secret = error.response.data.secret
+      statusMsg = message
     } finally {
-      isLoading = false;
+      isLoading = false
       timer = setTimeout(() => {
-        statusMsg = "";
-      }, 4000);
+        statusMsg = ''
+      }, 4000)
     }
-  };
+  }
 </script>
 
-<style>
+<style type="text/scss">
   #footer {
-    /* background-color: #333; */
-    /* background-color: rgb(48, 48, 48); */
     color: rgb(48, 48, 48);
-    /* color: white; */
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     font-size: 1em;
+    background: var(--visitedBlue);
   }
 
   p {
-    /* margin: 0 0 0.5em 0;
-    padding: 0.4em; */
     color: rgb(48, 48, 48);
     background: rgb(255, 221, 31);
     text-transform: uppercase;
-  }
-
-  textarea {
-    display: block;
   }
 
   .card-inner {
@@ -102,6 +92,14 @@
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
+  }
+
+  .card-front {
+    img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .card-front,
@@ -112,22 +110,23 @@
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     box-shadow: 0px 0px 10px 3px rgb(48, 48, 48);
+    transform-style: preserve-3d;
   }
 
   .card-back {
     background: rgb(48, 48, 48);
   }
 
-  input[name="validator"] {
+  input[name='validator'] {
     width: 48%;
   }
 
-  input[name="validator"] {
+  input[name='validator'] {
     width: 48%;
   }
 
-  input[name="name"],
-  input[name="email"] {
+  input[name='name'],
+  input[name='email'] {
     width: 46%;
   }
 
@@ -140,17 +139,28 @@
     font-weight: bold;
   }
 
+  #connect {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   #connect,
   #contact-form {
     position: absolute;
-    top: 15%;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    height: 50%;
+    transform: translate(-50%, -50%);
+    backface-visibility: hidden;
   }
 
   #connect > .flavor-text {
     font-size: 1.5em;
     padding: 0 4px 0 4px;
-    font-family: "Anonymous Pro", monospace;
+    font-family: 'Anonymous Pro', monospace;
     color: rgb(48, 48, 48);
     background-color: rgb(196, 196, 196);
     text-transform: uppercase;
@@ -162,7 +172,7 @@
     background-color: rgb(196, 196, 196);
     padding: 8px;
     text-transform: uppercase;
-    font-family: "Anonymous Pro", monospace;
+    font-family: 'Anonymous Pro', monospace;
     font-size: 4em;
     box-shadow: 0px 0px 20px 10px rgb(48, 48, 48);
     cursor: pointer;
@@ -203,7 +213,7 @@
     margin-left: 0.5em;
   }
 
-  .btn-primary[type="submit"]:disabled {
+  .btn-primary[type='submit']:disabled {
     background-color: rgb(196, 196, 196);
   }
 
@@ -223,11 +233,10 @@
 </style>
 
 <div id="footer" class="h-100">
-
   <div class="card-inner">
     {#if step === 0}
       <div transition:flip={{ duration: 800 }} class="card-front">
-        <img class="img-fill" src="/img/connect.jpeg" alt="" />
+        <!-- <img class="img-fill" src="/img/connect.jpeg" alt="" /> -->
         <div
           id="connect"
           class="w-100 h-60 flex flex-column flex-justify-between
@@ -249,16 +258,16 @@
               id="name-email-fields"
               class="flex flex-row flex-justify-between w-100 ">
               <input
-                on:input={e => {
-                  formData.name = e.target.value;
+                on:input={(e) => {
+                  formData.name = e.target.value
                 }}
                 required
                 type="text"
                 name="name"
                 placeholder="Name (required)" />
               <input
-                on:input={e => {
-                  formData.email = e.target.value;
+                on:input={(e) => {
+                  formData.email = e.target.value
                 }}
                 required
                 name="email"
@@ -267,16 +276,16 @@
             </div>
             <div class="w-100">
               <input
-                on:input={e => {
-                  formData.subject = e.target.value;
+                on:input={(e) => {
+                  formData.subject = e.target.value
                 }}
                 class="w-100"
                 type="text"
                 name="subject"
                 placeholder="Subject" />
               <textarea
-                on:input={e => {
-                  formData.message = e.target.value;
+                on:input={(e) => {
+                  formData.message = e.target.value
                 }}
                 required
                 class="textarea-fixed w-100 "
@@ -299,8 +308,8 @@
                   <span>{secret}</span>
                 </p>
                 <input
-                  on:input={e => {
-                    formData.test = e.target.value;
+                  on:input={(e) => {
+                    formData.test = e.target.value
                   }}
                   class="ml-1"
                   required
@@ -332,10 +341,8 @@
               {/if}
             </div>
           </form>
-
         </div>
       </div>
     {/if}
   </div>
-
 </div>

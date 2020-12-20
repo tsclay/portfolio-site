@@ -1,17 +1,17 @@
 <script>
-  const year = new Date().getFullYear();
+  const year = new Date().getFullYear()
 </script>
 
 <style>
   #copyright-notices {
-    /* background-color: #333; */
     color: rgb(48, 48, 48);
     background-color: rgb(48, 48, 48);
-    /* color: white; */
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
+    flex-flow: column nowrap;
+    justify-content: center;
     font-size: 0.75em;
+    align-content: center;
+    height: 25vh;
   }
 
   span {
@@ -27,6 +27,8 @@
 
 <div id="copyright-notices" class="flex flex-row flex-align-center">
   <span>
-    Copyright © {year} Tim Clay All Rights Reserved. Made with ❤️ using Svelte.
+    Copyright ©
+    {year}
+    Tim Clay All Rights Reserved. Made with ❤️ using Svelte.
   </span>
 </div>

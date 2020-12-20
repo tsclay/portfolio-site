@@ -19,8 +19,8 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 }
 
 a {
@@ -53,11 +53,15 @@ textarea {
   border-radius: 2px;
 }
 
+textarea {
+  display: block;
+}
+
 input:disabled {
   color: #ccc;
 }
 
-input[type="range"] {
+input[type='range'] {
   height: 0;
 }
 
@@ -78,4 +82,8 @@ input[type="range"] {
   background-color: var(--light);
   transition: color 0.2s linear;
   transition: background-color 0.2s linear;
+}
+
+#root > div {
+  height: 100vh;
 }
