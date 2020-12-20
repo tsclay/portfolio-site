@@ -354,9 +354,7 @@
             </div>
             <div
               class="face lid-back"
-              style="transform: rotateY(180deg) translateZ(4px);">
-              Base-bottom
-            </div>
+              style="transform: rotateY(180deg) translateZ(4px);" />
             <div class="face lid-top" style="height: 8px;" />
             <div
               class="face lid-bottom"
