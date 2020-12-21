@@ -274,13 +274,13 @@
 </style>
 
 <div id="profile">
-  <button
+  <!-- <button
     style="position: absolute; top: 0; left: 0; z-index: 99;"
     type="click"
     on:click={() => {
       laptopShouldEnter = !laptopShouldEnter
       laptopAnimateDone = false
-    }}>Toggle</button>
+    }}>Toggle</button> -->
   <main>
     <section id="default-example" class="default-example">
       {#if laptopShouldEnter}
