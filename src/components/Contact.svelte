@@ -10,7 +10,7 @@
   } from 'svelte/easing'
   import axios from 'axios'
 
-  let step = 0
+  // let step = 0
   let timer
   let clientWantsForm = false
   export let secret
@@ -18,16 +18,16 @@
   $: statusMsg = ''
   $: isLoading = false
 
-  const toggleDiv = (e) => {
-    if (
-      e.target.id !== 'contact-form' &&
-      e.target.classList[0] !== 'card-back' &&
-      step === 1
-    ) {
-      return
-    }
-    step = (step + 1) % 2
-  }
+  // const toggleDiv = (e) => {
+  //   if (
+  //     e.target.id !== 'contact-form' &&
+  //     e.target.classList[0] !== 'card-back' &&
+  //     step === 1
+  //   ) {
+  //     return
+  //   }
+  //   step = (step + 1) % 2
+  // }
 
   // const flip = (node, { duration }) => {
   //   return {
@@ -108,7 +108,7 @@
 
   .card-back {
     overflow: hidden;
-    background: rgba(48, 48, 48, 0.75);
+    background: rgba(48, 48, 48, 0.45);
     position: absolute;
     top: 0;
     left: 0;
@@ -119,53 +119,105 @@
     justify-content: center;
   }
 
-  input[name='validator'] {
-    width: 48%;
-  }
+  form {
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 2px solid var(--light);
+    padding: 2rem;
+    background: var(--dark);
 
-  input[name='subject'] {
-    width: 100%;
-  }
+    input[name='subject'],
+    input[name='name'],
+    input[name='email'] {
+      width: 100%;
+    }
 
-  input[name='validator'] {
-    width: 48%;
-  }
+    input[name='validator'] {
+      width: 48%;
+    }
 
-  input[name='name'],
-  input[name='email'] {
-    width: 50%;
-  }
+    textarea {
+      resize: none;
+    }
 
-  #validation > p,
-  #validation > input {
-    width: 46%;
-  }
+    #validation {
+      display: flex;
 
-  #validation > p :nth-child(2) {
-    font-weight: bold;
+      p {
+        width: 25%;
+        padding: 0.4em;
+        margin: 0 0 0.5em 0;
+        box-sizing: border-box;
+
+        :nth-child(2) {
+          font-weight: bold;
+        }
+      }
+
+      input {
+        width: 75%;
+      }
+    }
+
+    #name-email-fields,
+    #message,
+    #validation {
+      margin-bottom: 1.75em;
+    }
+
+    #msg-success,
+    #msg-fail {
+      height: 2em;
+      border-radius: 0.25rem;
+    }
+
+    #msg-success {
+      color: #155724;
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+    }
+
+    #msg-fail {
+      color: #721c24;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+    }
+
+    .loading-spinner {
+      width: 20px;
+      height: 20px;
+    }
+
+    #message-text {
+      margin-left: 0.5em;
+    }
+
+    .btn-primary[type='submit']:disabled {
+      background-color: var(--light);
+    }
+
+    .btn-primary {
+      width: 100%;
+    }
   }
 
   #connect {
     width: 100%;
+    height: 50%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
     align-items: center;
-  }
 
-  #connect,
-  #contact-form {
-    height: 50%;
-  }
-
-  #connect > .flavor-text {
-    font-size: 1.5em;
-    padding: 0 4px 0 4px;
-    font-family: 'Anonymous Pro', monospace;
-    color: var(--dark);
-    background-color: var(--light);
-    text-transform: uppercase;
-    box-shadow: 0px 0px 20px 10px var(--dark);
+    > .flavor-text {
+      font-size: 1.5em;
+      padding: 0 4px 0 4px;
+      font-family: 'Anonymous Pro', monospace;
+      color: var(--dark);
+      background-color: var(--light);
+      text-transform: uppercase;
+      box-shadow: 0px 0px 20px 10px var(--dark);
+    }
   }
 
   #flip-trigger {
@@ -179,43 +231,6 @@
     text-transform: uppercase;
     font-family: 'Anonymous Pro', monospace;
     box-shadow: 0px 0px 20px 10px var(--dark);
-  }
-
-  #msg-success,
-  #msg-fail {
-    height: 2em;
-    border-radius: 0.25rem;
-  }
-
-  #msg-success {
-    color: #155724;
-    background-color: #d4edda;
-    border-color: #c3e6cb;
-  }
-
-  #msg-fail {
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-  }
-
-  .loading-spinner {
-    width: 20px;
-    height: 20px;
-  }
-
-  #message-text {
-    margin-left: 0.5em;
-  }
-
-  .btn-primary[type='submit']:disabled {
-    background-color: var(--light);
-  }
-
-  #name-email-fields,
-  #message,
-  #validation {
-    margin-bottom: 1.75em;
   }
 
   @media only screen and (max-width: 900px) {
@@ -290,7 +305,7 @@
               name="message"
               id="message"
               cols="50"
-              rows="7"
+              rows="10"
               placeholder="Message (required)" />
           </div>
           <div class="flex flex-column flex-justify-between flex-align-center">
