@@ -1,13 +1,7 @@
 <script>
   import { onMount } from 'svelte'
-  import { fly, fade } from 'svelte/transition'
-  import { linear, cubicOut } from 'svelte/easing'
-  import {
-    SkipForwardIcon,
-    SkipBackIcon,
-    PlayIcon,
-    PauseIcon
-  } from 'svelte-feather-icons'
+  import { cubicOut } from 'svelte/easing'
+  import { SkipForwardIcon, SkipBackIcon } from 'svelte-feather-icons'
 
   export let assets, width
 
@@ -21,11 +15,10 @@
   let inverseFlowDir = flowDir * -1
   $: inverseFlowDir = flowDir * -1
   $: len = assets.length
+  let playAnimations = true
 
   onMount(() => {
-    console.log('here are the assets in projects ', assets)
     play()
-    console.log('the projects mount assets ', assets)
   })
 
   const next = () => {
@@ -107,34 +100,46 @@
     }
   }
 
-  //   function fly(node, { delay = 0, duration = 400, easing: easing$1 = easing.cubicOut, x = 0, y = 0, opacity = 0 }) {
-  //     const style = getComputedStyle(node);
-  //     const target_opacity = +style.opacity;
-  //     const transform = style.transform === 'none' ? '' : style.transform;
-  //     const od = target_opacity * (1 - opacity);
-  //     return {
-  //         delay,
-  //         duration,
-  //         easing: easing$1,
-  //         css: (t, u) => `
-  // 			transform: ${transform} translate(${(1 - t) * x}px, ${(1 - t) * y}px);
-  // 			opacity: ${target_opacity - (od * u)}`
-  //     };
-  // }
+  const unfoldCards = (node, { duration }) => {
+    const style = getComputedStyle(node)
+    const cardRect = node.getBoundingClientRect()
+    const transform = style.transform === 'none' ? '' : style.transform
+    const parentRect = node.parentElement.getBoundingClientRect()
+    const x = parentRect.left - cardRect.left
+    const y = cardRect.top
+
+    return {
+      duration,
+      easing: cubicOut,
+      x,
+      y,
+      css: (t, u) => {
+        return `
+        transform: ${transform} translate(${u * x}px, -${u * y}px);
+        `
+      }
+    }
+  }
+
+  const preload = (src) => {
+    return new Promise((resolve) => {
+      let img = new Image()
+      img.onload = resolve
+      img.src = src
+    })
+  }
 </script>
 
 <style type="text/scss">
   #project-carousel {
     background: #b7ddff;
-    display: flex;
     padding: 2rem;
     box-sizing: border-box;
-    align-items: center;
-
     position: relative;
-    // min-height: 665px;
     height: 100%;
     overflow: hidden;
+    display: flex;
+    align-items: center;
   }
   p {
     margin: 0 0 0.5em 0;
@@ -168,10 +173,6 @@
     background: whitesmoke;
     position: relative;
     border-top: 0.25px solid black;
-
-    // > div {
-    //   background: whitesmoke;
-    // }
   }
 
   div.link-image {
@@ -181,12 +182,14 @@
 
   div.project-card-display {
     width: 100%;
-    overflow: hidden;
+    // overflow: hidden;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
     align-items: center;
     height: 100%;
+    position: relative;
+    margin: 0 auto;
     > div {
       border-radius: 8px;
       height: 575px;
@@ -271,74 +274,28 @@
     position: absolute;
     right: 1%;
     top: 45%;
+    transform: translate(50%, 0);
   }
 
   #backward {
     position: absolute;
-    left: 1%;
-    top: 45%;
-  }
-
-  @media only screen and (max-width: 400px) {
-    #forward {
-      right: 0;
-      top: 45%;
-    }
-
-    #backward {
-      left: 0;
-      top: 45%;
-    }
+    left: 0;
+    top: 0;
+    transform: translate(-50%, 0);
   }
 </style>
 
-<!-- style="height: 400px;" -->
-
-<div id="project-carousel" class="h-100">
+<div id="project-carousel" style={width > 600 ? '' : 'min-height: 100vh;'}>
+  <!-- <button
+    style="position: absolute; top: 0; left:0;"
+    on:click={() => (playAnimations = !playAnimations)}>Toggle</button> -->
   <div class="project-card-display">
-    {#if width > 600}
+    {#if width > 600 && playAnimations}
       {#each assets as asset, i}
-        <div class="child" id="project-{i}">
-          <div class="link-image">
-            <img src={asset['image']} alt={asset['title']} />
-          </div>
-          <div id="link-details">
-            <h1>{asset.title}</h1>
-            <div class="tags-and-description">
-              <div id="tags">
-                {#each asset.tags as tag, j}
-                  <span style="margin: 0 0 2px 2px;">{tag}</span>
-                {/each}
-              </div>
-              <p>{asset.description}</p>
-            </div>
-          </div>
-          <div class="project-card-actions">
-            <a href={asset.url} target="_blank" class="btn-primary card-link">
-              <i class="far fa-eye" />
-              Site
-            </a>
-            <a
-              href={asset.github}
-              target="_blank"
-              class="btn-primary card-link">
-              <i class="fas fa-code" />
-              Code
-            </a>
-            <a href={asset.demo} target="_blank" class="btn-primary card-link">
-              <i class="fas fa-video" />
-              Demo
-            </a>
-          </div>
-        </div>
-      {/each}
-    {:else}
-      {#each assets as asset, i}
-        {#if step === i}
+        {#await preload(asset['image']) then _}
           <div
-            class="child single-view"
-            in:goIn={{ duration: 400 }}
-            out:goOut={{ duration: 400 }}
+            in:unfoldCards={{ duration: 1000 }}
+            class="child"
             id="project-{i}">
             <div class="link-image">
               <img src={asset['image']} alt={asset['title']} />
@@ -375,7 +332,57 @@
               </a>
             </div>
           </div>
-        {/if}
+        {/await}
+      {/each}
+    {:else}
+      {#each assets as asset, i}
+        {#await preload(asset['image']) then _}
+          {#if step === i}
+            <div
+              class="child single-view"
+              in:goIn={{ duration: 400 }}
+              out:goOut={{ duration: 400 }}
+              id="project-{i}">
+              <div class="link-image">
+                <img src={asset['image']} alt={asset['title']} />
+              </div>
+              <div id="link-details">
+                <h1>{asset.title}</h1>
+                <div class="tags-and-description">
+                  <div id="tags">
+                    {#each asset.tags as tag, j}
+                      <span style="margin: 0 0 2px 2px;">{tag}</span>
+                    {/each}
+                  </div>
+                  <p>{asset.description}</p>
+                </div>
+              </div>
+              <div class="project-card-actions">
+                <a
+                  href={asset.url}
+                  target="_blank"
+                  class="btn-primary card-link">
+                  <i class="far fa-eye" />
+                  Site
+                </a>
+                <a
+                  href={asset.github}
+                  target="_blank"
+                  class="btn-primary card-link">
+                  <i class="fas fa-code" />
+                  Code
+                </a>
+                <a
+                  href={asset.demo}
+                  target="_blank"
+                  class="btn-primary card-link">
+                  <i class="fas fa-video" />
+                  Demo
+                </a>
+              </div>
+            </div>
+          {/if}
+        {/await}
       {/each}
       <button
         id="backward"
