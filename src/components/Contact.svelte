@@ -119,6 +119,10 @@
     justify-content: center;
   }
 
+  #contact-form {
+    width: 85%;
+  }
+
   form {
     box-sizing: border-box;
     border-radius: 4px;
@@ -138,16 +142,25 @@
 
     textarea {
       resize: none;
+      width: 100%;
     }
 
     #validation {
       display: flex;
+      position: relative;
 
       p {
-        width: 25%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 125px;
         padding: 0.4em;
         margin: 0 0 0.5em 0;
         box-sizing: border-box;
+        border: 1px solid #ffdd1f;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
         :nth-child(2) {
           font-weight: bold;
@@ -155,7 +168,8 @@
       }
 
       input {
-        width: 75%;
+        width: 100%;
+        padding-left: 125px;
       }
     }
 
