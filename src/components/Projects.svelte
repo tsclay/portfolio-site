@@ -3,7 +3,7 @@
   import { cubicOut } from 'svelte/easing'
   import { SkipForwardIcon, SkipBackIcon } from 'svelte-feather-icons'
 
-  export let assets, width
+  export let assets, width, playCardsAnimation
 
   let duration = 8000
   let timer = null
@@ -15,7 +15,6 @@
   let inverseFlowDir = flowDir * -1
   $: inverseFlowDir = flowDir * -1
   $: len = assets.length
-  let playAnimations = true
 
   onMount(() => {
     play()
@@ -285,55 +284,60 @@
   }
 </style>
 
-<div id="project-carousel" style={width > 600 ? '' : 'min-height: 100vh;'}>
+<div id="project-carousel" style={width > 600 ? 'min-height: 100vh;' : ''}>
   <!-- <button
     style="position: absolute; top: 0; left:0;"
     on:click={() => (playAnimations = !playAnimations)}>Toggle</button> -->
   <div class="project-card-display">
-    {#if width > 600 && playAnimations}
-      {#each assets as asset, i}
-        {#await preload(asset['image']) then _}
-          <div
-            in:unfoldCards={{ duration: 1000 }}
-            class="child"
-            id="project-{i}">
-            <div class="link-image">
-              <img src={asset['image']} alt={asset['title']} />
-            </div>
-            <div id="link-details">
-              <h1>{asset.title}</h1>
-              <div class="tags-and-description">
-                <div id="tags">
-                  {#each asset.tags as tag, j}
-                    <span style="margin: 0 0 2px 2px;">{tag}</span>
-                  {/each}
+    {#if width > 600}
+      {#if playCardsAnimation}
+        {#each assets as asset, i}
+          {#await preload(asset['image']) then _}
+            <div
+              in:unfoldCards={{ duration: 1000 }}
+              class="child"
+              id="project-{i}">
+              <div class="link-image">
+                <img src={asset['image']} alt={asset['title']} />
+              </div>
+              <div id="link-details">
+                <h1>{asset.title}</h1>
+                <div class="tags-and-description">
+                  <div id="tags">
+                    {#each asset.tags as tag, j}
+                      <span style="margin: 0 0 2px 2px;">{tag}</span>
+                    {/each}
+                  </div>
+                  <p>{asset.description}</p>
                 </div>
-                <p>{asset.description}</p>
+              </div>
+              <div class="project-card-actions">
+                <a
+                  href={asset.url}
+                  target="_blank"
+                  class="btn-primary card-link">
+                  <i class="far fa-eye" />
+                  Site
+                </a>
+                <a
+                  href={asset.github}
+                  target="_blank"
+                  class="btn-primary card-link">
+                  <i class="fas fa-code" />
+                  Code
+                </a>
+                <a
+                  href={asset.demo}
+                  target="_blank"
+                  class="btn-primary card-link">
+                  <i class="fas fa-video" />
+                  Demo
+                </a>
               </div>
             </div>
-            <div class="project-card-actions">
-              <a href={asset.url} target="_blank" class="btn-primary card-link">
-                <i class="far fa-eye" />
-                Site
-              </a>
-              <a
-                href={asset.github}
-                target="_blank"
-                class="btn-primary card-link">
-                <i class="fas fa-code" />
-                Code
-              </a>
-              <a
-                href={asset.demo}
-                target="_blank"
-                class="btn-primary card-link">
-                <i class="fas fa-video" />
-                Demo
-              </a>
-            </div>
-          </div>
-        {/await}
-      {/each}
+          {/await}
+        {/each}
+      {/if}
     {:else}
       {#each assets as asset, i}
         {#await preload(asset['image']) then _}

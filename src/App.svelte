@@ -18,7 +18,7 @@
   $: assets = []
   let secret = ''
   let laptopShouldEnter = false
-  let target
+  let playCardsAnimation = false
 
   let options = {
     root: null,
@@ -28,9 +28,16 @@
 
   let callback = (entries, observer) => {
     entries.forEach((entry) => {
-      if (entry.intersectionRatio >= 0.5) {
+      console.log(entry)
+      if (entry.intersectionRatio >= 0.5 && entry.target.id == 'profile') {
         laptopShouldEnter = true
-        observer.unobserve(target)
+        observer.unobserve(entry)
+      } else if (
+        entry.intersectionRatio >= 0.75 &&
+        entry.target.id == 'project-carousel'
+      ) {
+        playCardsAnimation = true
+        observer.unobserve(entry)
       }
     })
   }
@@ -48,8 +55,8 @@
       console.log('this is the error', error)
     }
 
-    target = document.querySelector('#profile')
-    observer.observe(target)
+    observer.observe(document.querySelector('#profile'))
+    observer.observe(document.querySelector('#project-carousel'))
   })
 
   // let step = 0;
@@ -69,7 +76,7 @@
 <div id="root" class={hasLoaded ? 'container grid' : 'hidden'}>
   <Banner />
   <Brand {laptopShouldEnter} {width} {height} />
-  <Projects {assets} {width} {height} />
+  <Projects {playCardsAnimation} {assets} {width} {height} />
   <Contact {secret} />
   <Copyright />
 </div>
