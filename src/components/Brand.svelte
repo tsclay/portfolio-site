@@ -288,12 +288,12 @@
           <div
             id="laptop-lid"
             class="transition-all"
-            style={`${laptopAnimateDone ? 'transform: rotate3d(1,0,0,0deg)' : 'transform: rotate3d(1,0,0,-90deg)'}; width: ${onDesktop ? 500 : 365}px; height: ${onDesktop ? 400 : 265}px`}>
+            style={`${laptopAnimateDone ? 'transform: rotate3d(1,0,0,0deg)' : 'transform: rotate3d(1,0,0,-90deg)'}; width: ${onDesktop ? 500 : 325}px; height: ${onDesktop ? 400 : 225}px`}>
             <div class="face lid-front">
               <div class="lid-screen">
                 <div
                   id="bio-bits"
-                  style={`font-size: ${onDesktop ? 1.2 : 0.9}rem`}
+                  style={`font-size: ${onDesktop ? 1.2 : 0.8}rem`}
                   class="brand-statement">
                   <p>
                     A musician turned
@@ -336,7 +336,7 @@
           <div
             id="laptop-lid"
             class="transition-all"
-            style={`transform: rotate3d(1, 0, 0, 90deg); transform-origin: top; width: ${onDesktop ? 500 : 365}px; height: ${onDesktop ? 400 : 265}px;`}>
+            style={`transform: rotate3d(1, 0, 0, 90deg); transform-origin: top; width: ${onDesktop ? 500 : 325}px; height: ${onDesktop ? 400 : 225}px;`}>
             <div
               class="face lid-front"
               style="transform: translateZ(2px); flex-flow: column;
