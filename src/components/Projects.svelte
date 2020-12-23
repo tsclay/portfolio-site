@@ -147,6 +147,25 @@
     line-height: 1.5em;
   }
 
+  h1.section-header {
+    font-size: clamp(50px, 4vw, 100px);
+    top: 0;
+    left: 0;
+    transform: translate(1rem, 1rem);
+    // background: var(--light);
+    // font-family: Anonymous Pro;
+    // text-transform: uppercase;
+    // font-size: 1.5em;
+    padding: 4px;
+    font-family: "Anonymous Pro", monospace;
+    color: black;
+    background: white;
+    text-transform: uppercase;
+    display: block;
+    width: auto;
+    border-radius: 0;
+  }
+
   h1 {
     display: flex;
     margin: 0;
@@ -289,6 +308,7 @@
   <!-- <button
     style="position: absolute; top: 0; left:0;"
     on:click={() => (playAnimations = !playAnimations)}>Toggle</button> -->
+  <h1 class="section-header">View My Work</h1>
   <div class="project-card-display">
     {#if width > 600}
       {#if playCardsAnimation}
