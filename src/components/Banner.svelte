@@ -44,6 +44,7 @@
 
   @media only screen and (min-width: 1100px) {
     div.banner {
+      min-height: 800px;
       img {
         width: 100%;
       }
