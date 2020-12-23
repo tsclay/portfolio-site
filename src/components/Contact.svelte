@@ -125,7 +125,7 @@
 
   .card-back {
     overflow: hidden;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.75);
     position: absolute;
     top: 0;
     left: 0;
