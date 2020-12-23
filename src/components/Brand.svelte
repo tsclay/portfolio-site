@@ -6,19 +6,16 @@
     cubicIn,
     elasticIn,
     sineInOut,
-    cubicInOut
-  } from 'svelte/easing'
-  // import { windowWidth, windowHeight } from '../stores.js'
+    cubicInOut,
+  } from "svelte/easing";
+  import { tweened } from "svelte/motion";
 
-  export let laptopShouldEnter
+  export let laptopShouldEnter;
 
-  export let width
-  export let height
+  export let width;
+  export let height;
 
-  // const unsubscribeWidth = windowWidth.subscribe((value) => (width = value))
-  // const unsubscribeHeight = windowHeight.subscribe((value) => (height = value))
-
-  let laptopAnimateDone = false
+  let laptopAnimateDone = false;
 
   // The div is in ON position when its rotateY deg is 0
   // The div is in OFF position when rotateY is 180 or -180
@@ -28,40 +25,46 @@
     return {
       duration,
       css: (t) => {
-        const eased = cubicInOut(t)
-        const test = (eased - 1) * 180
-        // 				if (step > 0) console.log('green', test)
-        // 				if (step === 0) console.log('red', test)
+        const eased = cubicInOut(t);
+        const test = (eased - 1) * 180;
 
         return `transform: rotateY(${(eased - 1) * 180}deg);
     transform-style: preserve-3d;
     -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;`
-      }
-    }
-  }
+    backface-visibility: hidden;`;
+      },
+    };
+  };
+
+  const halo = tweened(0, {
+    duration: 1000,
+    easing: cubicInOut,
+  });
 
   const animateLaptop = (node, { duration }) => {
-    const style = getComputedStyle(node)
-    const transform = style.transform === 'none' ? '' : style.transform
+    const style = getComputedStyle(node);
+    const transform = style.transform === "none" ? "" : style.transform;
     return {
       duration,
       css: (t, u) => {
-        const eased = cubicInOut(u)
-        return `transform: ${transform} rotateX(${u * 270}deg) rotateY(${
-          u * 180
-        }deg);`
+        const eased = cubicInOut(u);
+        return `transform: ${transform} translate3d(0, -${
+          u * 60
+        }%, 0) rotateX(${u * -90}deg);`;
       },
       tick: (t, u) => {
-        if (u < 0.25) {
-          laptopAnimateDone = true
+        if (u < 0.25 && !laptopAnimateDone) {
+          laptopAnimateDone = true;
         }
-      }
-    }
-  }
+        if (u === 0) {
+          halo.set(60);
+        }
+      },
+    };
+  };
 
-  let onDesktop
-  $: onDesktop = width > 615 && height > 415
+  let onDesktop;
+  $: onDesktop = width > 615 && height > 415;
 </script>
 
 <style type="text/scss">
@@ -69,7 +72,6 @@
     position: relative;
     height: 100vh;
     min-height: 800px;
-    background: white;
     overflow: hidden;
   }
 
@@ -86,7 +88,7 @@
     font-size: clamp(0.9rem, 2vw, 1.2rem);
 
     p {
-      font-family: 'Anonymous Pro', monospace;
+      font-family: "Anonymous Pro", monospace;
       width: 75%;
       text-align: center;
       margin: 0.8rem 0;
@@ -258,7 +260,7 @@
     transform-style: preserve-3d;
     position: absolute;
     top: 50%;
-    transform: translate(0, -25%);
+    transform: translate3d(0, -25%, 0);
   }
 
   .notch {
@@ -273,13 +275,19 @@
   }
 </style>
 
-<div id="profile">
+<div
+  id="profile"
+  style={`background: radial-gradient(
+  circle,
+  rgba(255, 255, 255, 1) 0%,
+  rgba(0, 0, 0, 1) ${$halo}%
+);`}>
   <!-- <button
     style="position: absolute; top: 0; left: 0; z-index: 99;"
     type="click"
     on:click={() => {
-      laptopShouldEnter = !laptopShouldEnter
-      laptopAnimateDone = false
+      laptopShouldEnter = !laptopShouldEnter;
+      laptopAnimateDone = false;
     }}>Toggle</button> -->
   <main>
     <section id="default-example" class="default-example">
