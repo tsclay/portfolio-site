@@ -1,17 +1,32 @@
 <script>
-  const year = new Date().getFullYear()
+  const year = new Date().getFullYear();
 </script>
 
-<style>
+<style type="text/scss">
   #copyright-notices {
     color: rgb(48, 48, 48);
     background-color: rgb(48, 48, 48);
     display: flex;
     flex-flow: column nowrap;
-    justify-content: center;
+    justify-content: space-evenly;
     font-size: 0.75em;
-    align-content: center;
+    align-items: center;
     height: 25vh;
+  }
+
+  .socials {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-flow: row nowrap;
+    width: 50%;
+
+    a {
+      border-radius: 50px;
+      width: 50px;
+      height: 50px;
+      font-size: 2rem;
+    }
   }
 
   span {
@@ -26,6 +41,23 @@
 </style>
 
 <div id="copyright-notices" class="flex flex-row flex-align-center">
+  <div class="socials">
+    <a
+      class="btn-primary"
+      target="_blank"
+      href="https://drive.google.com/file/d/1r5sSCFaSTBwFfqNDh0mh__xHUkVceMjb/view?usp=sharing">
+      <i class="fas fa-info-circle" />
+    </a>
+    <a
+      class="btn-primary"
+      target="_blank"
+      href="https://www.linkedin.com/in/timothy-clay-software-developer/">
+      <i class="fab fa-linkedin" />
+    </a>
+    <a class="btn-primary" target="_blank" href="https://github.com/tsclay">
+      <i class="fab fa-github" />
+    </a>
+  </div>
   <span>
     Copyright ©
     {year}
