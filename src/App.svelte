@@ -28,16 +28,15 @@
 
   let callback = (entries, observer) => {
     entries.forEach((entry) => {
-      console.log(entry);
       if (entry.intersectionRatio >= 0.5 && entry.target.id == "profile") {
         laptopShouldEnter = true;
-        observer.unobserve(entry);
+        observer.unobserve(entry.target);
       } else if (
-        entry.intersectionRatio >= 0.75 &&
+        entry.intersectionRatio >= 0.5 &&
         entry.target.id == "project-carousel"
       ) {
         playCardsAnimation = true;
-        observer.unobserve(entry);
+        observer.unobserve(entry.target);
       }
     });
   };
