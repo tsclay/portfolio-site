@@ -1,5 +1,5 @@
 <script>
-  export let toggleDiv
+  export let toggleDiv;
 </script>
 
 <style type="text/scss">
@@ -42,10 +42,27 @@
     }
   }
 
-  @media only screen and (min-width: 960px) {
+  @media only screen and (min-width: 1100px) {
     div.banner {
       img {
         width: 100%;
+      }
+    }
+  }
+  @media only screen and (min-width: 930px) and (max-width: 1099px) {
+    div.banner {
+      img {
+        width: 120%;
+        left: 0;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 580px) and (max-width: 929px) {
+    div.banner {
+      img {
+        left: -15rem;
+        width: 170%;
       }
     }
   }
