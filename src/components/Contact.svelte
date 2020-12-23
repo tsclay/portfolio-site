@@ -89,7 +89,8 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     font-size: 1em;
-    background: var(--visitedBlue);
+    // background: var(--visitedBlue);
+    background: white;
     position: relative;
   }
 
@@ -108,7 +109,7 @@
 
   .card-back {
     overflow: hidden;
-    background: rgba(48, 48, 48, 0.45);
+    background: rgba(0, 0, 0, 0.45);
     position: absolute;
     top: 0;
     left: 0;
@@ -120,7 +121,7 @@
   }
 
   #contact-form {
-    width: 85%;
+    width: clamp(355px, 85%, 580px);
   }
 
   form {
@@ -225,12 +226,14 @@
 
     > .flavor-text {
       font-size: 1.5em;
-      padding: 0 4px 0 4px;
+      padding: 4px;
       font-family: 'Anonymous Pro', monospace;
-      color: var(--dark);
-      background-color: var(--light);
+      // color: var(--dark);
+      // background-color: var(--light);
+      background: black;
+      color: white;
       text-transform: uppercase;
-      box-shadow: 0px 0px 20px 10px var(--dark);
+      // box-shadow: 0px 0px 20px 10px var(--dark);
     }
   }
 
@@ -244,6 +247,11 @@
     padding: 8px;
     text-transform: uppercase;
     font-family: 'Anonymous Pro', monospace;
+    // box-shadow: 0px 0px 20px 10px var(--dark);
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+
+  #flip-trigger:hover {
     box-shadow: 0px 0px 20px 10px var(--dark);
   }
 

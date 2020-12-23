@@ -131,7 +131,8 @@
 
 <style type="text/scss">
   #project-carousel {
-    background: #b7ddff;
+    background: black;
+    // background: #b7ddff;
     padding: 2rem;
     box-sizing: border-box;
     position: relative;

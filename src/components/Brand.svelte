@@ -69,7 +69,7 @@
     position: relative;
     height: 100vh;
     min-height: 800px;
-    background: var(--dark);
+    background: white;
     overflow: hidden;
   }
 
