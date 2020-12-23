@@ -292,7 +292,7 @@
   <main>
     <section id="default-example" class="default-example">
       {#if laptopShouldEnter}
-        <div in:animateLaptop={{ duration: 2000 }} class="laptop move-laptop">
+        <div in:animateLaptop={{ duration: 1000 }} class="laptop move-laptop">
           <div
             id="laptop-lid"
             class="transition-all"
