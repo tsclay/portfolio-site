@@ -283,7 +283,7 @@
     box-shadow: 0px 0px 20px 10px var(--dark);
   }
 
-  @media only screen and (max-width: 960px) {
+  @media only screen and (min-width: 375px) and (max-width: 665px) {
     #connect {
       width: 100%;
       font-size: 0.7rem;
@@ -318,7 +318,8 @@
       <svg
         preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1000 657.47"><defs>
+        viewBox="0 0 1000 657.47"
+        class="svelte-k0umk8"><defs>
           <style>
             .cls-1 {
               fill: #fff;
@@ -359,40 +360,40 @@
               rx="1.5"
               transform="translate(1000 320.3) rotate(180)" />
             <rect
-              class="cls-3"
               x="500"
               y="70.44"
               width="482.65"
               height="22.97"
-              transform="translate(1482.65 163.84) rotate(180)" />
+              transform="translate(1482.65 163.84) rotate(180)"
+              class="cls-3 T-shape" />
             <rect
-              class="cls-3"
               x="500"
               y="106.05"
               width="482.65"
               height="6.26"
-              transform="translate(1482.65 218.36) rotate(180)" />
+              transform="translate(1482.65 218.36) rotate(180)"
+              class="cls-3 T-shape" />
             <rect
-              class="cls-1"
               x="496.89"
               y="336.01"
               width="488.86"
               height="47.18"
-              transform="translate(381.73 1100.92) rotate(-90)" />
+              transform="translate(381.73 1100.92) rotate(-90)"
+              class="cls-1 T-shape" />
             <rect
-              class="cls-3"
               x="507.54"
               y="346.66"
               width="488.86"
               height="25.87"
-              transform="translate(392.38 1111.57) rotate(-90)" />
+              transform="translate(392.38 1111.57) rotate(-90)"
+              class="cls-3 T-shape" />
             <rect
-              class="cls-3"
               x="476.84"
               y="356.07"
               width="488.86"
               height="7.06"
-              transform="translate(361.67 1080.86) rotate(-90)" />
+              transform="translate(361.67 1080.86) rotate(-90)"
+              class="cls-3 T-shape" />
             <rect
               class="cls-2"
               x="1.27"
@@ -642,3 +643,100 @@
     {/if}
   </div>
 </div> -->
+
+<!-- 
+<svg
+preserveAspectRatio="none"
+xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 1000 657.47"
+class="svelte-k0umk8"><defs><style>
+    .cls-1 {
+      fill: #fff;
+    }
+    .cls-2 {
+      fill: #414042;
+    }
+    .cls-3 {
+      fill: #231f20;
+    }
+  </style></defs>
+<g id="Layer_2" data-name="Layer 2">
+  <g id="Layer_1-2" data-name="Layer 1">
+    <rect class="cls-1" width="1000" height="657.47" />
+    <rect
+      class="cls-2"
+      x="0.63"
+      y="327.02"
+      width="998.73"
+      height="3"
+      rx="1.5"
+      transform="translate(1000 657.04) rotate(180)" />
+    <rect
+      class="cls-2"
+      x="0.63"
+      y="495.39"
+      width="998.73"
+      height="3"
+      rx="1.5"
+      transform="translate(1000 993.78) rotate(-180)" />
+    <rect
+      class="cls-2"
+      x="0.63"
+      y="158.65"
+      width="998.73"
+      height="3"
+      rx="1.5"
+      transform="translate(1000 320.3) rotate(180)" />
+    <rect
+      x={width > 665 ? '500' : `${500 + 80}`}
+      y={width > 665 ? '70.44' : `${70.44 - 115}`}
+      width={width > 665 ? '482.65' : `250`}
+      height="22.97"
+      transform="translate(1482.65 163.84) rotate(180)"
+      class="cls-3 T-shape" />
+    <rect
+      x={width > 665 ? '500' : `${500 + 80}`}
+      y={width > 665 ? '106.05' : `${106.05 - 115}`}
+      width={width > 665 ? '482.65' : `250`}
+      height="6.26"
+      transform="translate(1482.65 218.36) rotate(180)"
+      class="cls-3 T-shape" />
+    <rect
+      x={width > 665 ? '496.89' : `${496.89 + 200}`}
+      y={width > 665 ? '336.01' : `${336.01 + 40}`}
+      width={width > 665 ? '488.86' : `175`}
+      height="47.18"
+      transform="translate(381.73 1100.92) rotate(-90)"
+      class="cls-1 T-shape" />
+    <rect
+      x={width > 665 ? '507.54' : `${507.54 + 200}`}
+      y={width > 665 ? '346.66' : `${346.66 + 40}`}
+      width={width > 665 ? '488.86' : `175`}
+      height="25.87"
+      transform="translate(392.38 1111.57) rotate(-90)"
+      class="cls-3 T-shape" />
+    <rect
+      x={width > 665 ? '476.84' : `${476.84 + 200}`}
+      y={width > 665 ? '356.07' : `${356.07 + 40}`}
+      width={width > 665 ? '488.86' : `175`}
+      height="7.06"
+      transform="translate(361.67 1080.86) rotate(-90)"
+      class="cls-3 T-shape" />
+    <rect
+      class="cls-2"
+      x="1.27"
+      y="3.7"
+      width="998.73"
+      height="3"
+      rx="1.5"
+      transform="translate(1001.27 10.41) rotate(180)" />
+    <rect
+      class="cls-2"
+      x="0.63"
+      y="650.33"
+      width="998.73"
+      height="3"
+      rx="1.5"
+      transform="translate(1000 1303.67) rotate(-180)" />
+  </g>
+</g></svg> -->
