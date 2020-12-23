@@ -6,17 +6,17 @@
     cubicIn,
     elasticIn,
     sineInOut,
-    cubicInOut
-  } from 'svelte/easing'
-  import axios from 'axios'
+    cubicInOut,
+  } from "svelte/easing";
+  import axios from "axios";
 
   // let step = 0
-  let timer
-  let clientWantsForm = false
-  export let secret
-  let formData = { name: '', email: '', subject: '', message: '', test: '' }
-  $: statusMsg = ''
-  $: isLoading = false
+  let timer;
+  let clientWantsForm = false;
+  export let secret;
+  let formData = { name: "", email: "", subject: "", message: "", test: "" };
+  $: statusMsg = "";
+  $: isLoading = false;
 
   // const toggleDiv = (e) => {
   //   if (
@@ -45,41 +45,41 @@
     return {
       duration,
       css: (t) => {
-        const eased = cubicInOut(t)
-        return `max-height: ${eased * 100}%;`
-      }
-    }
-  }
+        const eased = cubicInOut(t);
+        return `max-height: ${eased * 100}%;`;
+      },
+    };
+  };
 
   const handleForm = async (e) => {
     //  'https://timclaydev-assets.herokuapp.com/assets'
-    if (timer) clearTimeout(timer)
-    e.preventDefault()
-    isLoading = true
+    if (timer) clearTimeout(timer);
+    e.preventDefault();
+    isLoading = true;
     // console.log(formData);
-    formData.secret = secret
+    formData.secret = secret;
     try {
       const response = await axios.post(
-        'https://timclaydev-assets.herokuapp.com/assets',
+        "https://timclaydev-assets.herokuapp.com/assets",
         formData
-      )
-      console.log(response.data)
-      const { code } = response.data
-      secret = response.data.secret
+      );
+      console.log(response.data);
+      const { code } = response.data;
+      secret = response.data.secret;
       if (code === 200) {
-        statusMsg = 'Message sent!'
+        statusMsg = "Message sent!";
       }
     } catch (error) {
-      const { message, code } = error.response.data
-      secret = error.response.data.secret
-      statusMsg = message
+      const { message, code } = error.response.data;
+      secret = error.response.data.secret;
+      statusMsg = message;
     } finally {
-      isLoading = false
+      isLoading = false;
       timer = setTimeout(() => {
-        statusMsg = ''
-      }, 4000)
+        statusMsg = "";
+      }, 4000);
     }
-  }
+  };
 </script>
 
 <style type="text/scss">
@@ -105,6 +105,22 @@
     height: 100%;
     display: flex;
     align-items: center;
+    position: relative;
+    flex-flow: column;
+    // background-image: url("../logo-spread.svg");
+
+    > div:first-of-type {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      svg {
+        height: 100%;
+        width: 100%;
+      }
+    }
   }
 
   .card-back {
@@ -131,13 +147,13 @@
     padding: 2rem;
     background: var(--dark);
 
-    input[name='subject'],
-    input[name='name'],
-    input[name='email'] {
+    input[name="subject"],
+    input[name="name"],
+    input[name="email"] {
       width: 100%;
     }
 
-    input[name='validator'] {
+    input[name="validator"] {
       width: 48%;
     }
 
@@ -207,7 +223,7 @@
       margin-left: 0.5em;
     }
 
-    .btn-primary[type='submit']:disabled {
+    .btn-primary[type="submit"]:disabled {
       background-color: var(--light);
     }
 
@@ -217,17 +233,29 @@
   }
 
   #connect {
-    width: 100%;
+    // width: 100%;
+    // height: 50%;
+    // display: flex;
+    // flex-flow: column nowrap;
+    // justify-content: space-between;
+    // align-items: center;
+    // position: relative;
+
+    width: 50%;
     height: 50%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
     align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    transform: translate(0, -50%);
 
     > .flavor-text {
       font-size: 1.5em;
       padding: 4px;
-      font-family: 'Anonymous Pro', monospace;
+      font-family: "Anonymous Pro", monospace;
       // color: var(--dark);
       // background-color: var(--light);
       background: black;
@@ -246,13 +274,30 @@
     font-size: 2rem;
     padding: 8px;
     text-transform: uppercase;
-    font-family: 'Anonymous Pro', monospace;
+    font-family: "Anonymous Pro", monospace;
     // box-shadow: 0px 0px 20px 10px var(--dark);
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
 
   #flip-trigger:hover {
     box-shadow: 0px 0px 20px 10px var(--dark);
+  }
+
+  @media only screen and (max-width: 960px) {
+    #connect {
+      width: auto;
+      left: 0;
+      font-size: 0.7rem;
+      transform: translate(15%, -90%);
+      justify-content: space-around;
+    }
+    .card-front {
+      > div:first-of-type {
+        position: relative;
+        width: auto;
+        height: auto;
+      }
+    }
   }
 
   @media only screen and (max-width: 900px) {
@@ -266,6 +311,104 @@
 
 <div id="footer" class="h-100">
   <div class="card-front">
+    <div>
+      <svg
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1000 657.47"><defs>
+          <style>
+            .cls-1 {
+              fill: #fff;
+            }
+            .cls-2 {
+              fill: #414042;
+            }
+            .cls-3 {
+              fill: #231f20;
+            }
+          </style>
+        </defs>
+        <g id="Layer_2" data-name="Layer 2">
+          <g id="Layer_1-2" data-name="Layer 1">
+            <rect class="cls-1" width="1000" height="657.47" />
+            <rect
+              class="cls-2"
+              x="0.63"
+              y="327.02"
+              width="998.73"
+              height="3"
+              rx="1.5"
+              transform="translate(1000 657.04) rotate(180)" />
+            <rect
+              class="cls-2"
+              x="0.63"
+              y="495.39"
+              width="998.73"
+              height="3"
+              rx="1.5"
+              transform="translate(1000 993.78) rotate(-180)" />
+            <rect
+              class="cls-2"
+              x="0.63"
+              y="158.65"
+              width="998.73"
+              height="3"
+              rx="1.5"
+              transform="translate(1000 320.3) rotate(180)" />
+            <rect
+              class="cls-3"
+              x="500"
+              y="70.44"
+              width="482.65"
+              height="22.97"
+              transform="translate(1482.65 163.84) rotate(180)" />
+            <rect
+              class="cls-3"
+              x="500"
+              y="106.05"
+              width="482.65"
+              height="6.26"
+              transform="translate(1482.65 218.36) rotate(180)" />
+            <rect
+              class="cls-1"
+              x="496.89"
+              y="336.01"
+              width="488.86"
+              height="47.18"
+              transform="translate(381.73 1100.92) rotate(-90)" />
+            <rect
+              class="cls-3"
+              x="507.54"
+              y="346.66"
+              width="488.86"
+              height="25.87"
+              transform="translate(392.38 1111.57) rotate(-90)" />
+            <rect
+              class="cls-3"
+              x="476.84"
+              y="356.07"
+              width="488.86"
+              height="7.06"
+              transform="translate(361.67 1080.86) rotate(-90)" />
+            <rect
+              class="cls-2"
+              x="1.27"
+              y="3.7"
+              width="998.73"
+              height="3"
+              rx="1.5"
+              transform="translate(1001.27 10.41) rotate(180)" />
+            <rect
+              class="cls-2"
+              x="0.63"
+              y="650.33"
+              width="998.73"
+              height="3"
+              rx="1.5"
+              transform="translate(1000 1303.67) rotate(-180)" />
+          </g>
+        </g></svg>
+    </div>
     <div
       id="connect"
       class="w-100 h-60 flex flex-column flex-justify-between
@@ -282,8 +425,8 @@
   {#if clientWantsForm}
     <div
       on:click={(e) => {
-        if (e.target.closest('#direct-form')) return
-        clientWantsForm = false
+        if (e.target.closest('#direct-form')) return;
+        clientWantsForm = false;
       }}
       class="card-back"
       transition:fallDown={{ duration: 800 }}>
@@ -294,7 +437,7 @@
             class="flex flex-row flex-justify-between w-100 ">
             <input
               on:input={(e) => {
-                formData.name = e.target.value
+                formData.name = e.target.value;
               }}
               required
               type="text"
@@ -302,7 +445,7 @@
               placeholder="Name (required)" />
             <input
               on:input={(e) => {
-                formData.email = e.target.value
+                formData.email = e.target.value;
               }}
               required
               name="email"
@@ -312,7 +455,7 @@
           <div>
             <input
               on:input={(e) => {
-                formData.subject = e.target.value
+                formData.subject = e.target.value;
               }}
               class="w-100"
               type="text"
@@ -320,7 +463,7 @@
               placeholder="Subject" />
             <textarea
               on:input={(e) => {
-                formData.message = e.target.value
+                formData.message = e.target.value;
               }}
               required
               class="textarea-fixed w-100 "
@@ -343,7 +486,7 @@
               </p>
               <input
                 on:input={(e) => {
-                  formData.test = e.target.value
+                  formData.test = e.target.value;
                 }}
                 class="ml-1"
                 required
