@@ -313,50 +313,47 @@
     {#if width > 600}
       {#if playCardsAnimation}
         {#each assets as asset, i}
-          {#await preload(asset['image']) then _}
-            <div
-              in:unfoldCards={{ duration: 1000 }}
-              class="child"
-              id="project-{i}">
-              <div class="link-image">
-                <img src={asset['image']} alt={asset['title']} />
-              </div>
-              <div id="link-details">
-                <h1>{asset.title}</h1>
-                <div class="tags-and-description">
-                  <div id="tags">
-                    {#each asset.tags as tag, j}
-                      <span style="margin: 0 0 2px 2px;">{tag}</span>
-                    {/each}
-                  </div>
-                  <p>{asset.description}</p>
+          <!-- {#await preload(asset['image']) then _} -->
+          <div
+            in:unfoldCards={{ duration: 1000 }}
+            class="child"
+            id="project-{i}">
+            <div class="link-image">
+              <img src={asset['image']} alt={asset['title']} />
+            </div>
+            <div id="link-details">
+              <h1>{asset.title}</h1>
+              <div class="tags-and-description">
+                <div id="tags">
+                  {#each asset.tags as tag, j}
+                    <span style="margin: 0 0 2px 2px;">{tag}</span>
+                  {/each}
                 </div>
-              </div>
-              <div class="project-card-actions">
-                <a
-                  href={asset.url}
-                  target="_blank"
-                  class="btn-primary card-link">
-                  <i class="far fa-eye" />
-                  Site
-                </a>
-                <a
-                  href={asset.github}
-                  target="_blank"
-                  class="btn-primary card-link">
-                  <i class="fas fa-code" />
-                  Code
-                </a>
-                <a
-                  href={asset.demo}
-                  target="_blank"
-                  class="btn-primary card-link">
-                  <i class="fas fa-video" />
-                  Demo
-                </a>
+                <p>{asset.description}</p>
               </div>
             </div>
-          {/await}
+            <div class="project-card-actions">
+              <a href={asset.url} target="_blank" class="btn-primary card-link">
+                <i class="far fa-eye" />
+                Site
+              </a>
+              <a
+                href={asset.github}
+                target="_blank"
+                class="btn-primary card-link">
+                <i class="fas fa-code" />
+                Code
+              </a>
+              <a
+                href={asset.demo}
+                target="_blank"
+                class="btn-primary card-link">
+                <i class="fas fa-video" />
+                Demo
+              </a>
+            </div>
+          </div>
+          <!-- {/await} -->
         {/each}
       {/if}
     {:else}

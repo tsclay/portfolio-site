@@ -1,5 +1,13 @@
 <script>
   export let toggleDiv;
+
+  // const preload = (src) => {
+  //   return new Promise((resolve) => {
+  //     let img = new Image();
+  //     img.onload = resolve;
+  //     img.src = src;
+  //   });
+  // };
 </script>
 
 <style type="text/scss">
@@ -101,11 +109,38 @@
 </style>
 
 <div id="header" class="banner">
+  <!-- {#await preload('/img/tclay3.jpg')}
+    <div
+      style="width: 50%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(50%, 50%);">
+      <svg
+        class="loading-spinner"
+        xmlns="http://www.w3.org/2000/svg"
+        width="500"
+        height="500"
+        viewBox="0 0 132.29166 132.29167">
+        <g>
+          <path
+            d="m 66.573613,126.66219 9.9e-4,-8e-5 c 33.183731,-6e-5 60.084447,-27.034831 60.084487,-60.38394 l 7e-5,-0.0029"
+            style="fill:none;fill-rule:evenodd;stroke:#00ffff;stroke-width:10.7299;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
+      </svg>
+    </div>
+  {:then} -->
   <img src="/img/tclay3.jpg" alt="Tim Clay" />
   <div class="name-title">
     <span>Tim Clay</span>
     <span>Software Developer</span>
   </div>
+  <!-- {/await} -->
   <!-- <div class="w-100 h-90">
     <div class="pos-relative ml-2">
       <p class="pos-relative" id="title">Tim Clay</p>

@@ -58,6 +58,36 @@
     observer.observe(document.querySelector("#project-carousel"));
   });
 
+  // const fetchResources = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       "https://timclaydev-assets.herokuapp.com/assets"
+  //     ).then((r) => r.json());
+  //     [assets, secret] = response;
+  //     hasLoaded = true;
+  //     console.log("inside promise!");
+  //   } catch (error) {
+  //     console.log("this is the error", error);
+  //   }
+  // };
+
+  const preload = (src) => {
+    console.log("inside preload ", src);
+    return new Promise((resolve) => {
+      let img = new Image();
+      img.onload = resolve;
+      img.src = src;
+    });
+  };
+
+  // let promise = fetchResources();
+
+  // const gatherResourceFiles = async (fileNames) => {
+  //   for (let i = 0; i < fileNames.length; i++) {
+  //     await preload(fileNames[i])
+  //   }
+  // }
+
   // let step = 0;
   // const toggleDiv = () => {
   //   step = (step + 1) % 2;
@@ -73,9 +103,40 @@
   }} />
 
 <div id="root" class={hasLoaded ? 'container grid' : 'hidden'}>
-  <Banner />
-  <Brand {laptopShouldEnter} {width} {height} />
-  <Projects {playCardsAnimation} {assets} {width} {height} />
-  <Contact {secret} {width} {height} />
-  <Copyright />
+  {#await (() => {
+    console.log(document.querySelector('svg'));
+    assets.forEach((a) => preload(a.image));
+    preload('/img/tclay3.jpg');
+  })(assets)}
+    <div
+      style="width: 50%;
+height: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 0 auto;
+position: absolute;
+top: 0;
+left: 0;
+transform: translate(50%, 50%);">
+      <svg
+        class="loading-spinner"
+        xmlns="http://www.w3.org/2000/svg"
+        width="500"
+        height="500"
+        viewBox="0 0 132.29166 132.29167">
+        <g>
+          <path
+            d="m 66.573613,126.66219 9.9e-4,-8e-5 c 33.183731,-6e-5 60.084447,-27.034831 60.084487,-60.38394 l 7e-5,-0.0029"
+            style="fill:none;fill-rule:evenodd;stroke:#00ffff;stroke-width:10.7299;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
+      </svg>
+    </div>
+  {:then}
+    <Banner />
+    <Brand {laptopShouldEnter} {width} {height} />
+    <Projects {playCardsAnimation} {assets} {width} {height} />
+    <Contact {secret} {width} {height} />
+    <Copyright />
+  {/await}
 </div>
