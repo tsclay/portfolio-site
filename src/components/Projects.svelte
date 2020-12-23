@@ -1,69 +1,69 @@
 <script>
-  import { onMount } from 'svelte'
-  import { cubicOut } from 'svelte/easing'
-  import { SkipForwardIcon, SkipBackIcon } from 'svelte-feather-icons'
+  import { onMount } from "svelte";
+  import { cubicOut } from "svelte/easing";
+  import { SkipForwardIcon, SkipBackIcon } from "svelte-feather-icons";
 
-  export let assets, width, playCardsAnimation
+  export let assets, width, playCardsAnimation;
 
-  let duration = 8000
-  let timer = null
-  let isPlaying = false
-  let step = 0
-  let len = 0
-  let hide = true
-  let flowDir = 500
-  let inverseFlowDir = flowDir * -1
-  $: inverseFlowDir = flowDir * -1
-  $: len = assets.length
+  let duration = 8000;
+  let timer = null;
+  let isPlaying = false;
+  let step = 0;
+  let len = 0;
+  let hide = true;
+  let flowDir = 500;
+  let inverseFlowDir = flowDir * -1;
+  $: inverseFlowDir = flowDir * -1;
+  $: len = assets.length;
 
   onMount(() => {
-    play()
-  })
+    play();
+  });
 
   const next = () => {
-    console.log('next')
-    if (isPlaying) stop()
-    flowDir = 500
-    step = (step + 1) % len
-    console.log('next:', step)
-    return flowDir
-  }
+    console.log("next");
+    if (isPlaying) stop();
+    flowDir = 500;
+    step = (step + 1) % len;
+    console.log("next:", step);
+    return flowDir;
+  };
 
   const prev = () => {
-    console.log('prev')
-    if (isPlaying) stop()
-    flowDir = -500
-    step = (step - 1 + len) % len
-    console.log('prev:', step)
-    return flowDir
-  }
+    console.log("prev");
+    if (isPlaying) stop();
+    flowDir = -500;
+    step = (step - 1 + len) % len;
+    console.log("prev:", step);
+    return flowDir;
+  };
 
   // Start carousel reel
   const play = () => {
-    if (isPlaying) return
-    isPlaying = true
-    flowDir = 200
+    if (isPlaying) return;
+    isPlaying = true;
+    flowDir = 200;
     timer = setInterval(() => {
-      step = (step + 1) % len
-    }, duration)
-    console.log('playing!')
-  }
+      step = (step + 1) % len;
+    }, duration);
+    console.log("playing!");
+  };
 
   const stop = () => {
-    isPlaying = false
-    console.log('stop!')
-    return clearTimeout(timer)
-  }
+    isPlaying = false;
+    console.log("stop!");
+    return clearTimeout(timer);
+  };
 
   const goOut = (
     node,
     { duration, opacity = 0, y = 0, easing: easing$1 = cubicOut }
   ) => {
-    const x = inverseFlowDir
-    const style = getComputedStyle(node)
-    const target_opacity = +style.opacity
-    const transform = style.transform === 'none' ? '' : style.transform
-    const od = target_opacity * (1 - opacity)
+    const x = inverseFlowDir;
+    const style = getComputedStyle(node);
+    const target_opacity = +style.opacity;
+    const transform = style.transform === "none" ? "" : style.transform;
+    const od = target_opacity * (1 - opacity);
     return {
       duration,
       easing: easing$1,
@@ -72,20 +72,20 @@
         return `transform: ${transform} translate(${(1 - t) * x}px, ${
           (1 - t) * y
         }px);
-        opacity: ${target_opacity - od * u}`
-      }
-    }
-  }
+        opacity: ${target_opacity - od * u}`;
+      },
+    };
+  };
 
   const goIn = (
     node,
     { duration, opacity = 0, y = 0, easing: easing$1 = cubicOut }
   ) => {
-    const x = flowDir
-    const style = getComputedStyle(node)
-    const target_opacity = +style.opacity
-    const transform = style.transform === 'none' ? '' : style.transform
-    const od = target_opacity * (1 - opacity)
+    const x = flowDir;
+    const style = getComputedStyle(node);
+    const target_opacity = +style.opacity;
+    const transform = style.transform === "none" ? "" : style.transform;
+    const od = target_opacity * (1 - opacity);
     return {
       duration,
       easing: easing$1,
@@ -94,18 +94,18 @@
         return `transform: ${transform} translate(${(1 - t) * x}px, ${
           (1 - t) * y
         }px);
-        opacity: ${target_opacity - od * u}`
-      }
-    }
-  }
+        opacity: ${target_opacity - od * u}`;
+      },
+    };
+  };
 
   const unfoldCards = (node, { duration }) => {
-    const style = getComputedStyle(node)
-    const cardRect = node.getBoundingClientRect()
-    const transform = style.transform === 'none' ? '' : style.transform
-    const parentRect = node.parentElement.getBoundingClientRect()
-    const x = parentRect.left - cardRect.left
-    const y = cardRect.top
+    const style = getComputedStyle(node);
+    const cardRect = node.getBoundingClientRect();
+    const transform = style.transform === "none" ? "" : style.transform;
+    const parentRect = node.parentElement.getBoundingClientRect();
+    const x = parentRect.left - cardRect.left;
+    const y = cardRect.top;
 
     return {
       duration,
@@ -115,23 +115,23 @@
       css: (t, u) => {
         return `
         transform: ${transform} translate(${u * x}px, -${u * y}px);
-        `
-      }
-    }
-  }
+        `;
+      },
+    };
+  };
 
   const preload = (src) => {
     return new Promise((resolve) => {
-      let img = new Image()
-      img.onload = resolve
-      img.src = src
-    })
-  }
+      let img = new Image();
+      img.onload = resolve;
+      img.src = src;
+    });
+  };
 </script>
 
 <style type="text/scss">
   #project-carousel {
-    background: black;
+    background: #4f2020;
     // background: #b7ddff;
     padding: 2rem;
     box-sizing: border-box;
