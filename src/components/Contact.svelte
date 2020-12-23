@@ -168,7 +168,7 @@
 
       p {
         position: absolute;
-        top: 0;
+        top: 1px;
         left: 0;
         width: 125px;
         padding: 0.4em;
