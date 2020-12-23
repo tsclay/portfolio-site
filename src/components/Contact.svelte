@@ -11,6 +11,7 @@
   import axios from "axios";
 
   // let step = 0
+  export let width, height;
   let timer;
   let clientWantsForm = false;
   export let secret;
@@ -109,17 +110,16 @@
     flex-flow: column;
     // background-image: url("../logo-spread.svg");
 
-    > div:first-of-type {
+    svg {
+      height: 100%;
+      width: 100%;
+    }
+    .lg-svg-wrapper {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-
-      svg {
-        height: 100%;
-        width: 100%;
-      }
     }
   }
 
@@ -285,17 +285,20 @@
 
   @media only screen and (max-width: 960px) {
     #connect {
-      width: auto;
-      left: 0;
+      width: 100%;
       font-size: 0.7rem;
-      transform: translate(15%, -90%);
+      transform: translate(-50%, -85%);
       justify-content: space-around;
+      left: 50%;
     }
     .card-front {
-      > div:first-of-type {
-        position: relative;
-        width: auto;
+      .lg-svg-wrapper {
+        top: auto;
+        width: 100%;
         height: auto;
+        bottom: 0;
+        left: 0;
+        transform: translate(0, -15%);
       }
     }
   }
@@ -311,7 +314,7 @@
 
 <div id="footer" class="h-100">
   <div class="card-front">
-    <div>
+    <div class="lg-svg-wrapper">
       <svg
         preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"
