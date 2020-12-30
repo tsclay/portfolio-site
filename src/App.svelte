@@ -59,7 +59,7 @@
       ).then((r) => r.json())
       ;[assets, secret] = response
       assets.forEach(async (a) => await preload(a.image))
-      await preload('/img/tclay3.jpg')
+      await preload('/img/tclay3-min.jpg')
       hasLoaded = true
     } catch (error) {
       console.log('this is the error', error)

@@ -1,5 +1,5 @@
 <script>
-  export let toggleDiv;
+  export let toggleDiv
 
   // const preload = (src) => {
   //   return new Promise((resolve) => {
@@ -135,7 +135,7 @@
       </svg>
     </div>
   {:then} -->
-  <img src="/img/tclay3.jpg" alt="Tim Clay" />
+  <img src="/img/tclay3-min.jpg" alt="Tim Clay" />
   <div class="name-title">
     <span>Tim Clay</span>
     <span>Software Developer</span>
