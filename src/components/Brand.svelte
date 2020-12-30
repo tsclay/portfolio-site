@@ -6,16 +6,21 @@
     cubicIn,
     elasticIn,
     sineInOut,
-    cubicInOut,
-  } from "svelte/easing";
-  import { tweened } from "svelte/motion";
+    cubicInOut
+  } from 'svelte/easing'
+  import { tweened } from 'svelte/motion'
+  import { onMount } from 'svelte'
 
-  export let laptopShouldEnter;
+  export let laptopShouldEnter, observer
 
-  export let width;
-  export let height;
+  export let width
+  export let height
 
-  let laptopAnimateDone = false;
+  let laptopAnimateDone = false
+
+  onMount(() => {
+    observer.observe(document.querySelector('#profile'))
+  })
 
   // The div is in ON position when its rotateY deg is 0
   // The div is in OFF position when rotateY is 180 or -180
@@ -25,46 +30,46 @@
     return {
       duration,
       css: (t) => {
-        const eased = cubicInOut(t);
-        const test = (eased - 1) * 180;
+        const eased = cubicInOut(t)
+        const test = (eased - 1) * 180
 
         return `transform: rotateY(${(eased - 1) * 180}deg);
     transform-style: preserve-3d;
     -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;`;
-      },
-    };
-  };
+    backface-visibility: hidden;`
+      }
+    }
+  }
 
   const halo = tweened(0, {
     duration: 1000,
-    easing: cubicInOut,
-  });
+    easing: cubicInOut
+  })
 
   const animateLaptop = (node, { duration }) => {
-    const style = getComputedStyle(node);
-    const transform = style.transform === "none" ? "" : style.transform;
+    const style = getComputedStyle(node)
+    const transform = style.transform === 'none' ? '' : style.transform
     return {
       duration,
       css: (t, u) => {
-        const eased = cubicInOut(u);
+        const eased = cubicInOut(u)
         return `transform: ${transform} translate3d(0, -${
           u * 60
-        }%, 0) rotateX(${u * -90}deg);`;
+        }%, 0) rotateX(${u * -90}deg);`
       },
       tick: (t, u) => {
         if (u < 0.25 && !laptopAnimateDone) {
-          laptopAnimateDone = true;
+          laptopAnimateDone = true
         }
         if (u === 0) {
-          halo.set(60);
+          halo.set(45)
         }
-      },
-    };
-  };
+      }
+    }
+  }
 
-  let onDesktop;
-  $: onDesktop = width > 615 && height > 415;
+  let onDesktop
+  $: onDesktop = width > 615 && height > 415
 </script>
 
 <style type="text/scss">
@@ -88,7 +93,7 @@
     font-size: clamp(0.9rem, 2vw, 1.2rem);
 
     p {
-      font-family: "Anonymous Pro", monospace;
+      font-family: 'Anonymous Pro', monospace;
       width: 75%;
       text-align: center;
       margin: 0.8rem 0;
