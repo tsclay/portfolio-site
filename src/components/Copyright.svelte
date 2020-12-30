@@ -1,11 +1,11 @@
 <script>
-  const year = new Date().getFullYear();
+  const year = new Date().getFullYear()
 </script>
 
 <style type="text/scss">
   #copyright-notices {
-    color: rgb(48, 48, 48);
-    background-color: rgb(48, 48, 48);
+    color: var(--dark);
+    background-color: black;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
@@ -58,9 +58,5 @@
       <i class="fab fa-github" />
     </a>
   </div>
-  <span>
-    Copyright ©
-    {year}
-    Tim Clay All Rights Reserved. Made with ❤️ using Svelte.
-  </span>
+  <span> Copyright © {year} Tim Clay All Rights Reserved. </span>
 </div>
