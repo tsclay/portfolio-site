@@ -16,7 +16,6 @@
 
   let hasLoaded = false
   $: assets = []
-  let secret = ''
   let laptopShouldEnter = false
   let playCardsAnimation = false
 
@@ -53,11 +52,9 @@
   let observer = new IntersectionObserver(callback, options)
 
   onMount(async () => {
+    // https://timclaydev-assets.herokuapp.com/assets
     try {
-      const response = await fetch(
-        'https://timclaydev-assets.herokuapp.com/assets'
-      ).then((r) => r.json())
-      ;[assets, secret] = response
+      assets = await fetch('http://localhost:8888/assets').then((r) => r.json())
       assets.forEach(async (a) => await preload(a.image))
       await preload('/img/tclay3-min.jpg')
       hasLoaded = true
@@ -140,7 +137,7 @@ transform: translate(50%, 50%);">
     <Banner />
     <Brand {observer} {laptopShouldEnter} {width} {height} />
     <Projects {observer} {playCardsAnimation} {assets} {width} {height} />
-    <Contact {secret} {width} {height} />
+    <Contact {width} {height} />
     <Copyright />
     <!-- {/await} -->
   {/if}

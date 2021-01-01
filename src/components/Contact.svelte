@@ -6,18 +6,17 @@
     cubicIn,
     elasticIn,
     sineInOut,
-    cubicInOut,
-  } from "svelte/easing";
-  import axios from "axios";
+    cubicInOut
+  } from 'svelte/easing'
 
   // let step = 0
-  export let width, height;
-  let timer;
-  let clientWantsForm = false;
-  export let secret;
-  let formData = { name: "", email: "", subject: "", message: "", test: "" };
-  $: statusMsg = "";
-  $: isLoading = false;
+  export let width, height
+  let timer
+  let clientWantsForm = false
+  let secret, src
+  let formData = { name: '', email: '', subject: '', message: '', test: '' }
+  $: statusMsg = ''
+  $: isLoading = false
 
   // const toggleDiv = (e) => {
   //   if (
@@ -46,41 +45,48 @@
     return {
       duration,
       css: (t) => {
-        const eased = cubicInOut(t);
-        return `max-height: ${eased * 100}%;`;
-      },
-    };
-  };
+        const eased = cubicInOut(t)
+        return `max-height: ${eased * 100}%;`
+      }
+    }
+  }
+
+  const makeFormSecure = async (e, response = null) => {
+    const r = response ? response : await fetch('http://localhost:8888/guard')
+    secret = await r.headers.get('X-Email-Code')
+    src = await r.blob().then((b) => URL.createObjectURL(b))
+    console.log(response)
+    if (!response) {
+      clientWantsForm = true
+    }
+  }
 
   const handleForm = async (e) => {
     //  'https://timclaydev-assets.herokuapp.com/assets'
-    if (timer) clearTimeout(timer);
-    e.preventDefault();
-    isLoading = true;
-    // console.log(formData);
-    formData.secret = secret;
+    if (timer) clearTimeout(timer)
+    e.preventDefault()
+    isLoading = true
+    formData.secret = secret
     try {
-      const response = await axios.post(
-        "https://timclaydev-assets.herokuapp.com/assets",
-        formData
-      );
-      console.log(response.data);
-      const { code } = response.data;
-      secret = response.data.secret;
-      if (code === 200) {
-        statusMsg = "Message sent!";
+      const response = await fetch('http://localhost:8888/assets', {
+        method: 'POST',
+        body: JSON.stringify(formData)
+      })
+      if (response.status === 200) {
+        statusMsg = 'Message sent!'
+      } else {
+        throw new Error(response.headers.get('X-Message'))
       }
     } catch (error) {
-      const { message, code } = error.response.data;
-      secret = error.response.data.secret;
-      statusMsg = message;
+      makeFormSecure()
+      statusMsg = error
     } finally {
-      isLoading = false;
+      isLoading = false
       timer = setTimeout(() => {
-        statusMsg = "";
-      }, 4000);
+        statusMsg = ''
+      }, 4000)
     }
-  };
+  }
 </script>
 
 <style type="text/scss">
@@ -147,13 +153,13 @@
     padding: 2rem;
     background: var(--dark);
 
-    input[name="subject"],
-    input[name="name"],
-    input[name="email"] {
+    input[name='subject'],
+    input[name='name'],
+    input[name='email'] {
       width: 100%;
     }
 
-    input[name="validator"] {
+    input[name='validator'] {
       width: 48%;
     }
 
@@ -170,7 +176,7 @@
         position: absolute;
         top: 1px;
         left: 0;
-        width: 125px;
+        width: 150px;
         padding: 0.4em;
         margin: 0 0 0.5em 0;
         box-sizing: border-box;
@@ -179,6 +185,11 @@
         justify-content: space-between;
         align-items: center;
 
+        span {
+          height: 1em;
+          font-size: 18px;
+        }
+
         :nth-child(2) {
           font-weight: bold;
         }
@@ -186,7 +197,7 @@
 
       input {
         width: 100%;
-        padding-left: 125px;
+        padding-left: 155px;
       }
     }
 
@@ -223,7 +234,7 @@
       margin-left: 0.5em;
     }
 
-    .btn-primary[type="submit"]:disabled {
+    .btn-primary[type='submit']:disabled {
       background-color: var(--light);
     }
 
@@ -255,7 +266,7 @@
     > .flavor-text {
       font-size: 1.5em;
       padding: 4px;
-      font-family: "Anonymous Pro", monospace;
+      font-family: 'Anonymous Pro', monospace;
       // color: var(--dark);
       // background-color: var(--light);
       background: black;
@@ -274,7 +285,7 @@
     font-size: 2rem;
     padding: 8px;
     text-transform: uppercase;
-    font-family: "Anonymous Pro", monospace;
+    font-family: 'Anonymous Pro', monospace;
     // box-shadow: 0px 0px 20px 10px var(--dark);
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
@@ -423,14 +434,14 @@
         id="flip-trigger"
         class="btn-primary"
         type="click"
-        on:click={() => (clientWantsForm = true)}>Let's connect.</button>
+        on:click={makeFormSecure}>Let's connect.</button>
     </div>
   </div>
   {#if clientWantsForm}
     <div
       on:click={(e) => {
-        if (e.target.closest('#direct-form')) return;
-        clientWantsForm = false;
+        if (e.target.closest('#direct-form')) return
+        clientWantsForm = false
       }}
       class="card-back"
       transition:fallDown={{ duration: 800 }}>
@@ -441,7 +452,7 @@
             class="flex flex-row flex-justify-between w-100 ">
             <input
               on:input={(e) => {
-                formData.name = e.target.value;
+                formData.name = e.target.value
               }}
               required
               type="text"
@@ -449,7 +460,7 @@
               placeholder="Name (required)" />
             <input
               on:input={(e) => {
-                formData.email = e.target.value;
+                formData.email = e.target.value
               }}
               required
               name="email"
@@ -459,7 +470,7 @@
           <div>
             <input
               on:input={(e) => {
-                formData.subject = e.target.value;
+                formData.subject = e.target.value
               }}
               class="w-100"
               type="text"
@@ -467,7 +478,7 @@
               placeholder="Subject" />
             <textarea
               on:input={(e) => {
-                formData.message = e.target.value;
+                formData.message = e.target.value
               }}
               required
               class="textarea-fixed w-100 "
@@ -486,11 +497,11 @@
                 id="validation-text"
                 class="flex flex-row flex-justify-between">
                 <span class="text-align-center">Code</span>
-                <span>{secret}</span>
+                <span><img {src} /></span>
               </p>
               <input
                 on:input={(e) => {
-                  formData.test = e.target.value;
+                  formData.test = e.target.value
                 }}
                 class="ml-1"
                 required
