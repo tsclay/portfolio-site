@@ -6,87 +6,73 @@
     cubicIn,
     elasticIn,
     sineInOut,
-    cubicInOut
-  } from 'svelte/easing'
+    cubicInOut,
+  } from "svelte/easing";
 
   // let step = 0
-  export let width, height
-  let timer
-  let clientWantsForm = false
-  let secret, src
-  let formData = { name: '', email: '', subject: '', message: '', test: '' }
-  $: statusMsg = ''
-  $: isLoading = false
-
-  // const toggleDiv = (e) => {
-  //   if (
-  //     e.target.id !== 'contact-form' &&
-  //     e.target.classList[0] !== 'card-back' &&
-  //     step === 1
-  //   ) {
-  //     return
-  //   }
-  //   step = (step + 1) % 2
-  // }
-
-  // const flip = (node, { duration }) => {
-  //   return {
-  //     duration,
-  //     css: (t) => {
-  //       const eased = cubicInOut(t)
-  //       const test = (eased - 1) * 180
-
-  //       return `transform: rotateY(${(eased - 1) * 180}deg);`
-  //     }
-  //   }
-  // }
+  export let width, height;
+  let timer;
+  let messageSent = { animateIn: false, hasSent: false };
+  let clientWantsForm = false;
+  let secret, src;
+  let formData = { name: "", email: "", subject: "", message: "", test: "" };
+  $: statusMsg = "";
+  $: isLoading = false;
 
   const fallDown = (node, { duration }) => {
     return {
       duration,
       css: (t) => {
-        const eased = cubicInOut(t)
-        return `max-height: ${eased * 100}%;`
-      }
-    }
-  }
+        const eased = cubicInOut(t);
+        return `max-height: ${eased * 100}%;`;
+      },
+      tick: (t) => {
+        if (t === 0 && !clientWantsForm && messageSent.hasSent == true) {
+          messageSent.animateIn = true;
+        }
+      },
+    };
+  };
 
   const makeFormSecure = async (e, response = null) => {
-    const r = response ? response : await fetch('http://localhost:8888/guard')
-    secret = await r.headers.get('X-Email-Code')
-    src = await r.blob().then((b) => URL.createObjectURL(b))
-    console.log(response)
+    const r = response ? response : await fetch("http://localhost:8888/guard");
+    secret = await r.headers.get("X-Email-Code");
+    src = await r.blob().then((b) => URL.createObjectURL(b));
     if (!response) {
-      clientWantsForm = true
+      clientWantsForm = true;
     }
-  }
+  };
 
   const handleForm = async (e) => {
     //  'https://timclaydev-assets.herokuapp.com/assets'
-    if (timer) clearTimeout(timer)
-    e.preventDefault()
-    isLoading = true
-    formData.secret = secret
+    if (timer) clearTimeout(timer);
+    e.preventDefault();
+    isLoading = true;
+    formData.secret = secret;
     try {
-      const response = await fetch('http://localhost:8888/assets', {
-        method: 'POST',
-        body: JSON.stringify(formData)
-      })
+      const response = await fetch("http://localhost:8888/assets", {
+        method: "POST",
+        body: JSON.stringify(formData),
+      });
       if (response.status === 200) {
-        statusMsg = 'Message sent!'
+        statusMsg = "Message sent!";
+        messageSent.hasSent = true;
       } else {
-        throw new Error(response.headers.get('X-Message'))
+        throw new Error(response.headers.get("X-Message"));
       }
     } catch (error) {
-      makeFormSecure()
-      statusMsg = error
+      makeFormSecure();
+      statusMsg = error;
     } finally {
-      isLoading = false
+      isLoading = false;
       timer = setTimeout(() => {
-        statusMsg = ''
-      }, 4000)
+        if (statusMsg === "Message sent!") {
+          clientWantsForm = false;
+        }
+        statusMsg = "";
+      }, 2000);
     }
-  }
+  };
 </script>
 
 <style type="text/scss">
@@ -129,7 +115,8 @@
     }
   }
 
-  .card-back {
+  .card-back,
+  .card-msg-sent {
     overflow: hidden;
     background: rgba(0, 0, 0, 0.75);
     position: absolute;
@@ -142,8 +129,22 @@
     justify-content: center;
   }
 
-  #contact-form {
+  #contact-form,
+  .msg-sent-div {
     width: clamp(355px, 85%, 580px);
+  }
+
+  .msg-sent-div {
+    background: #d4edda;
+    padding: 2em;
+    width: auto;
+    border-radius: 4px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    color: #155724;
+    border: solid 2px #155724;
   }
 
   form {
@@ -153,13 +154,13 @@
     padding: 2rem;
     background: var(--dark);
 
-    input[name='subject'],
-    input[name='name'],
-    input[name='email'] {
+    input[name="subject"],
+    input[name="name"],
+    input[name="email"] {
       width: 100%;
     }
 
-    input[name='validator'] {
+    input[name="validator"] {
       width: 48%;
     }
 
@@ -211,6 +212,8 @@
     #msg-fail {
       height: 2em;
       border-radius: 0.25rem;
+      padding: 0.5em;
+      box-sizing: border-box;
     }
 
     #msg-success {
@@ -231,10 +234,12 @@
     }
 
     #message-text {
-      margin-left: 0.5em;
+      display: flex;
+      align-items: center;
+      height: 100%;
     }
 
-    .btn-primary[type='submit']:disabled {
+    .btn-primary[type="submit"]:disabled {
       background-color: var(--light);
     }
 
@@ -266,7 +271,7 @@
     > .flavor-text {
       font-size: 1.5em;
       padding: 4px;
-      font-family: 'Anonymous Pro', monospace;
+      font-family: "Anonymous Pro", monospace;
       // color: var(--dark);
       // background-color: var(--light);
       background: black;
@@ -285,7 +290,7 @@
     font-size: 2rem;
     padding: 8px;
     text-transform: uppercase;
-    font-family: 'Anonymous Pro', monospace;
+    font-family: "Anonymous Pro", monospace;
     // box-shadow: 0px 0px 20px 10px var(--dark);
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
@@ -440,8 +445,8 @@
   {#if clientWantsForm}
     <div
       on:click={(e) => {
-        if (e.target.closest('#direct-form')) return
-        clientWantsForm = false
+        if (e.target.closest('#direct-form')) return;
+        clientWantsForm = false;
       }}
       class="card-back"
       transition:fallDown={{ duration: 800 }}>
@@ -452,7 +457,7 @@
             class="flex flex-row flex-justify-between w-100 ">
             <input
               on:input={(e) => {
-                formData.name = e.target.value
+                formData.name = e.target.value;
               }}
               required
               type="text"
@@ -460,7 +465,7 @@
               placeholder="Name (required)" />
             <input
               on:input={(e) => {
-                formData.email = e.target.value
+                formData.email = e.target.value;
               }}
               required
               name="email"
@@ -470,7 +475,7 @@
           <div>
             <input
               on:input={(e) => {
-                formData.subject = e.target.value
+                formData.subject = e.target.value;
               }}
               class="w-100"
               type="text"
@@ -478,7 +483,7 @@
               placeholder="Subject" />
             <textarea
               on:input={(e) => {
-                formData.message = e.target.value
+                formData.message = e.target.value;
               }}
               required
               class="textarea-fixed w-100 "
@@ -501,7 +506,7 @@
               </p>
               <input
                 on:input={(e) => {
-                  formData.test = e.target.value
+                  formData.test = e.target.value;
                 }}
                 class="ml-1"
                 required
@@ -523,7 +528,6 @@
                   alt="Sending..." />
               {/if}
             </button>
-
             {#if statusMsg !== ''}
               <div
                 class="w-100 mb-1 flex flex-row flex-align-center"
@@ -533,6 +537,14 @@
             {/if}
           </div>
         </form>
+      </div>
+    </div>
+  {/if}
+  {#if messageSent.animateIn == true}
+    <div class="card-msg-sent" transition:fallDown={{ duration: 800 }}>
+      <div class="msg-sent-div">
+        <h2>Message sent!</h2>
+        <h2>We'll be in touch!</h2>
       </div>
     </div>
   {/if}
