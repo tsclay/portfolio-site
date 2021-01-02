@@ -15,6 +15,7 @@
 
   let hasLoaded = false;
   $: assets = [];
+  let preloadedImgs = [];
   let laptopShouldEnter = false;
   let playCardsAnimation = false;
 
@@ -24,6 +25,7 @@
       let img = new Image();
       img.onload = resolve;
       img.src = src;
+      return img;
     });
   };
 
@@ -38,6 +40,17 @@
       if (entry.intersectionRatio >= 0.5 && entry.target.id == "profile") {
         laptopShouldEnter = true;
         observer.unobserve(entry.target);
+        assets.forEach(async (a) => {
+          let img = await preload(a.image);
+          img = await img.target;
+          img.alt = a.title;
+          img.style.cssText = `
+            height: 100%; 
+            width: 100%; 
+            display: block;
+          `;
+          preloadedImgs = [...preloadedImgs, img.outerHTML];
+        });
       } else if (
         entry.intersectionRatio >= 0.5 &&
         entry.target.id == "project-carousel"
@@ -56,7 +69,6 @@
       assets = await fetch(
         "https://timclaydev-assets.herokuapp.com/assets"
       ).then((r) => r.json());
-      assets.forEach(async (a) => await preload(a.image));
       await preload("/img/tclay3-min.jpg");
       hasLoaded = true;
     } catch (error) {
@@ -137,7 +149,13 @@
   {:else}
     <Banner />
     <Brand {observer} {laptopShouldEnter} {width} {height} />
-    <Projects {observer} {playCardsAnimation} {assets} {width} {height} />
+    <Projects
+      {observer}
+      {playCardsAnimation}
+      {assets}
+      {width}
+      {height}
+      {preloadedImgs} />
     <Contact {width} {height} />
     <Copyright />
     <!-- {/await} -->
