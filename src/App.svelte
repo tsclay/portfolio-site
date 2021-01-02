@@ -49,7 +49,8 @@
             width: 100%; 
             display: block;
           `;
-          preloadedImgs = [...preloadedImgs, img.outerHTML];
+          a.image = img;
+          assets = assets;
         });
       } else if (
         entry.intersectionRatio >= 0.5 &&
