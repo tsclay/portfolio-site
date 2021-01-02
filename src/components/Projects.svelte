@@ -320,7 +320,7 @@
             class="child"
             id="project-{i}">
             <div class="link-image">
-              {@html preloadedImgs[i]}
+              {@html asset.image}
               <!-- <img src={asset['image']} alt={asset['title']} /> -->
             </div>
             <div id="link-details">
