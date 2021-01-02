@@ -1,46 +1,14 @@
 <script>
-  import {
-    sineOut,
-    sineIn,
-    linear,
-    cubicIn,
-    elasticIn,
-    sineInOut,
-    cubicInOut,
-  } from "svelte/easing";
-  import axios from "axios";
+  import { cubicInOut } from "svelte/easing";
 
-  // let step = 0
   export let width, height;
   let timer;
+  let messageSent = { animateIn: false, hasSent: false };
   let clientWantsForm = false;
-  export let secret;
+  let secret, src;
   let formData = { name: "", email: "", subject: "", message: "", test: "" };
   $: statusMsg = "";
   $: isLoading = false;
-
-  // const toggleDiv = (e) => {
-  //   if (
-  //     e.target.id !== 'contact-form' &&
-  //     e.target.classList[0] !== 'card-back' &&
-  //     step === 1
-  //   ) {
-  //     return
-  //   }
-  //   step = (step + 1) % 2
-  // }
-
-  // const flip = (node, { duration }) => {
-  //   return {
-  //     duration,
-  //     css: (t) => {
-  //       const eased = cubicInOut(t)
-  //       const test = (eased - 1) * 180
-
-  //       return `transform: rotateY(${(eased - 1) * 180}deg);`
-  //     }
-  //   }
-  // }
 
   const fallDown = (node, { duration }) => {
     return {
@@ -49,7 +17,23 @@
         const eased = cubicInOut(t);
         return `max-height: ${eased * 100}%;`;
       },
+      tick: (t) => {
+        if (t === 0 && !clientWantsForm && messageSent.hasSent == true) {
+          messageSent.animateIn = true;
+        }
+      },
     };
+  };
+
+  const makeFormSecure = async (e, response = null) => {
+    const r = response
+      ? response
+      : await fetch("https://timclaydev-assets.herokuapp.com/guard");
+    secret = await r.headers.get("X-Email-Code");
+    src = await r.blob().then((b) => URL.createObjectURL(b));
+    if (!response) {
+      clientWantsForm = true;
+    }
   };
 
   const handleForm = async (e) => {
@@ -57,28 +41,32 @@
     if (timer) clearTimeout(timer);
     e.preventDefault();
     isLoading = true;
-    // console.log(formData);
     formData.secret = secret;
     try {
-      const response = await axios.post(
+      const response = await fetch(
         "https://timclaydev-assets.herokuapp.com/assets",
-        formData
+        {
+          method: "POST",
+          body: JSON.stringify(formData),
+        }
       );
-      console.log(response.data);
-      const { code } = response.data;
-      secret = response.data.secret;
-      if (code === 200) {
+      if (response.status === 200) {
         statusMsg = "Message sent!";
+        messageSent.hasSent = true;
+      } else {
+        throw new Error(response.headers.get("X-Message"));
       }
     } catch (error) {
-      const { message, code } = error.response.data;
-      secret = error.response.data.secret;
-      statusMsg = message;
+      makeFormSecure();
+      statusMsg = error;
     } finally {
       isLoading = false;
       timer = setTimeout(() => {
+        if (statusMsg === "Message sent!") {
+          clientWantsForm = false;
+        }
         statusMsg = "";
-      }, 4000);
+      }, 2000);
     }
   };
 </script>
@@ -123,7 +111,8 @@
     }
   }
 
-  .card-back {
+  .card-back,
+  .card-msg-sent {
     overflow: hidden;
     background: rgba(0, 0, 0, 0.75);
     position: absolute;
@@ -136,8 +125,22 @@
     justify-content: center;
   }
 
-  #contact-form {
+  #contact-form,
+  .msg-sent-div {
     width: clamp(355px, 85%, 580px);
+  }
+
+  .msg-sent-div {
+    background: #d4edda;
+    padding: 2em;
+    width: auto;
+    border-radius: 4px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    color: #155724;
+    border: solid 2px #155724;
   }
 
   form {
@@ -170,7 +173,7 @@
         position: absolute;
         top: 1px;
         left: 0;
-        width: 125px;
+        width: 150px;
         padding: 0.4em;
         margin: 0 0 0.5em 0;
         box-sizing: border-box;
@@ -179,6 +182,11 @@
         justify-content: space-between;
         align-items: center;
 
+        span {
+          height: 1em;
+          font-size: 18px;
+        }
+
         :nth-child(2) {
           font-weight: bold;
         }
@@ -186,7 +194,7 @@
 
       input {
         width: 100%;
-        padding-left: 125px;
+        padding-left: 155px;
       }
     }
 
@@ -200,6 +208,8 @@
     #msg-fail {
       height: 2em;
       border-radius: 0.25rem;
+      padding: 0.5em;
+      box-sizing: border-box;
     }
 
     #msg-success {
@@ -220,7 +230,9 @@
     }
 
     #message-text {
-      margin-left: 0.5em;
+      display: flex;
+      align-items: center;
+      height: 100%;
     }
 
     .btn-primary[type="submit"]:disabled {
@@ -423,7 +435,7 @@
         id="flip-trigger"
         class="btn-primary"
         type="click"
-        on:click={() => (clientWantsForm = true)}>Let's connect.</button>
+        on:click={makeFormSecure}>Let's connect.</button>
     </div>
   </div>
   {#if clientWantsForm}
@@ -486,7 +498,7 @@
                 id="validation-text"
                 class="flex flex-row flex-justify-between">
                 <span class="text-align-center">Code</span>
-                <span>{secret}</span>
+                <span><img {src} /></span>
               </p>
               <input
                 on:input={(e) => {
@@ -512,7 +524,6 @@
                   alt="Sending..." />
               {/if}
             </button>
-
             {#if statusMsg !== ''}
               <div
                 class="w-100 mb-1 flex flex-row flex-align-center"
@@ -522,6 +533,14 @@
             {/if}
           </div>
         </form>
+      </div>
+    </div>
+  {/if}
+  {#if messageSent.animateIn == true}
+    <div class="card-msg-sent" transition:fallDown={{ duration: 800 }}>
+      <div class="msg-sent-div">
+        <h2>Message sent!</h2>
+        <h2>We'll be in touch!</h2>
       </div>
     </div>
   {/if}
