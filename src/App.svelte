@@ -69,7 +69,7 @@
       assets = await fetch(
         "https://timclaydev-assets.herokuapp.com/assets"
       ).then((r) => r.json());
-      await preload("/img/tclay3-min.jpg");
+      await preload("/img/tclay3-min.png");
       hasLoaded = true;
     } catch (error) {
       console.log("this is the error", error);
