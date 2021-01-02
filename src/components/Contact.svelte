@@ -1,15 +1,6 @@
 <script>
-  import {
-    sineOut,
-    sineIn,
-    linear,
-    cubicIn,
-    elasticIn,
-    sineInOut,
-    cubicInOut,
-  } from "svelte/easing";
+  import { cubicInOut } from "svelte/easing";
 
-  // let step = 0
   export let width, height;
   let timer;
   let messageSent = { animateIn: false, hasSent: false };
@@ -35,7 +26,9 @@
   };
 
   const makeFormSecure = async (e, response = null) => {
-    const r = response ? response : await fetch("http://localhost:8888/guard");
+    const r = response
+      ? response
+      : await fetch("https://timclaydev-assets.herokuapp.com/guard");
     secret = await r.headers.get("X-Email-Code");
     src = await r.blob().then((b) => URL.createObjectURL(b));
     if (!response) {
@@ -50,10 +43,13 @@
     isLoading = true;
     formData.secret = secret;
     try {
-      const response = await fetch("http://localhost:8888/assets", {
-        method: "POST",
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://timclaydev-assets.herokuapp.com/assets",
+        {
+          method: "POST",
+          body: JSON.stringify(formData),
+        }
+      );
       if (response.status === 200) {
         statusMsg = "Message sent!";
         messageSent.hasSent = true;
