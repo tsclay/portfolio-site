@@ -368,7 +368,7 @@
             out:goOut={{ duration: 400 }}
             id="project-{i}">
             <div class="link-image">
-              <img src={asset['image']} alt={asset['title']} />
+              {@html asset.image}
             </div>
             <div id="link-details">
               <h1>{asset.title}</h1>
