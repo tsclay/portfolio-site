@@ -49,7 +49,8 @@
             width: 100%; 
             display: block;
           `;
-          a.image = img;
+          a.image = img.outerHTML;
+          console.log(assets);
           assets = assets;
         });
       } else if (
