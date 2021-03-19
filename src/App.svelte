@@ -71,6 +71,7 @@
       assets = await fetch(
         "https://timclaydev-assets.herokuapp.com/assets"
       ).then((r) => r.json());
+      assets = assets.filter((a) => a.status == "active");
       await preload("/img/tclay3-min.png");
       hasLoaded = true;
     } catch (error) {
@@ -114,7 +115,8 @@
   on:resize={() => {
     windowWidth.set(window.innerWidth);
     windowHeight.set(window.innerHeight);
-  }} />
+  }}
+/>
 
 <div id="root" class="container grid">
   {#if !hasLoaded}
@@ -133,17 +135,20 @@
       position: absolute;
       top: 0;
       left: 0;
-      transform: translate(50%, 50%);">
+      transform: translate(50%, 50%);"
+    >
       <svg
         class="loading-spinner"
         xmlns="http://www.w3.org/2000/svg"
         width="500"
         height="500"
-        viewBox="0 0 132.29166 132.29167">
+        viewBox="0 0 132.29166 132.29167"
+      >
         <g>
           <path
             d="m 66.573613,126.66219 9.9e-4,-8e-5 c 33.183731,-6e-5 60.084447,-27.034831 60.084487,-60.38394 l 7e-5,-0.0029"
-            style="fill:none;fill-rule:evenodd;stroke:#00ffff;stroke-width:10.7299;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+            style="fill:none;fill-rule:evenodd;stroke:#00ffff;stroke-width:10.7299;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+          />
         </g>
       </svg>
     </div>
@@ -157,7 +162,8 @@
       {assets}
       {width}
       {height}
-      {preloadedImgs} />
+      {preloadedImgs}
+    />
     <Contact {width} {height} />
     <Copyright />
     <!-- {/await} -->

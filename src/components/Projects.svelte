@@ -130,6 +130,192 @@
   };
 </script>
 
+<div id="project-carousel" style={width > 600 ? "min-height: 100vh;" : ""}>
+  <!-- <button
+    style="position: absolute; top: 0; left:0;"
+    on:click={() => (playAnimations = !playAnimations)}>Toggle</button> -->
+  <h1 class="section-header">View My Work</h1>
+  <div class="project-card-display">
+    {#if width > 600}
+      {#if playCardsAnimation}
+        {#each assets as asset, i}
+          <!-- {#await preload(asset['image']) then _} -->
+          <div
+            in:unfoldCards={{ duration: 1000 }}
+            class="child"
+            id="project-{i}"
+          >
+            <div class="link-image">
+              {@html asset.image}
+              <!-- <img src={asset['image']} alt={asset['title']} /> -->
+            </div>
+            <div id="link-details">
+              <h1>{asset.title}</h1>
+              <div class="tags-and-description">
+                <div id="tags">
+                  {#each asset.tags as tag, j}
+                    <span style="margin: 0 0 2px 2px;">{tag}</span>
+                  {/each}
+                </div>
+                <p>{asset.description}</p>
+              </div>
+            </div>
+            <div class="project-card-actions">
+              <a href={asset.url} target="_blank" class="btn-primary card-link">
+                <i class="far fa-eye" />
+                Site
+              </a>
+              <a
+                href={asset.github}
+                target="_blank"
+                class="btn-primary card-link"
+              >
+                <i class="fas fa-code" />
+                Code
+              </a>
+              <a
+                href={asset.demo}
+                target="_blank"
+                class="btn-primary card-link"
+              >
+                <i class="fas fa-video" />
+                Demo
+              </a>
+            </div>
+          </div>
+          <!-- {/await} -->
+        {/each}
+      {/if}
+    {:else}
+      {#each assets as asset, i}
+        <!-- {#await preload(asset['image']) then _} -->
+        {#if step === i}
+          <div
+            class="child single-view"
+            in:goIn={{ duration: 400 }}
+            out:goOut={{ duration: 400 }}
+            id="project-{i}"
+          >
+            <div class="link-image">
+              {@html asset.image}
+            </div>
+            <div id="link-details">
+              <h1>{asset.title}</h1>
+              <div class="tags-and-description">
+                <div id="tags">
+                  {#each asset.tags as tag, j}
+                    <span style="margin: 0 0 2px 2px;">{tag}</span>
+                  {/each}
+                </div>
+                <p>{asset.description}</p>
+              </div>
+            </div>
+            <div class="project-card-actions">
+              <a href={asset.url} target="_blank" class="btn-primary card-link">
+                <i class="far fa-eye" />
+                Site
+              </a>
+              <a
+                href={asset.github}
+                target="_blank"
+                class="btn-primary card-link"
+              >
+                <i class="fas fa-code" />
+                Code
+              </a>
+              <a
+                href={asset.demo}
+                target="_blank"
+                class="btn-primary card-link"
+              >
+                <i class="fas fa-video" />
+                Demo
+              </a>
+            </div>
+          </div>
+        {/if}
+        <!-- {/await} -->
+      {/each}
+      <button
+        id="backward"
+        class="btn-play pos-absolute"
+        on:click={prev}
+        type="button"
+      >
+        <SkipBackIcon size="1.0x" />
+      </button>
+      <button
+        id="forward"
+        class="btn-play pos-absolute"
+        on:click={next}
+        type="button"
+      >
+        <SkipForwardIcon size="1.0x" />
+      </button>
+    {/if}
+  </div>
+</div>
+
+<!-- <div id="project-carousel" class="h-100">
+  <div class="project-card-display">
+    {#each assets as asset, i}
+      {#if step === i}
+        <div
+          class="child"
+          in:goIn={{ duration: 400 }}
+          out:goOut={{ duration: 400 }}
+          id="project-{i}">
+          <div class="link-image">
+            <img src={asset['image']} alt={asset['title']} />
+          </div>
+          <div id="link-details">
+            <h1>{asset.title}</h1>
+            <div class="tags-and-description">
+              <div id="tags">
+                {#each asset.tags as tag, j}
+                  <span style="margin: 0 0 2px 2px;">{tag}</span>
+                {/each}
+              </div>
+              <p>{asset.description}</p>
+            </div>
+          </div>
+          <div class="project-card-actions">
+            <a href={asset.url} target="_blank" class="btn-primary card-link">
+              <i class="far fa-eye" />
+              Site
+            </a>
+            <a
+              href={asset.github}
+              target="_blank"
+              class="btn-primary card-link">
+              <i class="fas fa-code" />
+              Code
+            </a>
+            <a href={asset.demo} target="_blank" class="btn-primary card-link">
+              <i class="fas fa-video" />
+              Demo
+            </a>
+          </div>
+        </div>
+      {/if}
+    {/each}
+    <button
+      id="backward"
+      class="btn-play pos-absolute"
+      on:click={prev}
+      type="button">
+      <SkipBackIcon size="1.0x" />
+    </button>
+    <button
+      id="forward"
+      class="btn-play pos-absolute"
+      on:click={next}
+      type="button">
+      <SkipForwardIcon size="1.0x" />
+    </button>
+  </div>
+</div> -->
+
 <style type="text/scss">
   #project-carousel {
     background: black;
@@ -183,6 +369,7 @@
     justify-content: center;
     color: var(--dark);
     font-size: 1.25rem;
+    text-align: center;
   }
 
   #link-details {
@@ -304,181 +491,3 @@
     transform: translate(-50%, 0);
   }
 </style>
-
-<div id="project-carousel" style={width > 600 ? 'min-height: 100vh;' : ''}>
-  <!-- <button
-    style="position: absolute; top: 0; left:0;"
-    on:click={() => (playAnimations = !playAnimations)}>Toggle</button> -->
-  <h1 class="section-header">View My Work</h1>
-  <div class="project-card-display">
-    {#if width > 600}
-      {#if playCardsAnimation}
-        {#each assets as asset, i}
-          <!-- {#await preload(asset['image']) then _} -->
-          <div
-            in:unfoldCards={{ duration: 1000 }}
-            class="child"
-            id="project-{i}">
-            <div class="link-image">
-              {@html asset.image}
-              <!-- <img src={asset['image']} alt={asset['title']} /> -->
-            </div>
-            <div id="link-details">
-              <h1>{asset.title}</h1>
-              <div class="tags-and-description">
-                <div id="tags">
-                  {#each asset.tags as tag, j}
-                    <span style="margin: 0 0 2px 2px;">{tag}</span>
-                  {/each}
-                </div>
-                <p>{asset.description}</p>
-              </div>
-            </div>
-            <div class="project-card-actions">
-              <a href={asset.url} target="_blank" class="btn-primary card-link">
-                <i class="far fa-eye" />
-                Site
-              </a>
-              <a
-                href={asset.github}
-                target="_blank"
-                class="btn-primary card-link">
-                <i class="fas fa-code" />
-                Code
-              </a>
-              <a
-                href={asset.demo}
-                target="_blank"
-                class="btn-primary card-link">
-                <i class="fas fa-video" />
-                Demo
-              </a>
-            </div>
-          </div>
-          <!-- {/await} -->
-        {/each}
-      {/if}
-    {:else}
-      {#each assets as asset, i}
-        <!-- {#await preload(asset['image']) then _} -->
-        {#if step === i}
-          <div
-            class="child single-view"
-            in:goIn={{ duration: 400 }}
-            out:goOut={{ duration: 400 }}
-            id="project-{i}">
-            <div class="link-image">
-              {@html asset.image}
-            </div>
-            <div id="link-details">
-              <h1>{asset.title}</h1>
-              <div class="tags-and-description">
-                <div id="tags">
-                  {#each asset.tags as tag, j}
-                    <span style="margin: 0 0 2px 2px;">{tag}</span>
-                  {/each}
-                </div>
-                <p>{asset.description}</p>
-              </div>
-            </div>
-            <div class="project-card-actions">
-              <a href={asset.url} target="_blank" class="btn-primary card-link">
-                <i class="far fa-eye" />
-                Site
-              </a>
-              <a
-                href={asset.github}
-                target="_blank"
-                class="btn-primary card-link">
-                <i class="fas fa-code" />
-                Code
-              </a>
-              <a
-                href={asset.demo}
-                target="_blank"
-                class="btn-primary card-link">
-                <i class="fas fa-video" />
-                Demo
-              </a>
-            </div>
-          </div>
-        {/if}
-        <!-- {/await} -->
-      {/each}
-      <button
-        id="backward"
-        class="btn-play pos-absolute"
-        on:click={prev}
-        type="button">
-        <SkipBackIcon size="1.0x" />
-      </button>
-      <button
-        id="forward"
-        class="btn-play pos-absolute"
-        on:click={next}
-        type="button">
-        <SkipForwardIcon size="1.0x" />
-      </button>
-    {/if}
-  </div>
-</div>
-
-<!-- <div id="project-carousel" class="h-100">
-  <div class="project-card-display">
-    {#each assets as asset, i}
-      {#if step === i}
-        <div
-          class="child"
-          in:goIn={{ duration: 400 }}
-          out:goOut={{ duration: 400 }}
-          id="project-{i}">
-          <div class="link-image">
-            <img src={asset['image']} alt={asset['title']} />
-          </div>
-          <div id="link-details">
-            <h1>{asset.title}</h1>
-            <div class="tags-and-description">
-              <div id="tags">
-                {#each asset.tags as tag, j}
-                  <span style="margin: 0 0 2px 2px;">{tag}</span>
-                {/each}
-              </div>
-              <p>{asset.description}</p>
-            </div>
-          </div>
-          <div class="project-card-actions">
-            <a href={asset.url} target="_blank" class="btn-primary card-link">
-              <i class="far fa-eye" />
-              Site
-            </a>
-            <a
-              href={asset.github}
-              target="_blank"
-              class="btn-primary card-link">
-              <i class="fas fa-code" />
-              Code
-            </a>
-            <a href={asset.demo} target="_blank" class="btn-primary card-link">
-              <i class="fas fa-video" />
-              Demo
-            </a>
-          </div>
-        </div>
-      {/if}
-    {/each}
-    <button
-      id="backward"
-      class="btn-play pos-absolute"
-      on:click={prev}
-      type="button">
-      <SkipBackIcon size="1.0x" />
-    </button>
-    <button
-      id="forward"
-      class="btn-play pos-absolute"
-      on:click={next}
-      type="button">
-      <SkipForwardIcon size="1.0x" />
-    </button>
-  </div>
-</div> -->
