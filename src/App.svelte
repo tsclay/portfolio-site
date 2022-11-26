@@ -71,6 +71,7 @@
       assets = await fetch(
         'https://portfolio-server-production-8465.up.railway.app/assets'
       ).then((r) => r.json())
+      assets = assets.filter((a) => a.status == 'active')
       await preload('/img/tclay3-min.png')
       hasLoaded = true
     } catch (error) {
